@@ -1,33 +1,109 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Clean Sweep | Business Data Gurus</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body { font-family: Arial, sans-serif; margin: 40px; background: #f4f4f4; color: #333; }
-        .container { max-width: 800px; margin: auto; background: #fff; padding: 30px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        h1 { color: #0275d8; }
-        a.button {
-            background: #0275d8; color: #fff; padding: 10px 20px;
-            text-decoration: none; border-radius: 5px;
-        }
-        a.button:hover { background: #025aa5; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clean Sweep - Device Setup & Security Tool</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8f8f8;
+    }
+    header {
+      background: #222;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    main {
+      padding: 40px 20px;
+    }
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .tier {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .tier h2 {
+      margin-top: 0;
+    }
+    .btn {
+      background: #008060;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .wallet {
+      background: #111;
+      color: #fff;
+      padding: 20px;
+      margin-top: 40px;
+      text-align: center;
+    }
+    .wallet input {
+      width: 80%;
+      padding: 10px;
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Clean Sweep Enterprise Suite</h1>
-        <p>Clean Sweep is the smartest way to prepare, clean, and maintain company laptops or personal devices. Fully automated cleanup, security scanning, and performance optimization—ready for your team from day one.</p>
+  <header>
+    <h1>Clean Sweep</h1>
+    <p>Turnkey Setup & Cyber Hygiene Tool for New Employee Devices</p>
+  </header>
+
+  <main>
+    <section class="pricing">
+      <div class="tier">
+        <h2>Individual License</h2>
+        <p>$60 One-Time</p>
         <ul>
-            <li>✅ Daily auto-clean + virus scan</li>
-            <li>✅ "All Clear" system reporting</li>
-            <li>✅ Auto-license validation</li>
-            <li>✅ HR-ready system deployment</li>
+          <li>Clean Sweep basic tool</li>
+          <li>Email + license code delivery</li>
+          <li>Virus scan, update check</li>
         </ul>
-        <p><strong>Price:</strong> $1000 for Clean Sweep / $1500 for full suite with licenses</p>
-        <a class="button" href="https://YOUR_STRIPE_CHECKOUT_LINK_HERE">Buy Now</a>
-    </div>
+        <button class="btn">Buy Now</button>
+      </div>
+
+      <div class="tier">
+        <h2>Business License</h2>
+        <p>$1,000</p>
+        <ul>
+          <li>10-user license</li>
+          <li>Email capture + remote delivery</li>
+          <li>Driver scan, virus check, setup tools</li>
+        </ul>
+        <button class="btn">Request License</button>
+      </div>
+
+      <div class="tier">
+        <h2>Enterprise Suite</h2>
+        <p>$1,500+</p>
+        <ul>
+          <li>Fully automated clean install system</li>
+          <li>Toggle for adult monitoring + time limits</li>
+          <li>Custom deployment link</li>
+        </ul>
+        <button class="btn">Schedule Demo</button>
+      </div>
+    </section>
+
+    <section class="wallet">
+      <h2>Accepting Crypto Payments</h2>
+      <p>Use the address below to pay in Bitcoin or Ethereum.</p>
+      <input type="text" value="1CleanSweepBTCwalletEXAMPLE0000" readonly>
+      <p style="margin-top:10px">Email support@cleansweep.io after payment to get your license.</p>
+    </section>
+  </main>
 </body>
 </html>
