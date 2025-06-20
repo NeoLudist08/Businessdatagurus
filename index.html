@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Business Data Gurus - Where creative business thinking meets technical excellence. From AI rescue to complete digital transformation. Home of Clean Sweep security tool." name="description"/>
+<meta content="business data, AI development, full-stack development, digital transformation, business intelligence, clean sweep, cybersecurity, device setup" name="keywords"/>
+<title>Business Data Gurus - Business Made Smart | Clean Sweep Security</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0e27;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(125deg, #0a0e27 0%, #1a1f3a 25%, #0d1929 50%, #1a0f2a 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255,107,107,0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        nav.scrolled {
+            padding: 15px 50px;
+            background: rgba(10, 14, 39, 0.95);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        
+        .logo svg {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .nav-links a:hover {
+            color: #ff6b6b;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff6b6b;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Pages */
+        .page {
+            min-height: 100vh;
+            padding: 120px 50px 80px;
+            position: relative;
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><defs><pattern id="circuit" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="%23ff6b6b"/><circle cx="90" cy="90" r="2" fill="%234ecdc4"/><line x1="10" y1="10" x2="90" y2="10" stroke="%23ff6b6b" stroke-width="0.5" opacity="0.5"/><line x1="10" y1="10" x2="10" y2="90" stroke="%234ecdc4" stroke-width="0.5" opacity="0.5"/></pattern></defs><rect width="800" height="600" fill="url(%23circuit)"/></svg>');
+            animation: slide 20s linear infinite;
+        }
+        
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100px); }
+        }
+        
+        .logo-container {
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .brain-logo {
+            display: inline-block;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 10px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #ff6b6b);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientText 3s ease infinite;
+        }
+        
+        @keyframes gradientText {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: #fff;
+            letter-spacing: 4px;
+            font-weight: 300;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .sub-tagline {
+            font-size: 1.5rem;
+            color: #a8b2d1;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #ff6b6b, #ff5252);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.5);
+        }
+        
+        /* Glass Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 107, 107, 0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 107, 107, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .package-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .package-name {
+            font-size: 1.8rem;
+            color: #ff6b6b;
+        }
+        
+        .package-price {
+            font-size: 1.5rem;
+            color: #4ecdc4;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .package-price.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .package-tagline {
+            color: #a8b2d1;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .features-list {
+            list-style: none;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .features-list.expanded {
+            max-height: 500px;
+        }
+        
+        .features-list li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4ecdc4;
+            font-weight: bold;
+        }
+        
+        .click-reveal {
+            text-align: center;
+            color: #ff6b6b;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            opacity: 0.7;
+        }
+        
+        /* Hourly Rate Card */
+        .hourly-card {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            text-align: center;
+            padding: 60px;
+        }
+        
+        .hourly-rate {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+        
+        /* Clean Sweep Section */
+        .clean-sweep-section {
+            margin-top: 60px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #4ecdc4, #00d2d3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .clean-sweep-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .clean-sweep-tier {
+            background: rgba(78, 205, 196, 0.05);
+            border: 1px solid rgba(78, 205, 196, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .clean-sweep-tier:hover {
+            transform: translateY(-5px);
+            border-color: rgba(78, 205, 196, 0.4);
+            box-shadow: 0 10px 30px rgba(78, 205, 196, 0.2);
+        }
+        
+        .tier-price {
+            font-size: 2rem;
+            color: #4ecdc4;
+            margin: 10px 0 20px;
+        }
+        
+        .crypto-wallet {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .crypto-wallet input {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+        
+        /* Contact Form */
+        .contact-form {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #a8b2d1;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #ff6b6b, #ff5252);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
+        }
+        
+        /* Bridge Points */
+        .bridge-point {
+            background: rgba(78, 205, 196, 0.1);
+            border-left: 3px solid #4ecdc4;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .bridge-point strong {
+            color: #4ecdc4;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .page {
+                padding: 100px 20px 60px;
+            }
+            
+            .glass-card {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .hourly-card {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="bg-animation"></div>
+<div class="particles" id="particles"></div>
+<nav id="navbar">
+<div class="nav-container">
+<div class="logo" onclick="showPage('home')">
+<svg height="40" viewbox="0 0 200 200" width="40">
+<!-- Simplified brain logo for navbar -->
+<path d="M100 40 C70 40, 40 70, 40 100 C40 130, 50 150, 60 160 L60 160 C65 165, 70 168, 75 170 L75 140 C70 138, 65 135, 60 130 C55 125, 52 115, 52 100 C52 85, 55 75, 60 70 C65 65, 75 62, 80 62 L80 50 C80 45, 85 40, 90 40 L100 40 Z" fill="#ff6b6b"></path>
+<path d="M100 40 C130 40, 160 70, 160 100 C160 130, 150 150, 140 160 L140 160 C135 165, 130 168, 125 170 L125 140 C130 138, 135 135, 140 130 C145 125, 148 115, 148 100 C148 85, 145 75, 140 70 C135 65, 125 62, 120 62 L120 50 C120 45, 115 40, 110 40 L100 40 Z" fill="#4ecdc4"></path>
+<line stroke="#333" stroke-width="2" x1="100" x2="100" y1="40" y2="170"></line>
+</svg>
+                Business Data Gurus
+            </div>
+<ul class="nav-links">
+<li><a onclick="showPage('home')">Home</a></li>
+<li><a onclick="showPage('packages')">Services</a></li>
+<li><a onclick="showPage('about')">About</a></li>
+<li><a onclick="showPage('contact')">Contact</a></li>
+</ul>
+</div>
+</nav>
+<!-- Home Page -->
+<div class="page active" id="home">
+<section class="hero">
+<div class="hero-bg"></div>
+<div class="container">
+<div class="logo-container">
+<div class="brain-logo">
+<svg height="200" viewbox="0 0 200 200" width="200">
+<!-- Left Brain Half - Business/Creative -->
+<path d="M100 40 C70 40, 40 70, 40 100 C40 130, 50 150, 60 160 L60 160 C65 165, 70 168, 75 170 L75 140 C70 138, 65 135, 60 130 C55 125, 52 115, 52 100 C52 85, 55 75, 60 70 C65 65, 75 62, 80 62 L80 50 C80 45, 85 40, 90 40 L100 40 Z" fill="url(#leftGradient)" stroke="#333" stroke-width="2"></path>
+<path d="M60 100 C60 90, 65 85, 70 85 C75 85, 80 90, 80 95 M65 120 C65 115, 70 110, 75 110 C80 110, 85 115, 85 120 M70 140 C70 135, 75 132, 80 132 C85 132, 90 135, 90 140" fill="none" stroke="#333" stroke-width="2"></path>
+<!-- Right Brain Half - Tech/Data -->
+<path d="M100 40 C130 40, 160 70, 160 100 C160 130, 150 150, 140 160 L140 160 C135 165, 130 168, 125 170 L125 140 C130 138, 135 135, 140 130 C145 125, 148 115, 148 100 C148 85, 145 75, 140 70 C135 65, 125 62, 120 62 L120 50 C120 45, 115 40, 110 40 L100 40 Z" fill="url(#rightGradient)" stroke="#333" stroke-width="2"></path>
+<path d="M140 100 C140 90, 135 85, 130 85 C125 85, 120 90, 120 95 M135 120 C135 115, 130 110, 125 110 C120 110, 115 115, 115 120 M130 140 C130 135, 125 132, 120 132 C115 132, 110 135, 110 140" fill="none" stroke="#333" stroke-width="2"></path>
+<!-- Center Line -->
+<line stroke="#333" stroke-width="3" x1="100" x2="100" y1="40" y2="170"></line>
+<!-- Gradients -->
+<defs>
+<lineargradient id="leftGradient" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#ff9966;stop-opacity:1"></stop>
+<stop offset="50%" style="stop-color:#ff6b6b;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#ff4757;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="rightGradient" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#00d2d3;stop-opacity:1"></stop>
+<stop offset="50%" style="stop-color:#4ecdc4;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#0abde3;stop-opacity:1"></stop>
+</lineargradient>
+</defs>
+</svg>
+</div>
+<h1>BUSINESS DATA GURUS</h1>
+<p class="tagline">BUSINESS MADE SMART</p>
+</div>
+<p class="sub-tagline">Where Creative Business Thinking Meets Technical Excellence</p>
+<div class="bridge-point">
+<strong>Your Bridge:</strong> Silicon Valley tech skills + Fortune 500 operational expertise = Unstoppable business solutions
+                </div>
+<div class="bridge-point" style="background: rgba(255, 107, 107, 0.1); border-color: #ff6b6b;">
+<strong style="color: #ff6b6b;">NEW:</strong> Introducing Clean Sweep - Enterprise-grade device security and setup automation
+                </div>
+<button class="cta-button" onclick="showPage('packages')">Explore Our Services</button>
+</div>
+</section>
+</div>
+<!-- Packages Page -->
+<div class="page" id="packages">
+<div class="container">
+<h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 30px;">Service Packages &amp; Products</h2>
+<p class="click-reveal">Click on any package to reveal pricing and details</p>
+<div class="glass-card" onclick="togglePackage(this)">
+<div class="package-header">
+<h3 class="package-name">📦 AI RESCUE</h3>
+<span class="package-price">$2,500 - $5,000</span>
+</div>
+<p class="package-tagline">"They Built It With AI, Now Make It Work!"</p>
+<div class="features-list">
+<div class="bridge-point">
+<strong>Entry Point:</strong> Perfect for startups with broken AI projects. Our early development special offers 40% off standard rates!
+                    </div>
+<li>Backend Integration (APIs, databases, authentication)</li>
+<li>Production Deployment (AWS, hosting, security)</li>
+<li>Bug Fixing &amp; Optimization</li>
+<li>Data Connections to real business systems</li>
+<li>30-day support period included</li>
+<p style="margin-top: 20px;"><strong>Deliverables:</strong> Working application, backend infrastructure, basic analytics dashboard</p>
+</div>
+</div>
+<div class="glass-card" onclick="togglePackage(this)">
+<div class="package-header">
+<h3 class="package-name">🏗️ COMPLETE BUILD</h3>
+<span class="package-price">$10,000 - $35,000</span>
+</div>
+<p class="package-tagline">"From Concept to Cash Flow"</p>
+<div class="features-list">
+<div class="bridge-point">
+<strong>Bridge to Success:</strong> Leverage our Target/Walmart operations experience - we build systems that actually scale!
+                    </div>
+<li>Full-Stack Application Development</li>
+<li>Business Intelligence Dashboard</li>
+<li>E-commerce Integration (payment, inventory, CRM)</li>
+<li>Mobile-Responsive Design</li>
+<li>Staff Training Program</li>
+<li>90-day training &amp; support</li>
+<p style="margin-top: 20px;"><strong>Deliverables:</strong> Complete web + mobile app, admin dashboard, payment processing, inventory management</p>
+</div>
+</div>
+<div class="glass-card" onclick="togglePackage(this)">
+<div class="package-header">
+<h3 class="package-name">🚀 BUSINESS EMPIRE</h3>
+<span class="package-price">$40,000 - $100,000</span>
+</div>
+<p class="package-tagline">"Complete Digital Business Model + Operations"</p>
+<div class="features-list">
+<div class="bridge-point">
+<strong>Ultimate Bridge:</strong> Combine tech innovation with proven business operations - perfect for market domination!
+                    </div>
+<li>Enterprise-Level Application Suite</li>
+<li>AI-Powered Business Intelligence</li>
+<li>Multi-Platform Presence</li>
+<li>Marketing Automation Integration</li>
+<li>Scalable Cloud Infrastructure</li>
+<li>Business Model Optimization</li>
+<li>6-month strategic partnership</li>
+<p style="margin-top: 20px;"><strong>Deliverables:</strong> Complete digital ecosystem, predictive analytics, automation setup, growth strategy</p>
+</div>
+</div>
+<div class="glass-card hourly-card">
+<h3 class="package-name">⏰ HOURLY CONSULTING</h3>
+<div class="hourly-rate">$75 - $125/hr</div>
+<p class="package-tagline">Perfect for smaller projects or ongoing support</p>
+<div class="bridge-point">
+<strong>Flexible Support:</strong> Get expert help when you need it - debugging, consulting, or strategic planning
+                </div>
+<ul style="list-style: none; text-align: left; max-width: 500px; margin: 0 auto;">
+<li>✓ Code Reviews &amp; Debugging</li>
+<li>✓ Technical Consulting</li>
+<li>✓ Business Strategy Sessions</li>
+<li>✓ Training &amp; Workshops</li>
+<li>✓ Emergency Support</li>
+</ul>
+</div>
+<!-- Clean Sweep Section -->
+<div class="clean-sweep-section">
+<div class="section-header">
+<h2>🛡️ Clean Sweep Security Suite</h2>
+<p style="color: #a8b2d1; font-size: 1.2rem;">Turnkey Setup &amp; Cyber Hygiene Tool for Enterprise Devices</p>
+</div>
+<div class="clean-sweep-grid">
+<div class="glass-card clean-sweep-tier">
+<h3 class="package-name" style="color: #4ecdc4;">🔒 Individual License</h3>
+<div class="tier-price">$60 One-Time</div>
+<ul class="features-list expanded" style="max-height: none;">
+<li>Clean Sweep basic tool</li>
+<li>Email + license code delivery</li>
+<li>Comprehensive virus scan</li>
+<li>Driver updates check</li>
+<li>System optimization</li>
+</ul>
+<a class="cta-button" href="mailto:businessdatagurus@gmail.com?subject=Buy%20Clean%20Sweep%20Individual&amp;body=I%20want%20the%20$60%20Clean%20Sweep%20individual%20license." style="display: inline-block; margin-top: 20px;">Buy Now</a>
+</div>
+<div class="glass-card clean-sweep-tier">
+<h3 class="package-name" style="color: #4ecdc4;">🏢 Business License</h3>
+<div class="tier-price">$1,000</div>
+<ul class="features-list expanded" style="max-height: none;">
+<li>10-user license pack</li>
+<li>Email capture + remote delivery</li>
+<li>Advanced driver scan</li>
+<li>Malware protection suite</li>
+<li>Setup automation tools</li>
+<li>Priority support</li>
+</ul>
+<a class="cta-button" href="mailto:businessdatagurus@gmail.com?subject=Request%20Clean%20Sweep%20Business%20License" style="display: inline-block; margin-top: 20px;">Request License</a>
+</div>
+<div class="glass-card clean-sweep-tier">
+<h3 class="package-name" style="color: #4ecdc4;">🏭 Enterprise Suite</h3>
+<div class="tier-price">$1,500+</div>
+<ul class="features-list expanded" style="max-height: none;">
+<li>Unlimited user license</li>
+<li>Automated clean install system</li>
+<li>Parental/time monitoring controls</li>
+<li>Custom deployment portal</li>
+<li>White-label options</li>
+<li>24/7 enterprise support</li>
+</ul>
+<a class="cta-button" href="mailto:businessdatagurus@gmail.com?subject=Schedule%20Clean%20Sweep%20Enterprise%20Demo" style="display: inline-block; margin-top: 20px;">Schedule Demo</a>
+</div>
+</div>
+<div class="crypto-wallet">
+<h3 style="margin-bottom: 15px;">🔐 Accepting Crypto Payments</h3>
+<p>Pay securely with Bitcoin or Ethereum</p>
+<input readonly="" type="text" value="1CleanSweepBTCwalletEXAMPLE0000"/>
+<p style="margin-top: 15px; color: #a8b2d1;">Email <strong style="color: #4ecdc4;">businessdatagurus@gmail.com</strong> after payment with transaction ID</p>
+</div>
+</div>
+</div>
+</div>
+<!-- About Page -->
+<div class="page" id="about">
+<div class="container">
+<h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 50px;">Why Choose Us?</h2>
+<div class="glass-card">
+<h3 style="color: #ff6b6b; margin-bottom: 20px;">The Perfect Tech-Business Bridge</h3>
+<p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 20px;">
+                    Most developers don't understand retail operations. Most business consultants can't code. 
+                    <strong style="color: #4ecdc4;">We do both.</strong>
+</p>
+<div class="bridge-point">
+<strong>Our Unique Combo:</strong> Full-Stack Dev + Marketing Degree + 8 Years Sales + 5 Years Big Box Management + PEPCO Revenue Analytics
+                </div>
+<p style="margin-top: 20px;">
+                    "If I can handle Black Friday crowds at Target, I can handle your technical challenges!"
+                </p>
+<h3 style="color: #4ecdc4; margin-top: 40px; margin-bottom: 20px;">Our Experience</h3>
+<ul class="features-list expanded">
+<li>Managed million-dollar operations at Fortune 500 retailers</li>
+<li>Built scalable systems handling thousands of daily transactions</li>
+<li>Developed full-stack applications from scratch to deployment</li>
+<li>Led teams through digital transformation initiatives</li>
+<li>Combined technical excellence with business acumen</li>
+<li>Created Clean Sweep - our flagship security automation tool</li>
+</ul>
+<h3 style="color: #ff6b6b; margin-top: 40px; margin-bottom: 20px;">Products We've Built</h3>
+<div class="bridge-point" style="background: rgba(255, 107, 107, 0.1); border-color: #ff6b6b;">
+<strong style="color: #ff6b6b;">Clean Sweep:</strong> Enterprise-grade device setup and security tool now used by 100+ businesses for automated employee onboarding
+                </div>
+</div>
+</div>
+</div>
+<!-- Contact Page -->
+<div class="page" id="contact">
+<div class="container">
+<h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 50px;">Let's Build Your Empire</h2>
+<form action="mailto:businessdatagurus@gmail.com" class="contact-form" enctype="text/plain" method="post">
+<div class="form-group">
+<label for="name">Your Name</label>
+<input id="name" name="name" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="email">Email Address</label>
+<input id="email" name="email" required="" type="email"/>
+</div>
+<div class="form-group">
+<label for="package">Interested In</label>
+<select id="package" name="package">
+<optgroup label="Development Services">
+<option value="ai-rescue">AI Rescue ($2,500-$5,000)</option>
+<option value="complete-build">Complete Build ($10,000-$35,000)</option>
+<option value="business-empire">Business Empire ($40,000-$100,000)</option>
+<option value="hourly">Hourly Consulting ($75-$125/hr)</option>
+</optgroup>
+<optgroup label="Clean Sweep Security">
+<option value="clean-sweep-individual">Clean Sweep Individual ($60)</option>
+<option value="clean-sweep-business">Clean Sweep Business ($1,000)</option>
+<option value="clean-sweep-enterprise">Clean Sweep Enterprise ($1,500+)</option>
+</optgroup>
+</select>
+</div>
+<div class="form-group">
+<label for="message">Project Details</label>
+<textarea id="message" name="message" placeholder="Tell us about your project or security needs..." required=""></textarea>
+</div>
+<button class="submit-btn" type="submit">Start Your Journey</button>
+</form>
+<p style="text-align: center; margin-top: 20px; color: #a8b2d1;">
+                Or email directly: <a href="mailto:businessdatagurus@gmail.com" style="color: #ff6b6b;">businessdatagurus@gmail.com</a>
+</p>
+</div>
+</div>
+<script>
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.width = Math.random() * 20 + 10 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = Math.random() * 20 + 20 + 's';
+            particlesContainer.appendChild(particle);
+        }
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        // Toggle package details
+        function togglePackage(card) {
+            const price = card.querySelector('.package-price');
+            const features = card.querySelector('.features-list');
+            
+            // Toggle price visibility
+            if (price) {
+                price.classList.toggle('show');
+            }
+            
+            // Toggle features expansion
+            if (features) {
+                features.classList.toggle('expanded');
+            }
+            
+            // Hide the click instruction after first interaction
+            if (document.querySelector('.click-reveal')) {
+                document.querySelector('.click-reveal').style.opacity = '0';
+            }
+        }
+    </script>
+
+<section id="clean-sweep" style="padding: 40px; background: #f9f9f9;">
+<h2 style="text-align: center;">Clean Sweep: Device Setup &amp; Security Tool</h2>
+<p style="text-align: center;">Turnkey cybersecurity and system prep suite for businesses and individuals.</p>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 20px;">
+<div style="flex: 0 0 300px; background: #fff; border-radius: 10px; padding: 20px; margin: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+<h3>Individual License</h3>
+<p><strong>$60 One-Time</strong></p>
+<ul>
+<li>Basic cleanup + antivirus</li>
+<li>Email delivery of license code</li>
+<li>Windows updates &amp; driver check</li>
+</ul>
+<button>Buy Now</button>
+</div>
+<div style="flex: 0 0 300px; background: #fff; border-radius: 10px; padding: 20px; margin: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+<h3>Business License</h3>
+<p><strong>$1,000</strong></p>
+<ul>
+<li>10-user licenses</li>
+<li>Setup tools &amp; remote code delivery</li>
+<li>Driver updates + malware scans</li>
+</ul>
+<button>Request License</button>
+</div>
+<div style="flex: 0 0 300px; background: #fff; border-radius: 10px; padding: 20px; margin: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+<h3>Enterprise Suite</h3>
+<p><strong>$1,500+</strong></p>
+<ul>
+<li>Custom deployment portal</li>
+<li>Adult monitoring + usage toggle</li>
+<li>Full system rebuild tool</li>
+</ul>
+<button>Schedule Demo</button>
+</div>
+</div>
+<div style="text-align: center; margin-top: 30px;">
+<h4>Pay with Crypto</h4>
+<p>Bitcoin / Ethereum accepted:</p>
+<code>1CleanSweepBTCwalletEXAMPLE0000</code>
+<p>Email <strong>support@cleansweep.io</strong> with your transaction ID.</p>
+</div>
+</section>
+</body>
+</html>
