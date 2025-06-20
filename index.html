@@ -3,123 +3,111 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Clean Sweep - Secure Device Setup</title>
+  <title>Clean Sweep - Device Setup & Security Tool</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: #f4f4f4;
+      background: #f8f8f8;
     }
     header {
-      background: #2c3e50;
+      background: #222;
       color: #fff;
-      padding: 40px 20px;
+      padding: 20px;
       text-align: center;
     }
-    header h1 {
-      margin: 0;
-    }
-    .content {
+    main {
       padding: 40px 20px;
-      max-width: 1200px;
-      margin: auto;
     }
     .pricing {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 20px;
-      justify-content: center;
     }
     .tier {
-      background: white;
+      background: #fff;
+      padding: 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      padding: 20px;
-      width: 300px;
-      text-align: center;
     }
     .tier h2 {
       margin-top: 0;
     }
     .tier ul {
-      text-align: left;
-      padding: 0 20px;
-    }
-    .tier ul li {
-      margin-bottom: 10px;
+      padding-left: 20px;
     }
     .btn {
-      background: #27ae60;
+      background: #008060;
       color: white;
-      padding: 12px 20px;
-      text-decoration: none;
-      display: inline-block;
+      border: none;
+      padding: 10px 20px;
       border-radius: 5px;
-      margin-top: 15px;
+      cursor: pointer;
+      margin-top: 10px;
     }
-    .crypto {
-      margin-top: 50px;
+    .wallet {
+      background: #111;
+      color: #fff;
+      padding: 20px;
+      margin-top: 40px;
       text-align: center;
     }
-    .crypto input {
+    .wallet input {
       width: 80%;
       padding: 10px;
       margin-top: 10px;
-      border: 1px solid #ccc;
     }
   </style>
 </head>
 <body>
-
   <header>
     <h1>Clean Sweep</h1>
-    <p>Automated Setup & Security Cleaning Tool for IT Teams & Individuals</p>
+    <p>Turnkey Setup & Cyber Hygiene Tool for New Employee Devices</p>
   </header>
 
-  <div class="content">
-    <div class="pricing">
+  <main>
+    <section class="pricing">
       <div class="tier">
         <h2>Individual License</h2>
-        <p><strong>$60 One-Time</strong></p>
+        <p>$60 One-Time</p>
         <ul>
           <li>Clean Sweep basic tool</li>
-          <li>Email + license key</li>
+          <li>Email + license code delivery</li>
           <li>Virus scan, update check</li>
         </ul>
-        <a href="mailto:support@cleansweep.io?subject=Buy%20Individual%20License" class="btn">Buy Now</a>
+        <a href="mailto:sales@businessdatagurus.com?subject=Buy%20Clean%20Sweep%20Individual&body=I%20want%20the%20$60%20license." class="btn">Buy Now</a>
       </div>
 
       <div class="tier">
         <h2>Business License</h2>
-        <p><strong>$1,000</strong></p>
+        <p>$1,000</p>
         <ul>
-          <li>10-user license pack</li>
-          <li>Remote setup & email delivery</li>
-          <li>Driver scan, virus check, cleanup</li>
+          <li>10-user license</li>
+          <li>Email capture + remote delivery</li>
+          <li>Driver scan, virus check, setup tools</li>
         </ul>
-        <a href="mailto:support@cleansweep.io?subject=Request%20Business%20License" class="btn">Request License</a>
+        <a href="mailto:sales@businessdatagurus.com?subject=Request%20Business%20License" class="btn">Request License</a>
       </div>
 
       <div class="tier">
         <h2>Enterprise Suite</h2>
-        <p><strong>Starts at $1,500</strong></p>
+        <p>$1,500+</p>
         <ul>
-          <li>Fully automated install suite</li>
-          <li>Toggle: adult filter, time limits</li>
-          <li>Secure deployment link</li>
+          <li>Fully automated clean install system</li>
+          <li>Toggle for adult monitoring + time limits</li>
+          <li>Custom deployment link</li>
         </ul>
-        <a href="mailto:support@cleansweep.io?subject=Schedule%20Enterprise%20Demo" class="btn">Schedule Demo</a>
+        <a href="mailto:sales@businessdatagurus.com?subject=Schedule%20Enterprise%20Demo" class="btn">Schedule Demo</a>
       </div>
-    </div>
+    </section>
 
-    <div class="crypto">
-      <h2>Crypto Payments Accepted</h2>
-      <p>Use this wallet address for Bitcoin or Ethereum payments:</p>
-      <input type="text" readonly value="1CleanSweepBTCwalletEXAMPLE0000" />
-      <p>Email your transaction ID to <strong>support@cleansweep.io</strong> to receive your download + code.</p>
-    </div>
-  </div>
-
+    <section class="wallet">
+      <h2>Accepting Crypto Payments</h2>
+      <p>Use the address below to pay in Bitcoin or Ethereum.</p>
+      <input type="text" value="1CleanSweepBTCwalletEXAMPLE0000" readonly>
+      <p style="margin-top:10px">Email <strong>support@cleansweep.io</strong> after payment to get your license.</p>
+    </section>
+  </main>
 </body>
 </html>
