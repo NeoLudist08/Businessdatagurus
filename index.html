@@ -278,6 +278,80 @@
             margin: 0 auto;
         }
         
+        /* ============================================
+           APPLE-STYLE SCROLL ANIMATIONS - NEW SECTION
+           ============================================ */
+        
+        /* Fade in from bottom animation class */
+        .scroll-fade-in {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .scroll-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Slide in from left */
+        .scroll-slide-left {
+            opacity: 0;
+            transform: translateX(-80px);
+            transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .scroll-slide-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* Slide in from right */
+        .scroll-slide-right {
+            opacity: 0;
+            transform: translateX(80px);
+            transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .scroll-slide-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* Scale up animation */
+        .scroll-scale {
+            opacity: 0;
+            transform: scale(0.85);
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .scroll-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Staggered delays for multiple items */
+        .scroll-delay-1 { transition-delay: 0.1s; }
+        .scroll-delay-2 { transition-delay: 0.2s; }
+        .scroll-delay-3 { transition-delay: 0.3s; }
+        .scroll-delay-4 { transition-delay: 0.4s; }
+        .scroll-delay-5 { transition-delay: 0.5s; }
+        .scroll-delay-6 { transition-delay: 0.6s; }
+        
+        /* Parallax container */
+        .parallax-section {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* ============================================
+           END APPLE-STYLE ANIMATIONS
+           ============================================ */
+        
         /* Hero Section */
         .hero {
             display: flex;
@@ -779,17 +853,17 @@
                     <h1>BUSINESS DATA GURUS</h1>
                     <p class="tagline">BUSINESS MADE SMART</p>
                 </div>
-                <p class="sub-tagline">Where Creative Business Thinking Meets Technical Excellence</p>
-                <div class="bridge-point">
+                <p class="sub-tagline scroll-fade-in">Where Creative Business Thinking Meets Technical Excellence</p>
+                <div class="bridge-point scroll-fade-in scroll-delay-1">
                     <strong>Your Bridge:</strong> Silicon Valley tech skills + Fortune 500 operational expertise = Unstoppable business solutions
                 </div>
-                <div class="bridge-point" style="background: rgba(255, 107, 107, 0.1); border-color: #ff6b6b;">
+                <div class="bridge-point scroll-fade-in scroll-delay-2" style="background: rgba(255, 107, 107, 0.1); border-color: #ff6b6b;">
                     <strong style="color: #ff6b6b;">NEW:</strong> Clean Sweep™ Enterprise System Optimizer - Reduce IT tickets by 40% for utilities, schools & agencies
                 </div>
-                <button class="cta-button" onclick="showPage('packages'); trackConversion('hero_cta_click', 'explore_services');">Explore Our Services</button>
+                <button class="cta-button scroll-scale scroll-delay-3" onclick="showPage('packages'); trackConversion('hero_cta_click', 'explore_services');">Explore Our Services</button>
                 
                 <!-- Lead Magnet -->
-                <div style="margin-top: 40px; padding: 30px; background: rgba(78, 205, 196, 0.1); border-radius: 15px; border: 1px solid rgba(78, 205, 196, 0.3);">
+                <div class="scroll-fade-in scroll-delay-4" style="margin-top: 40px; padding: 30px; background: rgba(78, 205, 196, 0.1); border-radius: 15px; border: 1px solid rgba(78, 205, 196, 0.3);">
                     <h3 style="color: #4ecdc4; margin-bottom: 15px;">🎯 Free Enterprise IT Assessment</h3>
                     <p style="margin-bottom: 20px;">Get a custom report on how Clean Sweep could reduce your IT tickets and improve system performance.</p>
                     <form action="https://formspree.io/f/xvgrbwrk" method="POST" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
@@ -805,10 +879,10 @@
     <!-- Packages Page -->
     <div class="page" id="packages">
         <div class="container">
-            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 30px;">Service Packages & Products</h2>
-            <p class="click-reveal">Click on any package to reveal pricing and details</p>
+            <h2 class="scroll-fade-in" style="text-align: center; font-size: 2.5rem; margin-bottom: 30px;">Service Packages & Products</h2>
+            <p class="click-reveal scroll-fade-in scroll-delay-1">Click on any package to reveal pricing and details</p>
             
-            <div class="glass-card" onclick="togglePackage(this)">
+            <div class="glass-card scroll-slide-left scroll-delay-1" onclick="togglePackage(this)">
                 <div class="package-header">
                     <h3 class="package-name">📦 AI RESCUE</h3>
                     <span class="package-price">$2,500 - $5,000</span>
@@ -827,7 +901,7 @@
                 </div>
             </div>
 
-            <div class="glass-card" onclick="togglePackage(this)">
+            <div class="glass-card scroll-slide-right scroll-delay-2" onclick="togglePackage(this)">
                 <div class="package-header">
                     <h3 class="package-name">🏗️ COMPLETE BUILD</h3>
                     <span class="package-price">$10,000 - $35,000</span>
@@ -847,7 +921,7 @@
                 </div>
             </div>
 
-            <div class="glass-card" onclick="togglePackage(this)">
+            <div class="glass-card scroll-slide-left scroll-delay-3" onclick="togglePackage(this)">
                 <div class="package-header">
                     <h3 class="package-name">🚀 BUSINESS EMPIRE</h3>
                     <span class="package-price">$40,000 - $100,000</span>
@@ -868,7 +942,7 @@
                 </div>
             </div>
 
-            <div class="glass-card hourly-card">
+            <div class="glass-card hourly-card scroll-scale scroll-delay-4">
                 <h3 class="package-name">⏰ HOURLY CONSULTING</h3>
                 <div class="hourly-rate">$75 - $125/hr</div>
                 <p class="package-tagline">Perfect for smaller projects or ongoing support</p>
@@ -886,54 +960,54 @@
 
             <!-- Clean Sweep Section -->
             <div class="clean-sweep-section">
-                <div class="section-header">
+                <div class="section-header scroll-fade-in">
                     <h2>🧹 Clean Sweep™ Enterprise System Optimizer</h2>
                     <p style="color: #a8b2d1; font-size: 1.2rem;">Enterprise-ready system optimization, onboarding, and digital hygiene suite</p>
                     <p style="color: #4ecdc4; font-style: italic; margin-top: 10px;">Perfect for utilities, agencies, schools, and municipalities</p>
                 </div>
 
                 <!-- Key Features Overview -->
-                <div class="glass-card" style="margin-bottom: 40px;">
+                <div class="glass-card scroll-fade-in scroll-delay-1" style="margin-bottom: 40px;">
                     <h3 style="color: #ff6b6b; margin-bottom: 20px;">🔧 Core Features</h3>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-                        <div class="bridge-point">
+                        <div class="bridge-point scroll-scale scroll-delay-1">
                             <strong>🖥️ Desktop Optimization:</strong> Clears cache, boosts RAM, speeds up field tablets and call center machines
                         </div>
-                        <div class="bridge-point">
+                        <div class="bridge-point scroll-scale scroll-delay-2">
                             <strong>🌐 Portal Booster:</strong> Fixes browser config and SSL delays before they become helpdesk tickets
                         </div>
-                        <div class="bridge-point">
+                        <div class="bridge-point scroll-scale scroll-delay-3">
                             <strong>🛡️ Pre-Login Security:</strong> Checks patches, ports, and certs before sensitive actions
                         </div>
-                        <div class="bridge-point">
+                        <div class="bridge-point scroll-scale scroll-delay-4">
                             <strong>🧠 Automated Reporting:</strong> Generates compliance logs and performance reports
                         </div>
                     </div>
                 </div>
 
                 <!-- Use Cases -->
-                <div class="glass-card" style="margin-bottom: 40px;">
+                <div class="glass-card scroll-slide-right scroll-delay-2" style="margin-bottom: 40px;">
                     <h3 style="color: #4ecdc4; margin-bottom: 20px;">💡 Perfect For</h3>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
-                        <div style="background: rgba(78, 205, 196, 0.1); padding: 15px; border-radius: 10px; border-left: 3px solid #4ecdc4;">
+                        <div class="scroll-fade-in scroll-delay-1" style="background: rgba(78, 205, 196, 0.1); padding: 15px; border-radius: 10px; border-left: 3px solid #4ecdc4;">
                             <strong>Utility Providers:</strong> Billing portals, service requests, credential resets
                         </div>
-                        <div style="background: rgba(255, 107, 107, 0.1); padding: 15px; border-radius: 10px; border-left: 3px solid #ff6b6b;">
+                        <div class="scroll-fade-in scroll-delay-2" style="background: rgba(255, 107, 107, 0.1); padding: 15px; border-radius: 10px; border-left: 3px solid #ff6b6b;">
                             <strong>School Districts:</strong> Parent/student dashboards, digital classrooms
                         </div>
-                        <div style="background: rgba(78, 205, 196, 0.1); padding: 15px; border-radius: 10px; border-left: 3px solid #4ecdc4;">
+                        <div class="scroll-fade-in scroll-delay-3" style="background: rgba(78, 205, 196, 0.1); padding: 15px; border-radius: 10px; border-left: 3px solid #4ecdc4;">
                             <strong>Gov Agencies:</strong> Field worker devices, low-bandwidth environments
                         </div>
-                        <div style="background: rgba(255, 107, 107, 0.1); padding: 15px; border-radius: 10px; border-left: 3px solid #ff6b6b;">
+                        <div class="scroll-fade-in scroll-delay-4" style="background: rgba(255, 107, 107, 0.1); padding: 15px; border-radius: 10px; border-left: 3px solid #ff6b6b;">
                             <strong>SMBs & Nonprofits:</strong> Teams without dedicated IT support
                         </div>
                     </div>
-                    <div class="bridge-point" style="margin-top: 20px; background: rgba(255, 215, 0, 0.1); border-color: #ffd700;">
+                    <div class="bridge-point scroll-fade-in scroll-delay-5" style="margin-top: 20px; background: rgba(255, 215, 0, 0.1); border-color: #ffd700;">
                         <strong style="color: #ffd700;">Results:</strong> Cuts service tickets by up to 40% • Works without admin rights • Boosts portal conversion rates
                     </div>
                     
                     <!-- Social Proof -->
-                    <div style="margin-top: 30px; padding: 20px; background: rgba(255, 255, 255, 0.03); border-radius: 15px; text-align: center;">
+                    <div class="scroll-scale scroll-delay-6" style="margin-top: 30px; padding: 20px; background: rgba(255, 255, 255, 0.03); border-radius: 15px; text-align: center;">
                         <h4 style="color: #4ecdc4; margin-bottom: 15px;">🏆 Trusted by 100+ Organizations</h4>
                         <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; align-items: center; opacity: 0.8;">
                             <span style="padding: 8px 16px; background: rgba(78, 205, 196, 0.1); border-radius: 20px; font-size: 0.9rem;">School Districts</span>
@@ -946,7 +1020,7 @@
                 
                 <!-- Pricing Tiers -->
                 <div class="clean-sweep-grid">
-                    <div class="glass-card clean-sweep-tier">
+                    <div class="glass-card clean-sweep-tier scroll-fade-in scroll-delay-1">
                         <h3 class="package-name" style="color: #4ecdc4;">💼 Essential</h3>
                         <div class="tier-price">$99/month/site</div>
                         <p style="color: #a8b2d1; margin-bottom: 20px;">Perfect for small businesses</p>
@@ -963,7 +1037,7 @@
                         <a href="mailto:businessdatagurus@gmail.com?subject=Clean%20Sweep%20Essential%20Plan&body=I%20want%20to%20subscribe%20to%20the%20Clean%20Sweep%20Essential%20plan%20($99/month)." class="cta-button" style="display: inline-block; margin-top: 20px;" onclick="trackConversion('clean_sweep_cta', 'essential_plan');">Start Essential</a>
                     </div>
                     
-                    <div class="glass-card clean-sweep-tier">
+                    <div class="glass-card clean-sweep-tier scroll-fade-in scroll-delay-2">
                         <h3 class="package-name" style="color: #4ecdc4;">🚀 Pro <span class="value-highlight">Most Popular</span></h3>
                         <div class="tier-price">$199/month/site</div>
                         <p style="color: #a8b2d1; margin-bottom: 20px;">For growing organizations</p>
@@ -984,7 +1058,7 @@
                         <a href="mailto:businessdatagurus@gmail.com?subject=Clean%20Sweep%20Pro%20Plan&body=I%20want%20to%20subscribe%20to%20the%20Clean%20Sweep%20Pro%20plan%20($199/month)." class="cta-button" style="display: inline-block; margin-top: 20px;" onclick="trackConversion('clean_sweep_cta', 'pro_plan');">Upgrade to Pro</a>
                     </div>
                     
-                    <div class="glass-card clean-sweep-tier">
+                    <div class="glass-card clean-sweep-tier scroll-fade-in scroll-delay-3">
                         <h3 class="package-name" style="color: #4ecdc4;">🏛️ Enterprise</h3>
                         <div class="tier-price">Custom Quote</div>
                         <p style="color: #a8b2d1; margin-bottom: 20px;">For large organizations</p>
@@ -1005,10 +1079,10 @@
                 </div>
 
                 <!-- Legacy Individual Options -->
-                <div style="margin-top: 40px; padding-top: 40px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                <div class="scroll-fade-in scroll-delay-4" style="margin-top: 40px; padding-top: 40px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
                     <h3 style="text-align: center; color: #a8b2d1; margin-bottom: 30px;">Individual & Small Business Options</h3>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-                        <div class="glass-card clean-sweep-tier" style="padding: 20px;">
+                        <div class="glass-card clean-sweep-tier scroll-slide-left scroll-delay-1" style="padding: 20px;">
                             <h4 style="color: #ff6b6b;">🔒 Individual License</h4>
                             <div style="font-size: 1.2rem; color: #4ecdc4; margin: 10px 0;">$60 One-Time</div>
                             <ul style="list-style: none; font-size: 0.9rem;">
@@ -1019,7 +1093,7 @@
                             <a href="mailto:businessdatagurus@gmail.com?subject=Buy%20Clean%20Sweep%20Individual&body=I%20want%20the%20$60%20Clean%20Sweep%20individual%20license." class="cta-button" style="font-size: 0.9rem; padding: 10px 20px; margin-top: 15px; display: inline-block;">Buy Now</a>
                         </div>
                         
-                        <div class="glass-card clean-sweep-tier" style="padding: 20px;">
+                        <div class="glass-card clean-sweep-tier scroll-slide-right scroll-delay-2" style="padding: 20px;">
                             <h4 style="color: #ff6b6b;">🏢 Small Business Pack</h4>
                             <div style="font-size: 1.2rem; color: #4ecdc4; margin: 10px 0;">$1,000 One-Time</div>
                             <ul style="list-style: none; font-size: 0.9rem;">
@@ -1032,7 +1106,7 @@
                     </div>
                 </div>
                 
-                <div class="crypto-wallet">
+                <div class="crypto-wallet scroll-scale scroll-delay-5">
                     <h3 style="margin-bottom: 15px;">🔐 Accepting Crypto Payments</h3>
                     <p>Pay securely with Bitcoin or Ethereum</p>
                     <input type="text" value="1CleanSweepBTCwalletEXAMPLE0000" readonly />
@@ -1045,23 +1119,23 @@
     <!-- About Page -->
     <div class="page" id="about">
         <div class="container">
-            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 50px;">Why Choose Us?</h2>
+            <h2 class="scroll-fade-in" style="text-align: center; font-size: 2.5rem; margin-bottom: 50px;">Why Choose Us?</h2>
             
-            <div class="glass-card">
+            <div class="glass-card scroll-fade-in scroll-delay-1">
                 <h3 style="color: #ff6b6b; margin-bottom: 20px;">The Perfect Tech-Business Bridge</h3>
                 <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 20px;">
                     Most developers don't understand retail operations. Most business consultants can't code. 
                     <strong style="color: #4ecdc4;">We do both.</strong>
                 </p>
-                <div class="bridge-point">
+                <div class="bridge-point scroll-slide-left scroll-delay-2">
                     <strong>Our Unique Combo:</strong> Full-Stack Dev + Marketing Degree + 8 Years Sales + 5 Years Big Box Management + PEPCO Revenue Analytics
                 </div>
-                <p style="margin-top: 20px;">
+                <p class="scroll-fade-in scroll-delay-3" style="margin-top: 20px;">
                     "If I can handle Black Friday crowds at Target, I can handle your technical challenges!"
                 </p>
                 
-                <h3 style="color: #4ecdc4; margin-top: 40px; margin-bottom: 20px;">Our Experience</h3>
-                <ul class="features-list expanded">
+                <h3 class="scroll-fade-in scroll-delay-4" style="color: #4ecdc4; margin-top: 40px; margin-bottom: 20px;">Our Experience</h3>
+                <ul class="features-list expanded scroll-fade-in scroll-delay-5">
                     <li>Managed million-dollar operations at Fortune 500 retailers</li>
                     <li>Built scalable systems handling thousands of daily transactions</li>
                     <li>Developed full-stack applications from scratch to deployment</li>
@@ -1070,22 +1144,22 @@
                     <li>Created Clean Sweep - our flagship security automation tool</li>
                 </ul>
                 
-                <h3 style="color: #ff6b6b; margin-top: 40px; margin-bottom: 20px;">Products We've Built</h3>
-                <div class="bridge-point" style="background: rgba(255, 107, 107, 0.1); border-color: #ff6b6b;">
+                <h3 class="scroll-slide-right scroll-delay-6" style="color: #ff6b6b; margin-top: 40px; margin-bottom: 20px;">Products We've Built</h3>
+                <div class="bridge-point scroll-scale" style="background: rgba(255, 107, 107, 0.1); border-color: #ff6b6b;">
                     <strong style="color: #ff6b6b;">Clean Sweep™:</strong> Enterprise system optimizer now serving 100+ organizations including utilities, school districts, and government agencies - cuts IT tickets by up to 40%
                 </div>
                 
                 <!-- Client Testimonials -->
-                <h3 style="color: #4ecdc4; margin-top: 40px; margin-bottom: 20px;">💬 What Our Clients Say</h3>
-                <div class="testimonial">
+                <h3 class="scroll-fade-in" style="color: #4ecdc4; margin-top: 40px; margin-bottom: 20px;">💬 What Our Clients Say</h3>
+                <div class="testimonial scroll-slide-left scroll-delay-1">
                     "Clean Sweep reduced our help desk tickets by 45% in the first month. Our field technicians can now focus on real problems instead of basic system issues."
                     <div class="testimonial-author">— Sarah Chen, IT Director, Metro Utilities</div>
                 </div>
-                <div class="testimonial">
+                <div class="testimonial scroll-slide-right scroll-delay-2">
                     "The portal booster alone saved us thousands in lost productivity. Parents can actually access the school dashboard now without calling IT."
                     <div class="testimonial-author">— Mike Rodriguez, Technology Coordinator, Valley School District</div>
                 </div>
-                <div class="testimonial">
+                <div class="testimonial scroll-slide-left scroll-delay-3">
                     "Business Data Gurus delivered our inventory system 2 weeks early and under budget. Finally, developers who understand retail operations."
                     <div class="testimonial-author">— Jennifer Walsh, Operations Manager, Regional Retail Chain</div>
                 </div>
@@ -1096,9 +1170,9 @@
     <!-- Contact Page -->
     <div class="page" id="contact">
         <div class="container">
-            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 50px;">Let's Build Your Empire</h2>
+            <h2 class="scroll-fade-in" style="text-align: center; font-size: 2.5rem; margin-bottom: 50px;">Let's Build Your Empire</h2>
             
-            <form action="https://formspree.io/f/xvgrbwrk" method="POST" class="contact-form">
+            <form action="https://formspree.io/f/xvgrbwrk" method="POST" class="contact-form scroll-scale scroll-delay-1">
                 <input type="hidden" name="_subject" value="New Business Inquiry - Business Data Gurus" />
                 <input type="hidden" name="_next" value="https://yourusername.github.io/business-data-gurus/thank-you.html" />
                 
@@ -1173,13 +1247,50 @@
                 </div>
             </form>
             
-            <p style="text-align: center; margin-top: 20px; color: #a8b2d1;">
+            <p class="scroll-fade-in scroll-delay-2" style="text-align: center; margin-top: 20px; color: #a8b2d1;">
                 Or email directly: <a href="mailto:businessdatagurus@gmail.com" style="color: #ff6b6b;">businessdatagurus@gmail.com</a>
             </p>
         </div>
     </div>
 
     <script>
+        // ============================================
+        // APPLE-STYLE SCROLL ANIMATION SYSTEM - NEW
+        // ============================================
+        
+        // Intersection Observer for scroll animations
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,  // Trigger when 10% of element is visible
+            rootMargin: '0px 0px -50px 0px'  // Trigger slightly before element enters viewport
+        });
+        
+        // Function to observe all scroll animation elements
+        function initScrollAnimations() {
+            const animatedElements = document.querySelectorAll(
+                '.scroll-fade-in, .scroll-slide-left, .scroll-slide-right, .scroll-scale'
+            );
+            
+            animatedElements.forEach(element => {
+                scrollObserver.observe(element);
+            });
+        }
+        
+        // Initialize scroll animations when page loads
+        document.addEventListener('DOMContentLoaded', initScrollAnimations);
+        
+        // Re-initialize when switching pages
+        const originalShowPage = showPage;
+        
+        // ============================================
+        // END APPLE-STYLE SCROLL ANIMATION SYSTEM
+        // ============================================
+        
         // Create floating particles
         const particlesContainer = document.getElementById('particles');
         for (let i = 0; i < 20; i++) {
@@ -1251,6 +1362,11 @@
             
             // Scroll to top
             window.scrollTo(0, 0);
+            
+            // Re-initialize scroll animations for new page
+            setTimeout(() => {
+                initScrollAnimations();
+            }, 100);
             
             // Track page views
             if (typeof gtag !== 'undefined') {
