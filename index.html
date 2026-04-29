@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -327,6 +328,26 @@ footer{background:#040509;border-top:1px solid var(--border);padding:52px 40px 3
 /* View switching */
 #view-dashboard, #view-mash, #view-mashapp { display: none; }
 
+
+/* Smooth page transitions */
+.page-section {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.page-section.hidden-section {
+  display: none;
+}
+.page-section.slide-in {
+  animation: slideInPage 0.4s cubic-bezier(0.34,1.02,0.64,1) forwards;
+}
+@keyframes slideInPage {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* MASH dropdown */
+#mash-nav-wrap { position: relative; }
+
 </style>
 </head>
 <body>
@@ -353,9 +374,23 @@ footer{background:#040509;border-top:1px solid var(--border);padding:52px 40px 3
     <button class="nl" onclick="scrollToSection('cleansweep')">Clean Sweep</button>
     <button class="nl nl-mash" onclick="scrollToSection('mash')">🧠 MASH</button>
     <button class="nl" onclick="scrollToSection('about')">About</button>
-    <button class="nl" onclick="showView('dashboard')" style="color:var(--blue)">Dashboards</button>
-    <button class="nl nl-mash" onclick="showView('mash')" style="background:linear-gradient(135deg,rgba(255,77,28,.18),rgba(255,45,120,.12));color:var(--orange)!important;border:1px solid rgba(255,77,28,.3)">🧠 MASH</button>
-    <button class="nl" onclick="showView('mashapp')" style="color:var(--teal)">App</button>
+    <button class="nl" onclick="showView('dashboard')" style="color:var(--blue)">📊 Dashboards</button>
+    <div style="position:relative;display:inline-block" id="mash-nav-wrap">
+    <button class="nl nl-mash" onclick="goToMASH()" onmouseenter="showMashDropdown()" onmouseleave="hideMashDropdown()" style="background:linear-gradient(135deg,rgba(255,77,28,.18),rgba(255,45,120,.12));color:var(--orange)!important;border:1px solid rgba(255,77,28,.3)">🧠 MASH ▾</button>
+    <div id="mash-nav-dropdown" style="display:none;position:absolute;top:100%;left:0;min-width:280px;background:#0d0d0d;border:1px solid rgba(255,77,28,.25);border-radius:10px;padding:8px;z-index:500;margin-top:6px;box-shadow:0 16px 40px rgba(0,0,0,.6)" onmouseenter="showMashDropdown()" onmouseleave="hideMashDropdown()">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#555;padding:6px 10px 4px">PROGRAMS</div>
+      <a onclick="goToMASH('programs')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:7px;cursor:pointer;transition:background .15s;color:var(--white)" onmouseenter="this.style.background='rgba(255,77,28,.1)'" onmouseleave="this.style.background='transparent'"><span style="font-size:18px">📚</span><div><div style="font-weight:600;font-size:13px">Loud Library</div><div style="font-size:11px;color:#777">Ages 4–10 · Literacy</div></div></a>
+      <a onclick="goToMASH('programs')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:7px;cursor:pointer;transition:background .15s;color:var(--white)" onmouseenter="this.style.background='rgba(255,77,28,.1)'" onmouseleave="this.style.background='transparent'"><span style="font-size:18px">🦾</span><div><div style="font-weight:600;font-size:13px">Little Engineers</div><div style="font-size:11px;color:#777">Ages 8–14 · Robotics</div></div></a>
+      <a onclick="goToMASH('programs')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:7px;cursor:pointer;transition:background .15s;color:var(--white)" onmouseenter="this.style.background='rgba(255,77,28,.1)'" onmouseleave="this.style.background='transparent'"><span style="font-size:18px">🏎</span><div><div style="font-weight:600;font-size:13px">GRIDKIDS</div><div style="font-size:11px;color:#777">Ages 8–16 · RC Racing</div></div></a>
+      <div style="height:1px;background:rgba(255,255,255,.06);margin:4px 0"></div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#555;padding:6px 10px 4px">DASHBOARDS</div>
+      <a onclick="goToMASH('parent-dash')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:7px;cursor:pointer;transition:background .15s;color:var(--white)" onmouseenter="this.style.background='rgba(0,194,168,.1)'" onmouseleave="this.style.background='transparent'"><span style="font-size:18px">👨‍👩‍👧</span><div><div style="font-weight:600;font-size:13px">Parent Dashboard</div><div style="font-size:11px;color:#777">Track your child's progress</div></div></a>
+      <a onclick="goToMASH('student-dash')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:7px;cursor:pointer;transition:background .15s;color:var(--white)" onmouseenter="this.style.background='rgba(0,194,168,.1)'" onmouseleave="this.style.background='transparent'"><span style="font-size:18px">🎒</span><div><div style="font-weight:600;font-size:13px">Student Dashboard</div><div style="font-size:11px;color:#777">Your progress & sessions</div></div></a>
+      <div style="height:1px;background:rgba(255,255,255,.06);margin:4px 0"></div>
+      <a onclick="goToMASH('enroll')" style="display:block;text-align:center;padding:10px;background:var(--orange);color:#fff;border-radius:7px;font-weight:700;font-size:13px;margin-top:2px;cursor:pointer">Enroll Now →</a>
+    </div>
+  </div>
+    <button class="nl" onclick="showView('mashapp')" style="color:var(--teal)">MASH App</button>
   </div>
   <button class="nav-cta" onclick="scrollToSection('intake')">Get Started</button>
 </nav>
@@ -617,14 +652,14 @@ footer{background:#040509;border-top:1px solid var(--border);padding:52px 40px 3
         <p>DC's full youth enrichment ecosystem — from <strong style="color:var(--white)">literacy to robotics</strong> to <strong style="color:var(--white)">critical thinking to RC racing.</strong> Small groups. Real results. Built for DMV families ages 4–18.</p>
         <p style="font-size:13px;color:var(--muted)">Sessions from $35 · Max 5 kids per group · Title I eligible · DMV pricing</p>
         <div class="mash-ctas">
-          <button class="mash-enroll-btn" onclick="document.querySelector('.mdt[data-panel=enroll]').click()">Enroll Your Child →</button>
+          <button class="mash-enroll-btn" onclick="goToMASH('enroll')">Enroll Your Child →</button>
           <button class="mash-music-btn" onclick="triggerMusic()">♪ Play Anthem</button>
         </div>
       </div>
     </div>
 
     <!-- Programs -->
-    <div class="sec-ey" style="margin-bottom:16px">5 Programs · 1 Ladder</div>
+    <div id="mash-programs-section" class="sec-ey" style="margin-bottom:16px">5 Programs · 1 Ladder</div>
     <div class="mash-programs-grid">
       <div class="mp-card mp-o">
         <div class="mp-age">Ages 4–10</div>
@@ -632,7 +667,7 @@ footer{background:#040509;border-top:1px solid var(--border);padding:52px 40px 3
         <div class="mp-name">Loud Library</div>
         <div class="mp-desc">Neurodivergent-friendly literacy & sensory storytime. Every learner met where they are.</div>
         <div class="mp-price">From $35 / session</div>
-        <button class="mp-enroll" onclick="document.querySelector('.mdt[data-panel=enroll]').click()">Enroll →</button>
+        <button class="mp-enroll" onclick="goToMASH('enroll')">Enroll →</button>
       </div>
       <div class="mp-card mp-t">
         <div class="mp-age">Ages 8–14</div>
@@ -640,7 +675,7 @@ footer{background:#040509;border-top:1px solid var(--border);padding:52px 40px 3
         <div class="mp-name">Little Engineers</div>
         <div class="mp-desc">LEGO Spike Prime + mBot robotics. Build missions, team challenges, real coding.</div>
         <div class="mp-price">From $35 / session</div>
-        <button class="mp-enroll" onclick="document.querySelector('.mdt[data-panel=enroll]').click()">Enroll →</button>
+        <button class="mp-enroll" onclick="goToMASH('enroll')">Enroll →</button>
       </div>
       <div class="mp-card mp-y">
         <div class="mp-age">Ages 10–18</div>
@@ -648,7 +683,7 @@ footer{background:#040509;border-top:1px solid var(--border);padding:52px 40px 3
         <div class="mp-name">Perception Shift</div>
         <div class="mp-desc">Critical thinking & data literacy. Understand the systems shaping your choices.</div>
         <div class="mp-price">From $35 / session</div>
-        <button class="mp-enroll" onclick="document.querySelector('.mdt[data-panel=enroll]').click()">Enroll →</button>
+        <button class="mp-enroll" onclick="goToMASH('enroll')">Enroll →</button>
       </div>
       <div class="mp-card mp-b">
         <div class="mp-age">Ages 8–16</div>
@@ -656,7 +691,7 @@ footer{background:#040509;border-top:1px solid var(--border);padding:52px 40px 3
         <div class="mp-name">GRIDKIDS</div>
         <div class="mp-desc">Build & race RC cars. Compete locally then regionally. Pit Techs mentor every racer.</div>
         <div class="mp-price">From $38 / kit</div>
-        <button class="mp-enroll" onclick="document.querySelector('.mdt[data-panel=enroll]').click()">Enroll →</button>
+        <button class="mp-enroll" onclick="goToMASH('enroll')">Enroll →</button>
       </div>
       <div class="mp-card mp-p">
         <div class="mp-age">Ages 13–18</div>
@@ -664,7 +699,7 @@ footer{background:#040509;border-top:1px solid var(--border);padding:52px 40px 3
         <div class="mp-name">IMPACT</div>
         <div class="mp-desc">Youth expression, emotional intelligence & life skills. Built for DC teens.</div>
         <div class="mp-price">From $35 / session</div>
-        <button class="mp-enroll" onclick="document.querySelector('.mdt[data-panel=enroll]').click()">Enroll →</button>
+        <button class="mp-enroll" onclick="goToMASH('enroll')">Enroll →</button>
       </div>
     </div>
 
@@ -715,7 +750,7 @@ footer{background:#040509;border-top:1px solid var(--border);padding:52px 40px 3
           <div id="dash-auth-gate" style="text-align:center;padding:32px">
             <div style="font-size:42px;margin-bottom:12px">🔒</div>
             <p style="font-size:15px;color:#aaa;margin-bottom:16px">Sign in to view your student dashboard</p>
-            <button class="mash-enroll-btn" onclick="document.querySelector('.mdt[data-panel=enroll]').click()">Sign In →</button>
+            <button class="mash-enroll-btn" onclick="goToMASH('enroll')">Sign In →</button>
           </div>
           <!-- STUDENT DASHBOARD (shown after login) -->
           <div class="student-dash" id="student-dash-content">
@@ -735,7 +770,7 @@ footer{background:#040509;border-top:1px solid var(--border);padding:52px 40px 3
             </div>
             <div class="sec-ey" style="margin-bottom:12px">Enrolled Programs</div>
             <div class="sd-progs" id="sd-progs-list">
-              <div class="sd-empty"><div class="sd-empty-icon">📚</div>No programs yet. <span style="color:var(--orange);cursor:pointer" onclick="document.querySelector('.mdt[data-panel=enroll]').click()">Enroll now →</span></div>
+              <div class="sd-empty"><div class="sd-empty-icon">📚</div>No programs yet. <span style="color:var(--orange);cursor:pointer" onclick="goToMASH('enroll')">Enroll now →</span></div>
             </div>
             <div class="sec-ey" style="margin-bottom:12px;margin-top:24px">Session Notes</div>
             <div id="sd-notes-list" style="color:var(--muted);font-size:13px;padding:16px;background:rgba(255,255,255,.03);border-radius:8px">Notes from your facilitator will appear here after each session.</div>
@@ -1381,7 +1416,7 @@ footer{background:#040509;border-top:1px solid var(--border);padding:52px 40px 3
 <script>
 // ── CONFIG ───────────────────────────────────
 const SB_URL = 'https://bdywkygsvriaibjddcey.supabase.co';
-const SB_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkeXdreWdzdnJpYWliamRkY2V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Mzg1MTgsImV4cCI6MjA5MjMxNDUxOH0.Xs8Ohj4yq2bw-sInys8jx8KusfepPWjvxBVYxFpYjCM';
 const NAS_ID = 'O_0GwxSGgcE';
 const ADMIN_EMAIL = 'clay@businessdatagurus.com';
 const FORMSPREE = 'https://formspree.io/f/xvgrbwrk';
@@ -1414,6 +1449,135 @@ let mashAuthMode = 'signup';
 function scrollToSection(id) {
   const el = document.getElementById(id);
   if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// MASH dropdown
+let mashDropTimer;
+function showMashDropdown() {
+  clearTimeout(mashDropTimer);
+  document.getElementById('mash-nav-dropdown').style.display = 'block';
+}
+function hideMashDropdown() {
+  mashDropTimer = setTimeout(()=>{
+    document.getElementById('mash-nav-dropdown').style.display = 'none';
+  }, 200);
+}
+
+// Go to MASH with smooth transition
+function goToMASH(section) {
+  document.getElementById('mash-nav-dropdown').style.display = 'none';
+  // Show MASH view with animation
+  const views = ['dashboard','mashapp'];
+  views.forEach(v => { const el=document.getElementById('view-'+v); if(el)el.style.display='none'; });
+  document.getElementById('main-bdg').style.display = 'none';
+  const mashView = document.getElementById('view-mash');
+  if(mashView) {
+    mashView.style.display = 'block';
+    mashView.classList.add('slide-in');
+    setTimeout(()=>mashView.classList.remove('slide-in'), 400);
+  }
+  window.scrollTo(0,0);
+  // Navigate to section within MASH
+  if(section) {
+    setTimeout(()=>{
+      if(section === 'parent-dash') {
+        document.querySelector('.mdt[data-panel="dashboard"]')?.click();
+        // Make sure parent view opens
+        openParentDash();
+      } else if(section === 'student-dash') {
+        document.querySelector('.mdt[data-panel="dashboard"]')?.click();
+      } else if(section === 'programs') {
+        const el = document.getElementById('mash-programs-section');
+        if(el) el.scrollIntoView({behavior:'smooth'});
+      } else if(section === 'enroll') {
+        document.querySelector('.mdt[data-panel="enroll"]')?.click();
+      }
+    }, 300);
+  }
+}
+
+// Parent Dashboard
+function openParentDash() {
+  const gate = document.getElementById('dash-auth-gate');
+  const dash = document.getElementById('student-dash-content');
+  if(!currentUser) {
+    if(gate) gate.style.display = 'block';
+    if(dash) dash.style.display = 'none';
+    // Show sign in tab
+    setMashAuth('signin');
+    document.querySelector('.mdt[data-panel="enroll"]')?.click();
+    showToast('👆 Sign in to access your Parent Dashboard');
+    return;
+  }
+  if(gate) gate.style.display = 'none';
+  if(dash) dash.style.display = 'block';
+  renderParentDashboard();
+}
+
+async function renderParentDashboard() {
+  if(!currentUser) return;
+  
+  // Load enrollment data
+  const {data: enrollment} = await sb.from('enrollments')
+    .select('*')
+    .eq('user_id', currentUser.id)
+    .maybeSingle();
+  
+  // Load session notes
+  const {data: notes} = enrollment 
+    ? await sb.from('session_notes').select('*').eq('enrollment_id', enrollment.id).order('created_at', {ascending:false})
+    : {data:[]};
+
+  studentData = enrollment;
+  
+  const name = currentUser.user_metadata?.full_name || currentUser.email.split('@')[0];
+  const el = document.getElementById('sd-name-el');
+  if(el) el.textContent = name;
+  
+  const metaEl = document.getElementById('sd-meta-el');
+  if(metaEl && enrollment) metaEl.textContent = 'Grade '+(enrollment.grade||'—')+' · '+(enrollment.school||'MASH Student');
+  
+  const progs = enrollment?.programs || [];
+  const progCountEl = document.getElementById('sd-progs-count');
+  if(progCountEl) progCountEl.textContent = progs.length;
+  
+  const progColors = {'Loud Library':'var(--orange)','Little Engineers':'var(--teal)','Perception Shift & Theory':'var(--yellow)','GRIDKIDS':'var(--blue)','IMPACT':'var(--pink)'};
+  const progEmoji  = {'Loud Library':'📚','Little Engineers':'🦾','Perception Shift & Theory':'🧠','GRIDKIDS':'🏎','IMPACT':'⚡'};
+  
+  const list = document.getElementById('sd-progs-list');
+  if(list) {
+    if(progs.length) {
+      list.innerHTML = progs.map(p=>`
+        <div class="sd-prog">
+          <div class="sd-prog-dot" style="background:${progColors[p]||'#aaa'}"></div>
+          <div class="sd-prog-name">${progEmoji[p]||''} ${p}</div>
+          <div class="sd-prog-bar-wrap"><div class="sd-prog-bar" style="width:20%;background:${progColors[p]||'#aaa'}"></div></div>
+          <div class="sd-prog-pct" style="font-size:11px;color:var(--teal)">Active</div>
+        </div>`).join('');
+    } else {
+      list.innerHTML = '<div class="sd-empty"><div class="sd-empty-icon">📚</div>No programs yet. <span style="color:var(--orange);cursor:pointer" onclick="goToMASH('enroll')">Enroll now →</span></div>';
+    }
+  }
+
+  // Session notes
+  const notesEl = document.getElementById('sd-notes-list');
+  if(notesEl) {
+    if(notes && notes.length) {
+      notesEl.innerHTML = notes.map(n=>`
+        <div style="background:rgba(255,255,255,.04);border-radius:8px;padding:14px;margin-bottom:8px">
+          <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:6px">${new Date(n.created_at).toLocaleDateString()} · ${n.program||'Session'}</div>
+          <div style="font-size:13.5px;color:#ccc;line-height:1.6">${n.note}</div>
+        </div>`).join('');
+    } else {
+      notesEl.innerHTML = '<div style="padding:16px;color:var(--muted);font-size:13px">Notes from your facilitator will appear here after each session.</div>';
+    }
+  }
+
+  // Upload photo if missing
+  if(enrollment?.photo_url) {
+    const avatarEl = document.getElementById('sd-avatar-el');
+    if(avatarEl) avatarEl.innerHTML = `<img src="${enrollment.photo_url}" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:3px solid var(--orange)">`;
+  }
 }
 
 // Handle #mash direct link from business cards
@@ -1504,7 +1668,7 @@ function renderStudentDash() {
         <div class="sd-prog-pct">Active</div>
       </div>`).join('');
   } else {
-    list.innerHTML = '<div class="sd-empty"><div class="sd-empty-icon">📚</div>No programs yet. <span style="color:var(--orange);cursor:pointer" onclick="document.querySelector('.mdt[data-panel=enroll]').click()">Enroll now →</span></div>';
+    list.innerHTML = '<div class="sd-empty"><div class="sd-empty-icon">📚</div>No programs yet. <span style="color:var(--orange);cursor:pointer" onclick="goToMASH('enroll')">Enroll now →</span></div>';
   }
 }
 
@@ -1516,6 +1680,18 @@ async function mashSignOut() {
 }
 
 // Check session on load
+// Auto restore session across all pages
+sb.auth.onAuthStateChange(async (event, session) => {
+  if(session) {
+    currentUser = session.user;
+    await loadStudentData();
+    const name = currentUser.user_metadata?.full_name || currentUser.email.split('@')[0];
+    document.getElementById('nav-user-name').textContent = name;
+  } else {
+    currentUser = null;
+  }
+});
+
 sb.auth.getSession().then(async({data}) => {
   if(data.session){currentUser=data.session.user;await loadStudentData();}
 });
@@ -1591,10 +1767,18 @@ function showView(v) {
     document.getElementById('main-bdg').style.display='none';
     views.forEach(vv => { const el=document.getElementById('view-'+vv); if(el)el.style.display='none'; });
     const target = document.getElementById('view-'+v);
-    if(target) target.style.display='block';
+    if(target) { target.style.display='block'; target.classList.add('slide-in'); setTimeout(()=>target.classList.remove('slide-in'),400); }
     window.scrollTo(0,0);
-    // Load app directory when dashboard opens
     if(v==='dashboard') loadAppDirectory();
+    if(v==='mash') {
+      // Auto-check if user is logged in and open parent dash
+      sb.auth.getSession().then(({data}) => {
+        if(data.session) {
+          currentUser = data.session.user;
+          openParentDash();
+        }
+      });
+    }
   }
 }
 
@@ -1859,6 +2043,135 @@ document.addEventListener('DOMContentLoaded', loadAppDirectory);
 function scrollToSection(id) {
   const el = document.getElementById(id);
   if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// MASH dropdown
+let mashDropTimer;
+function showMashDropdown() {
+  clearTimeout(mashDropTimer);
+  document.getElementById('mash-nav-dropdown').style.display = 'block';
+}
+function hideMashDropdown() {
+  mashDropTimer = setTimeout(()=>{
+    document.getElementById('mash-nav-dropdown').style.display = 'none';
+  }, 200);
+}
+
+// Go to MASH with smooth transition
+function goToMASH(section) {
+  document.getElementById('mash-nav-dropdown').style.display = 'none';
+  // Show MASH view with animation
+  const views = ['dashboard','mashapp'];
+  views.forEach(v => { const el=document.getElementById('view-'+v); if(el)el.style.display='none'; });
+  document.getElementById('main-bdg').style.display = 'none';
+  const mashView = document.getElementById('view-mash');
+  if(mashView) {
+    mashView.style.display = 'block';
+    mashView.classList.add('slide-in');
+    setTimeout(()=>mashView.classList.remove('slide-in'), 400);
+  }
+  window.scrollTo(0,0);
+  // Navigate to section within MASH
+  if(section) {
+    setTimeout(()=>{
+      if(section === 'parent-dash') {
+        document.querySelector('.mdt[data-panel="dashboard"]')?.click();
+        // Make sure parent view opens
+        openParentDash();
+      } else if(section === 'student-dash') {
+        document.querySelector('.mdt[data-panel="dashboard"]')?.click();
+      } else if(section === 'programs') {
+        const el = document.getElementById('mash-programs-section');
+        if(el) el.scrollIntoView({behavior:'smooth'});
+      } else if(section === 'enroll') {
+        document.querySelector('.mdt[data-panel="enroll"]')?.click();
+      }
+    }, 300);
+  }
+}
+
+// Parent Dashboard
+function openParentDash() {
+  const gate = document.getElementById('dash-auth-gate');
+  const dash = document.getElementById('student-dash-content');
+  if(!currentUser) {
+    if(gate) gate.style.display = 'block';
+    if(dash) dash.style.display = 'none';
+    // Show sign in tab
+    setMashAuth('signin');
+    document.querySelector('.mdt[data-panel="enroll"]')?.click();
+    showToast('👆 Sign in to access your Parent Dashboard');
+    return;
+  }
+  if(gate) gate.style.display = 'none';
+  if(dash) dash.style.display = 'block';
+  renderParentDashboard();
+}
+
+async function renderParentDashboard() {
+  if(!currentUser) return;
+  
+  // Load enrollment data
+  const {data: enrollment} = await sb.from('enrollments')
+    .select('*')
+    .eq('user_id', currentUser.id)
+    .maybeSingle();
+  
+  // Load session notes
+  const {data: notes} = enrollment 
+    ? await sb.from('session_notes').select('*').eq('enrollment_id', enrollment.id).order('created_at', {ascending:false})
+    : {data:[]};
+
+  studentData = enrollment;
+  
+  const name = currentUser.user_metadata?.full_name || currentUser.email.split('@')[0];
+  const el = document.getElementById('sd-name-el');
+  if(el) el.textContent = name;
+  
+  const metaEl = document.getElementById('sd-meta-el');
+  if(metaEl && enrollment) metaEl.textContent = 'Grade '+(enrollment.grade||'—')+' · '+(enrollment.school||'MASH Student');
+  
+  const progs = enrollment?.programs || [];
+  const progCountEl = document.getElementById('sd-progs-count');
+  if(progCountEl) progCountEl.textContent = progs.length;
+  
+  const progColors = {'Loud Library':'var(--orange)','Little Engineers':'var(--teal)','Perception Shift & Theory':'var(--yellow)','GRIDKIDS':'var(--blue)','IMPACT':'var(--pink)'};
+  const progEmoji  = {'Loud Library':'📚','Little Engineers':'🦾','Perception Shift & Theory':'🧠','GRIDKIDS':'🏎','IMPACT':'⚡'};
+  
+  const list = document.getElementById('sd-progs-list');
+  if(list) {
+    if(progs.length) {
+      list.innerHTML = progs.map(p=>`
+        <div class="sd-prog">
+          <div class="sd-prog-dot" style="background:${progColors[p]||'#aaa'}"></div>
+          <div class="sd-prog-name">${progEmoji[p]||''} ${p}</div>
+          <div class="sd-prog-bar-wrap"><div class="sd-prog-bar" style="width:20%;background:${progColors[p]||'#aaa'}"></div></div>
+          <div class="sd-prog-pct" style="font-size:11px;color:var(--teal)">Active</div>
+        </div>`).join('');
+    } else {
+      list.innerHTML = '<div class="sd-empty"><div class="sd-empty-icon">📚</div>No programs yet. <span style="color:var(--orange);cursor:pointer" onclick="goToMASH('enroll')">Enroll now →</span></div>';
+    }
+  }
+
+  // Session notes
+  const notesEl = document.getElementById('sd-notes-list');
+  if(notesEl) {
+    if(notes && notes.length) {
+      notesEl.innerHTML = notes.map(n=>`
+        <div style="background:rgba(255,255,255,.04);border-radius:8px;padding:14px;margin-bottom:8px">
+          <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:6px">${new Date(n.created_at).toLocaleDateString()} · ${n.program||'Session'}</div>
+          <div style="font-size:13.5px;color:#ccc;line-height:1.6">${n.note}</div>
+        </div>`).join('');
+    } else {
+      notesEl.innerHTML = '<div style="padding:16px;color:var(--muted);font-size:13px">Notes from your facilitator will appear here after each session.</div>';
+    }
+  }
+
+  // Upload photo if missing
+  if(enrollment?.photo_url) {
+    const avatarEl = document.getElementById('sd-avatar-el');
+    if(avatarEl) avatarEl.innerHTML = `<img src="${enrollment.photo_url}" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:3px solid var(--orange)">`;
+  }
 }
 </script>
 </body>
