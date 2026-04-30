@@ -221,6 +221,21 @@
         .dash-block-body { min-height:60px; }
         .dash-placeholder { font-size:0.82rem; color:var(--muted); font-style:italic; }
 
+        /* ── DASHBOARD · LIVE SITES ── */
+        .dash-site-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:18px; }
+        .dash-site-card { background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:12px; padding:24px; display:flex; flex-direction:column; gap:10px; transition:border-color 0.2s; }
+        .dash-site-card:hover { border-color:rgba(0,229,204,.25); }
+        .dash-site-name { font-family:var(--fh); font-weight:700; font-size:1rem; }
+        .dash-site-desc { font-size:0.82rem; color:var(--muted); line-height:1.6; flex:1; }
+        .dash-site-tags { display:flex; gap:6px; flex-wrap:wrap; }
+        .dash-site-tag { font-family:var(--fm); font-size:0.58rem; letter-spacing:1px; padding:3px 9px; border-radius:20px; border:1px solid var(--border); color:var(--muted); }
+        .dash-site-footer { display:flex; justify-content:space-between; align-items:center; margin-top:4px; }
+        .dash-status { font-family:var(--fm); font-size:0.6rem; letter-spacing:1px; padding:3px 9px; border-radius:20px; }
+        .dash-status.live { background:rgba(0,229,204,.12); color:var(--teal); border:1px solid rgba(0,229,204,.3); }
+        .dash-status.dev  { background:rgba(245,200,66,.1);  color:var(--gold); border:1px solid rgba(245,200,66,.3); }
+        .dash-site-btn { font-family:var(--fm); font-size:0.65rem; letter-spacing:1px; padding:6px 14px; border-radius:6px; border:1px solid var(--border); color:#fff; text-decoration:none; transition:border-color 0.2s,color 0.2s; }
+        .dash-site-btn:hover { border-color:var(--teal); color:var(--teal); }
+
         /* ── CONTACT ── */
         .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; }
         .form-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:36px; }
@@ -674,8 +689,91 @@ const CONFIG = {
         <div class="dash-block sa d1" id="dash-live-sites">
             <div class="dash-block-label">ACTIVE LIVE SITES</div>
             <div class="dash-block-body">
-                <!-- Filled in Stage 3 -->
-                <p class="dash-placeholder">Live product cards go here.</p>
+                <div class="dash-site-grid">
+
+                    <div class="dash-site-card">
+                        <div class="dash-site-name">Business Data Gurus</div>
+                        <div class="dash-site-desc">Main marketing site and client intake hub for BDG. GovTech and small business infrastructure.</div>
+                        <div class="dash-site-tags">
+                            <span class="dash-site-tag">WEBSITE</span>
+                            <span class="dash-site-tag">INTAKE</span>
+                            <span class="dash-site-tag">DC</span>
+                        </div>
+                        <div class="dash-site-footer">
+                            <span class="dash-status live">● LIVE</span>
+                            <a href="https://businessdatagurus.com" target="_blank" class="dash-site-btn">VISIT →</a>
+                        </div>
+                    </div>
+
+                    <div class="dash-site-card">
+                        <div class="dash-site-name">Human IT™</div>
+                        <div class="dash-site-desc">Human navigation as a service — resumes, roadmaps, local laws, and how-to guides for real people.</div>
+                        <div class="dash-site-tags">
+                            <span class="dash-site-tag">SAAS</span>
+                            <span class="dash-site-tag">PERSONAL NAV</span>
+                            <span class="dash-site-tag">AI</span>
+                        </div>
+                        <div class="dash-site-footer">
+                            <span class="dash-status live">● LIVE</span>
+                            <a href="#" class="dash-site-btn">VISIT →</a>
+                        </div>
+                    </div>
+
+                    <div class="dash-site-card">
+                        <div class="dash-site-name">Grocely</div>
+                        <div class="dash-site-desc">Multi-platform grocery and food management system. Built for households and small food operations.</div>
+                        <div class="dash-site-tags">
+                            <span class="dash-site-tag">MULTI-PLATFORM</span>
+                            <span class="dash-site-tag">FOOD TECH</span>
+                        </div>
+                        <div class="dash-site-footer">
+                            <span class="dash-status dev">◐ IN DEV</span>
+                            <a href="#" class="dash-site-btn">PREVIEW →</a>
+                        </div>
+                    </div>
+
+                    <div class="dash-site-card">
+                        <div class="dash-site-name">Produce OS / COMMONS</div>
+                        <div class="dash-site-desc">Full cannabis club infrastructure — operations, compliance, and member management in one system.</div>
+                        <div class="dash-site-tags">
+                            <span class="dash-site-tag">CANNABIS</span>
+                            <span class="dash-site-tag">COMPLIANCE</span>
+                            <span class="dash-site-tag">OPS</span>
+                        </div>
+                        <div class="dash-site-footer">
+                            <span class="dash-status dev">◐ IN DEV</span>
+                            <a href="#" class="dash-site-btn">PREVIEW →</a>
+                        </div>
+                    </div>
+
+                    <div class="dash-site-card">
+                        <div class="dash-site-name">EnergyOS</div>
+                        <div class="dash-site-desc">Home energy monitoring and virtual power plant (VPP) platform. Built for residential and small commercial.</div>
+                        <div class="dash-site-tags">
+                            <span class="dash-site-tag">ENERGY</span>
+                            <span class="dash-site-tag">VPP</span>
+                            <span class="dash-site-tag">IOT</span>
+                        </div>
+                        <div class="dash-site-footer">
+                            <span class="dash-status dev">◐ IN DEV</span>
+                            <a href="#" class="dash-site-btn">PREVIEW →</a>
+                        </div>
+                    </div>
+
+                    <div class="dash-site-card">
+                        <div class="dash-site-name">Meridian Transit</div>
+                        <div class="dash-site-desc">Student safety and transit monitoring platform. Built for schools and family oversight programs.</div>
+                        <div class="dash-site-tags">
+                            <span class="dash-site-tag">GOVTECH</span>
+                            <span class="dash-site-tag">STUDENT SAFETY</span>
+                        </div>
+                        <div class="dash-site-footer">
+                            <span class="dash-status dev">◐ IN DEV</span>
+                            <a href="#" class="dash-site-btn">PREVIEW →</a>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
 
