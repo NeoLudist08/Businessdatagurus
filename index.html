@@ -256,6 +256,17 @@
         .dash-client-btn { display:inline-block; margin-top:6px; font-family:var(--fm); font-size:0.65rem; letter-spacing:1px; padding:7px 14px; border-radius:6px; border:1px solid rgba(168,85,247,.4); color:var(--purple); text-decoration:none; cursor:pointer; background:transparent; text-align:center; transition:background 0.2s,color 0.2s; }
         .dash-client-btn:hover { background:var(--purple); color:#fff; }
 
+        /* ── DASHBOARD · WHITE-LABEL ── */
+        .dash-wl-intro { font-size:0.87rem; color:var(--muted); line-height:1.7; max-width:640px; margin-bottom:24px; }
+        .dash-wl-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px; }
+        .dash-wl-card { background:rgba(245,200,66,.03); border:1px solid rgba(245,200,66,.18); border-radius:12px; padding:22px; display:flex; flex-direction:column; gap:8px; transition:border-color 0.2s; }
+        .dash-wl-card:hover { border-color:rgba(245,200,66,.4); }
+        .dash-wl-name { font-family:var(--fh); font-weight:700; font-size:0.95rem; }
+        .dash-wl-desc { font-size:0.8rem; color:var(--muted); line-height:1.55; flex:1; }
+        .dash-wl-tag { font-family:var(--fm); font-size:0.58rem; letter-spacing:1px; padding:3px 9px; border-radius:20px; border:1px solid rgba(245,200,66,.25); color:var(--gold); display:inline-block; width:fit-content; }
+        .dash-wl-btn { display:inline-block; margin-top:6px; font-family:var(--fm); font-size:0.65rem; letter-spacing:1px; padding:7px 14px; border-radius:6px; border:1px solid rgba(245,200,66,.4); color:var(--gold); text-decoration:none; cursor:pointer; background:transparent; text-align:center; transition:background 0.2s,color 0.2s; }
+        .dash-wl-btn:hover { background:var(--gold); color:var(--bg); }
+
         /* ── CONTACT ── */
         .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; }
         .form-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:36px; }
@@ -872,8 +883,53 @@ const CONFIG = {
         <div class="dash-block sa d4" id="dash-whitelabel">
             <div class="dash-block-label">WHITE-LABEL TEMPLATES &amp; PROVEN BACKENDS</div>
             <div class="dash-block-body">
-                <!-- Filled in Stage 6 -->
-                <p class="dash-placeholder">Reusable backend systems and white-label setup go here.</p>
+                <p style="font-family:var(--fm);font-size:0.6rem;letter-spacing:2px;color:var(--gold);margin-bottom:12px;">PROVEN SYSTEMS · FASTER DEPLOYMENT</p>
+                <p class="dash-wl-intro">Every template below was extracted from a live BDG product — not designed in a vacuum. Deploy a proven backend under your brand in days, not months.</p>
+                <div class="dash-wl-grid">
+
+                    <div class="dash-wl-card">
+                        <div class="dash-wl-name">Intake + CRM Template</div>
+                        <div class="dash-wl-desc">Contact form → Supabase storage → AI-generated response → admin dashboard with status tracking. The exact system powering BDG today.</div>
+                        <span class="dash-wl-tag">SOURCE: BDG SITE</span>
+                        <a href="mailto:businessdatagurus@gmail.com?subject=White-Label%3A%20Intake%20CRM" class="dash-wl-btn">INQUIRE →</a>
+                    </div>
+
+                    <div class="dash-wl-card">
+                        <div class="dash-wl-name">Personal Nav Template</div>
+                        <div class="dash-wl-desc">Client intake, AI-built profile, monthly roadmap engine, and digest delivery. Deployable for coaching, case management, or community orgs.</div>
+                        <span class="dash-wl-tag">SOURCE: HUMAN IT™</span>
+                        <a href="mailto:businessdatagurus@gmail.com?subject=White-Label%3A%20Personal%20Nav" class="dash-wl-btn">INQUIRE →</a>
+                    </div>
+
+                    <div class="dash-wl-card">
+                        <div class="dash-wl-name">Multi-Platform Commerce</div>
+                        <div class="dash-wl-desc">Product catalog, cart logic, and multi-location inventory management. Built for food, retail, and specialty goods operations.</div>
+                        <span class="dash-wl-tag">SOURCE: GROCELY</span>
+                        <a href="mailto:businessdatagurus@gmail.com?subject=White-Label%3A%20Commerce" class="dash-wl-btn">INQUIRE →</a>
+                    </div>
+
+                    <div class="dash-wl-card">
+                        <div class="dash-wl-name">Club / Membership OS</div>
+                        <div class="dash-wl-desc">Member management, compliance tracking, event operations, and reporting. Adaptable for any regulated membership or club structure.</div>
+                        <span class="dash-wl-tag">SOURCE: PRODUCE OS</span>
+                        <a href="mailto:businessdatagurus@gmail.com?subject=White-Label%3A%20Membership%20OS" class="dash-wl-btn">INQUIRE →</a>
+                    </div>
+
+                    <div class="dash-wl-card">
+                        <div class="dash-wl-name">Energy Monitor Template</div>
+                        <div class="dash-wl-desc">Usage tracking, threshold alerts, and VPP data pipeline. Deployable for property managers, co-ops, or sustainability programs.</div>
+                        <span class="dash-wl-tag">SOURCE: ENERGYOS</span>
+                        <a href="mailto:businessdatagurus@gmail.com?subject=White-Label%3A%20Energy%20Monitor" class="dash-wl-btn">INQUIRE →</a>
+                    </div>
+
+                    <div class="dash-wl-card">
+                        <div class="dash-wl-name">Transit Safety Template</div>
+                        <div class="dash-wl-desc">Route tracking, family alert system, and student check-in infrastructure. Built for schools, after-school programs, and transit authorities.</div>
+                        <span class="dash-wl-tag">SOURCE: MERIDIAN TRANSIT</span>
+                        <a href="mailto:businessdatagurus@gmail.com?subject=White-Label%3A%20Transit%20Safety" class="dash-wl-btn">INQUIRE →</a>
+                    </div>
+
+                </div>
             </div>
         </div>
 
