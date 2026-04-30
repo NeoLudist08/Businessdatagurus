@@ -236,6 +236,16 @@
         .dash-site-btn { font-family:var(--fm); font-size:0.65rem; letter-spacing:1px; padding:6px 14px; border-radius:6px; border:1px solid var(--border); color:#fff; text-decoration:none; transition:border-color 0.2s,color 0.2s; }
         .dash-site-btn:hover { border-color:var(--teal); color:var(--teal); }
 
+        /* ── DASHBOARD · ADMIN ── */
+        .dash-admin-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; }
+        .dash-admin-tile { background:rgba(255,77,77,.04); border:1px solid rgba(255,77,77,.18); border-radius:12px; padding:22px; display:flex; flex-direction:column; gap:8px; transition:border-color 0.2s; }
+        .dash-admin-tile:hover { border-color:rgba(255,77,77,.4); }
+        .dash-admin-icon { font-size:1.3rem; }
+        .dash-admin-name { font-family:var(--fh); font-weight:700; font-size:0.95rem; }
+        .dash-admin-desc { font-size:0.8rem; color:var(--muted); line-height:1.55; flex:1; }
+        .dash-admin-btn { display:inline-block; margin-top:6px; font-family:var(--fm); font-size:0.65rem; letter-spacing:1px; padding:7px 14px; border-radius:6px; border:1px solid rgba(255,77,77,.4); color:var(--red); text-decoration:none; cursor:pointer; background:transparent; text-align:center; transition:background 0.2s,color 0.2s; }
+        .dash-admin-btn:hover { background:var(--red); color:#fff; }
+
         /* ── CONTACT ── */
         .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; }
         .form-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:36px; }
@@ -781,8 +791,38 @@ const CONFIG = {
         <div class="dash-block sa d2" id="dash-admin-login">
             <div class="dash-block-label">MANAGE SYSTEMS · ADMIN</div>
             <div class="dash-block-body">
-                <!-- Filled in Stage 4 -->
-                <p class="dash-placeholder">Admin access and system management go here.</p>
+                <p style="font-family:var(--fm);font-size:0.6rem;letter-spacing:2px;color:var(--red);margin-bottom:18px;">⚠ OWNER ACCESS ONLY</p>
+                <div class="dash-admin-grid">
+
+                    <div class="dash-admin-tile">
+                        <div class="dash-admin-icon">📋</div>
+                        <div class="dash-admin-name">BDG Intake Dashboard</div>
+                        <div class="dash-admin-desc">View and manage all client intakes, update statuses, and add notes. Password-gated.</div>
+                        <button class="dash-admin-btn" onclick="showPage('admin')">OPEN DASHBOARD →</button>
+                    </div>
+
+                    <div class="dash-admin-tile">
+                        <div class="dash-admin-icon">🗄️</div>
+                        <div class="dash-admin-name">Supabase Backend</div>
+                        <div class="dash-admin-desc">Database, auth, edge functions, and storage for all BDG and Human IT systems.</div>
+                        <a href="https://supabase.com/dashboard" target="_blank" class="dash-admin-btn">OPEN SUPABASE →</a>
+                    </div>
+
+                    <div class="dash-admin-tile">
+                        <div class="dash-admin-icon">📊</div>
+                        <div class="dash-admin-name">Analytics</div>
+                        <div class="dash-admin-desc">Google Analytics and Microsoft Clarity dashboards for traffic, heatmaps, and sessions.</div>
+                        <a href="https://analytics.google.com" target="_blank" class="dash-admin-btn">OPEN ANALYTICS →</a>
+                    </div>
+
+                    <div class="dash-admin-tile">
+                        <div class="dash-admin-icon">☁️</div>
+                        <div class="dash-admin-name">Netlify / Hosting</div>
+                        <div class="dash-admin-desc">Deploy logs, domain management, and build settings for live BDG properties.</div>
+                        <a href="https://app.netlify.com" target="_blank" class="dash-admin-btn">OPEN NETLIFY →</a>
+                    </div>
+
+                </div>
             </div>
         </div>
 
