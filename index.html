@@ -186,6 +186,12 @@
         .pc-btn.pri { background:var(--teal); color:var(--bg); border-color:var(--teal); font-weight:700; }
         .pc-btn.pri:hover { background:#00c9b3; }
 
+        .dashboard-shell .sec-head { margin-bottom:34px; }
+        .dashboard-shell .price-grid { gap:24px; margin-bottom:36px; }
+        .dashboard-shell .price-grid .pc-btn { max-width:220px; margin:18px auto 0; }
+        .dashboard-shell .svc-grid { margin-top:20px; }
+        .dashboard-shell .svc-grid .card { min-height:168px; }
+
         /* ── ALA CARTE ── */
         .ac-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; }
         .ac { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:18px; display:flex; justify-content:space-between; align-items:center; transition:border-color 0.2s; }
@@ -628,6 +634,138 @@ const CONFIG = {
         </div>
 
         <div class="divider"></div>
+
+        <div class="dashboard-shell sa">
+            <div class="sec-head sa">
+                <span class="sec-label">HUMAN IT · DASHBOARD</span>
+                <h2 class="sec-title">Live access, admin control, and reusable systems.</h2>
+                <p class="sec-sub">A central dashboard shell for live site monitoring, admin access, client sign-in, and white-label backend templates.</p>
+            </div>
+
+            <div class="sec-head sa" style="margin-top:24px;">
+                <span class="sec-label">LIVE SITES</span>
+                <h3 class="sec-title" style="font-size:1.4rem; margin-bottom:14px;">Active Human IT products in production</h3>
+            </div>
+            <div class="price-grid" style="margin-bottom:32px;">
+                <div class="pc sa d1">
+                    <div class="pc-name">Grocely</div>
+                    <div class="pc-tag">Multi-platform grocery management</div>
+                    <p class="prop-desc">Live consumer app for grocery planning, stock tracking, and household budgeting.</p>
+                    <div class="pc-over">Status: Live</div>
+                    <a href="#" class="pc-btn">Visit Site</a>
+                </div>
+                <div class="pc sa d2">
+                    <div class="pc-name">Human IT™</div>
+                    <div class="pc-tag">Personal life-navigation platform</div>
+                    <p class="prop-desc">Ongoing service hub for client intake, roadmap delivery, and human-centered guidance.</p>
+                    <div class="pc-over">Status: Active</div>
+                    <a href="#" class="pc-btn">Open Portal</a>
+                </div>
+                <div class="pc sa d3">
+                    <div class="pc-name">EnergyOS</div>
+                    <div class="pc-tag">Home energy monitoring system</div>
+                    <p class="prop-desc">Live smart energy insights, usage tracking, and utility-ready operations support.</p>
+                    <div class="pc-over">Status: Monitoring</div>
+                    <a href="#" class="pc-btn">View Dashboard</a>
+                </div>
+            </div>
+
+            <div class="sec-head sa" style="margin-top:32px;">
+                <span class="sec-label">ADMIN ACCESS</span>
+                <h3 class="sec-title" style="font-size:1.4rem; margin-bottom:14px;">BDG operations and system control</h3>
+            </div>
+            <div class="price-grid" style="margin-bottom:32px;">
+                <div class="pc sa d1">
+                    <div class="pc-name">Admin Dashboard</div>
+                    <div class="pc-tag">Central operations hub</div>
+                    <p class="prop-desc">Monitor system health, deployment status, and live product performance from one screen.</p>
+                    <div class="pc-over">For BDG team use</div>
+                    <a href="#" class="pc-btn">Open Admin</a>
+                </div>
+                <div class="pc sa d2">
+                    <div class="pc-name">Manage Systems</div>
+                    <div class="pc-tag">Core backend controls</div>
+                    <p class="prop-desc">Update workflows, service rules, and access settings for active Human IT products.</p>
+                    <div class="pc-over">Admin-only access</div>
+                    <a href="#" class="pc-btn">Manage Systems</a>
+                </div>
+            </div>
+
+            <div class="sec-head sa" style="margin-top:32px;">
+                <span class="sec-label">CLIENT ACCESS</span>
+                <h3 class="sec-title" style="font-size:1.4rem; margin-bottom:14px;">Customer portal and client sign-in</h3>
+            </div>
+            <div class="price-grid" style="margin-bottom:32px;">
+                <div class="pc sa d1">
+                    <div class="pc-name">Client Portal</div>
+                    <div class="pc-tag">Customer access hub</div>
+                    <p class="prop-desc">A dedicated client portal for Human IT customers to access documents, updates, and account details.</p>
+                    <div class="pc-over">Customer-facing</div>
+                    <a href="#" class="pc-btn">Client Login</a>
+                </div>
+                <div class="pc sa d2">
+                    <div class="pc-name">App Login</div>
+                    <div class="pc-tag">Mobile and web entry</div>
+                    <p class="prop-desc">Supports direct login for app-based experiences tied to your Human IT systems.</p>
+                    <div class="pc-over">App-ready</div>
+                    <a href="#" class="pc-btn">App Sign-In</a>
+                </div>
+                <div class="pc sa d3">
+                    <div class="pc-name">MASH Family / Student</div>
+                    <div class="pc-tag">Separate family/student access</div>
+                    <p class="prop-desc">Separate sign-in flow for family or student-focused access where relevant.</p>
+                    <div class="pc-over">Supportive access</div>
+                    <a href="#" class="pc-btn">Family Login</a>
+                </div>
+            </div>
+
+            <div class="sec-head sa" style="margin-top:32px;">
+                <span class="sec-label">WHITE-LABEL SYSTEMS</span>
+                <h3 class="sec-title" style="font-size:1.4rem; margin-bottom:14px;">Proven backend templates for faster builds</h3>
+            </div>
+            <div class="price-grid" style="margin-bottom:32px;">
+                <div class="pc sa d1">
+                    <div class="pc-name">Reusable Backend Templates</div>
+                    <div class="pc-tag">Turnkey foundation</div>
+                    <p class="prop-desc">Pre-built backend structures that cut launch time and reduce custom dev work.</p>
+                    <div class="pc-over">Reusable systems</div>
+                    <a href="#" class="pc-btn">View Templates</a>
+                </div>
+                <div class="pc sa d2">
+                    <div class="pc-name">Active Backend Foundations</div>
+                    <div class="pc-tag">Production-ready</div>
+                    <p class="prop-desc">Live systems already powering products, ready to be cloned and rebranded.</p>
+                    <div class="pc-over">Deployment ready</div>
+                    <a href="#" class="pc-btn">See Foundations</a>
+                </div>
+                <div class="pc sa d3">
+                    <div class="pc-name">White-Label Setup</div>
+                    <div class="pc-tag">Fast, consistent launch</div>
+                    <p class="prop-desc">Brand-safe backend setup using proven templates and consistent workflows.</p>
+                    <div class="pc-over">Faster deployment</div>
+                    <a href="#" class="pc-btn">Launch Faster</a>
+                </div>
+            </div>
+
+            <div class="svc-grid">
+                <div class="card sa d1">
+                    <div class="pc-name">Active Live Sites</div>
+                    <p class="prop-desc">Track current Human IT deployments, live products, and active customer-facing sites.</p>
+                </div>
+                <div class="card sa d2">
+                    <div class="pc-name">Admin Login</div>
+                    <p class="prop-desc">Secure backend access for BDG operations, system maintenance, backend templates, and white-label builder tools.</p>
+                </div>
+                <div class="card sa d3">
+                    <div class="pc-name">Client / Customer Sign-In</div>
+                    <p class="prop-desc">Separate portal entry for customers, clients, and student access flows.</p>
+                </div>
+                <div class="card sa d4">
+                    <div class="pc-name">White-Label Templates</div>
+                    <p class="prop-desc">Proven backend templates for faster launch and consistent brand-ready systems.</p>
+                </div>
+            </div>
+        </div>
 
         <div class="sec-head sa">
             <span class="sec-label">HUMAN IT · À LA CARTE</span>
