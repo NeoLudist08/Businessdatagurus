@@ -246,6 +246,16 @@
         .dash-admin-btn { display:inline-block; margin-top:6px; font-family:var(--fm); font-size:0.65rem; letter-spacing:1px; padding:7px 14px; border-radius:6px; border:1px solid rgba(255,77,77,.4); color:var(--red); text-decoration:none; cursor:pointer; background:transparent; text-align:center; transition:background 0.2s,color 0.2s; }
         .dash-admin-btn:hover { background:var(--red); color:#fff; }
 
+        /* ── DASHBOARD · CLIENT LOGIN ── */
+        .dash-client-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; }
+        .dash-client-tile { background:rgba(168,85,247,.04); border:1px solid rgba(168,85,247,.18); border-radius:12px; padding:22px; display:flex; flex-direction:column; gap:8px; transition:border-color 0.2s; }
+        .dash-client-tile:hover { border-color:rgba(168,85,247,.4); }
+        .dash-client-icon { font-size:1.3rem; }
+        .dash-client-name { font-family:var(--fh); font-weight:700; font-size:0.95rem; }
+        .dash-client-desc { font-size:0.8rem; color:var(--muted); line-height:1.55; flex:1; }
+        .dash-client-btn { display:inline-block; margin-top:6px; font-family:var(--fm); font-size:0.65rem; letter-spacing:1px; padding:7px 14px; border-radius:6px; border:1px solid rgba(168,85,247,.4); color:var(--purple); text-decoration:none; cursor:pointer; background:transparent; text-align:center; transition:background 0.2s,color 0.2s; }
+        .dash-client-btn:hover { background:var(--purple); color:#fff; }
+
         /* ── CONTACT ── */
         .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; }
         .form-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:36px; }
@@ -830,8 +840,31 @@ const CONFIG = {
         <div class="dash-block sa d3" id="dash-client-login">
             <div class="dash-block-label">CLIENT &amp; CUSTOMER SIGN-IN</div>
             <div class="dash-block-body">
-                <!-- Filled in Stage 5 -->
-                <p class="dash-placeholder">Client portal and app login go here.</p>
+                <p style="font-family:var(--fm);font-size:0.6rem;letter-spacing:2px;color:var(--purple);margin-bottom:18px;">CLIENT ACCESS</p>
+                <div class="dash-client-grid">
+
+                    <div class="dash-client-tile">
+                        <div class="dash-client-icon">🏢</div>
+                        <div class="dash-client-name">BDG Client Portal</div>
+                        <div class="dash-client-desc">Active retainer clients — submit requests, review deliverables, and reach Jaret directly.</div>
+                        <a href="mailto:businessdatagurus@gmail.com?subject=Client%20Portal%20Request" class="dash-client-btn">CONTACT YOUR REP →</a>
+                    </div>
+
+                    <div class="dash-client-tile">
+                        <div class="dash-client-icon">🧬</div>
+                        <div class="dash-client-name">Human IT™ App</div>
+                        <div class="dash-client-desc">Human IT subscribers — access your roadmap, guides, and intake history.</div>
+                        <a href="#" class="dash-client-btn">SIGN IN →</a>
+                    </div>
+
+                    <div class="dash-client-tile">
+                        <div class="dash-client-icon">🚌</div>
+                        <div class="dash-client-name">MASH Family &amp; Student Login</div>
+                        <div class="dash-client-desc">Meridian Transit — families and students access transit tracking and safety alerts here.</div>
+                        <a href="#" class="dash-client-btn">SIGN IN →</a>
+                    </div>
+
+                </div>
             </div>
         </div>
 
