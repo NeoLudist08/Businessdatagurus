@@ -215,6 +215,12 @@
         .phil-q { font-family:var(--fh); font-size:1.3rem; font-weight:700; line-height:1.5; margin-bottom:14px; }
         .phil-q em { color:var(--teal); font-style:normal; }
 
+        /* ── DASHBOARD ── */
+        .dash-block { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:32px; margin-bottom:24px; }
+        .dash-block-label { font-family:var(--fm); font-size:0.65rem; letter-spacing:3px; color:var(--teal); margin-bottom:18px; }
+        .dash-block-body { min-height:60px; }
+        .dash-placeholder { font-size:0.82rem; color:var(--muted); font-style:italic; }
+
         /* ── CONTACT ── */
         .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; }
         .form-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:36px; }
@@ -326,6 +332,7 @@ const CONFIG = {
             <li><a onclick="showPage('home')">HOME</a></li>
             <li><a onclick="showPage('services')">SERVICES</a></li>
             <li><a onclick="showPage('humanit')">HUMAN IT</a></li>
+            <li><a onclick="showPage('dashboard')">DASHBOARD</a></li>
             <li><a onclick="showPage('about')">ABOUT</a></li>
             <li><a onclick="showPage('contact')">CONTACT</a></li>
         </ul>
@@ -654,6 +661,55 @@ const CONFIG = {
 </div>
 
 
+<!-- ═══ DASHBOARD ═══ -->
+<div class="page" id="dashboard">
+    <div class="container">
+        <div class="sec-head sa">
+            <span class="sec-label">BDG · DASHBOARD</span>
+            <h2 class="sec-title">Your Access Hub</h2>
+            <p class="sec-sub">Live sites, admin systems, client portals, and white-label foundations — all in one place.</p>
+        </div>
+
+        <!-- Block 1: Active Live Sites -->
+        <div class="dash-block sa d1" id="dash-live-sites">
+            <div class="dash-block-label">ACTIVE LIVE SITES</div>
+            <div class="dash-block-body">
+                <!-- Filled in Stage 3 -->
+                <p class="dash-placeholder">Live product cards go here.</p>
+            </div>
+        </div>
+
+        <!-- Block 2: Admin Login -->
+        <div class="dash-block sa d2" id="dash-admin-login">
+            <div class="dash-block-label">MANAGE SYSTEMS · ADMIN</div>
+            <div class="dash-block-body">
+                <!-- Filled in Stage 4 -->
+                <p class="dash-placeholder">Admin access and system management go here.</p>
+            </div>
+        </div>
+
+        <!-- Block 3: Client / Customer Sign-In -->
+        <div class="dash-block sa d3" id="dash-client-login">
+            <div class="dash-block-label">CLIENT &amp; CUSTOMER SIGN-IN</div>
+            <div class="dash-block-body">
+                <!-- Filled in Stage 5 -->
+                <p class="dash-placeholder">Client portal and app login go here.</p>
+            </div>
+        </div>
+
+        <!-- Block 4: White-Label Templates -->
+        <div class="dash-block sa d4" id="dash-whitelabel">
+            <div class="dash-block-label">WHITE-LABEL TEMPLATES &amp; PROVEN BACKENDS</div>
+            <div class="dash-block-body">
+                <!-- Filled in Stage 6 -->
+                <p class="dash-placeholder">Reusable backend systems and white-label setup go here.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
 <!-- ═══ ABOUT ═══ -->
 <div class="page" id="about">
     <div class="container">
@@ -900,6 +956,7 @@ const CONFIG = {
         <a onclick="showPage('home')">Home</a> &nbsp;·&nbsp;
         <a onclick="showPage('services')">Services</a> &nbsp;·&nbsp;
         <a onclick="showPage('humanit')">Human IT</a> &nbsp;·&nbsp;
+        <a onclick="showPage('dashboard')">Dashboard</a> &nbsp;·&nbsp;
         <a onclick="showPage('about')">About</a> &nbsp;·&nbsp;
         <a onclick="showPage('contact')">Contact</a>
     </p>
