@@ -332,6 +332,7 @@ const CONFIG = {
             <li><a onclick="showPage('home')">HOME</a></li>
             <li><a onclick="showPage('services')">SERVICES</a></li>
             <li><a onclick="showPage('humanit')">HUMAN IT</a></li>
+            <li><a onclick="showPage('dashboard')">DASHBOARD</a></li>
             <li><a onclick="showPage('about')">ABOUT</a></li>
             <li><a onclick="showPage('contact')">CONTACT</a></li>
         </ul>
@@ -787,6 +788,144 @@ const CONFIG = {
             <p style="color:var(--muted);font-size:0.87rem;line-height:1.7;max-width:580px;">
                 Most AI is trained on the internet. Human IT feeds something different — a real-world, ground-level map of how people navigate life. Every client who comes through helps build smarter tools for the next one.
             </p>
+        </div>
+    </div>
+</div>
+
+
+<!-- ═══ HUMAN IT DASHBOARD ═══ -->
+<div class="page" id="dashboard">
+    <div class="container">
+        <div class="sec-head sa">
+            <span class="sec-label">HUMAN IT · DASHBOARD</span>
+            <h2 class="sec-title">Human IT Systems Dashboard</h2>
+            <p class="sec-sub">Use this dashboard to navigate live systems, admin tools, customer access, and reusable white-label foundations.</p>
+        </div>
+
+        <div class="card sa d1" style="margin-bottom:20px;">
+            <h3 style="font-family:var(--fh);font-size:1.2rem;font-weight:700;margin-bottom:10px;">Active Live Sites</h3>
+            <p style="color:var(--muted);font-size:0.95rem;margin-bottom:16px;">Live products and platforms currently active in BDG/Human IT operations.</p>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;">
+                <div style="border:1px solid var(--border);border-radius:12px;padding:14px;background:rgba(255,255,255,0.02);">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                        <strong style="font-family:var(--fh);font-size:0.98rem;">Human IT</strong>
+                        <span class="badge t">LIVE</span>
+                    </div>
+                    <p style="color:var(--muted);font-size:0.82rem;line-height:1.6;margin-bottom:10px;">Personal navigation platform for resumes, roadmaps, and guided support.</p>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+                        <span class="badge">MASH</span><span class="badge">Portal</span>
+                    </div>
+                    <a class="btn outline" style="padding:8px 14px;font-size:0.62rem;" onclick="showPage('humanit')">OPEN</a>
+                </div>
+
+                <div style="border:1px solid var(--border);border-radius:12px;padding:14px;background:rgba(255,255,255,0.02);">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                        <strong style="font-family:var(--fh);font-size:0.98rem;">Intake System</strong>
+                        <span class="badge g">ACTIVE</span>
+                    </div>
+                    <p style="color:var(--muted);font-size:0.82rem;line-height:1.6;margin-bottom:10px;">Website intake flow and AI response handoff for BDG + Human IT leads.</p>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+                        <span class="badge">Lead Ops</span><span class="badge">AI Intake</span>
+                    </div>
+                    <a class="btn outline" style="padding:8px 14px;font-size:0.62rem;" onclick="showPage('contact')">OPEN</a>
+                </div>
+
+                <div style="border:1px solid var(--border);border-radius:12px;padding:14px;background:rgba(255,255,255,0.02);">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                        <strong style="font-family:var(--fh);font-size:0.98rem;">Admin Dashboard</strong>
+                        <span class="badge r">INTERNAL</span>
+                    </div>
+                    <p style="color:var(--muted);font-size:0.82rem;line-height:1.6;margin-bottom:10px;">Operations console for intake triage, status tracking, and follow-up notes.</p>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+                        <span class="badge">Ops</span><span class="badge">Admin</span>
+                    </div>
+                    <a class="btn outline" style="padding:8px 14px;font-size:0.62rem;" onclick="showPage('admin')">OPEN</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card sa d2" style="margin-bottom:20px;">
+            <h3 style="font-family:var(--fh);font-size:1.2rem;font-weight:700;margin-bottom:10px;">Admin Login / Manage Systems</h3>
+            <p style="color:var(--muted);font-size:0.95rem;margin-bottom:14px;">Internal-only controls for BDG operations. This area is not customer-facing.</p>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;">
+                <div style="border:1px solid var(--border);border-radius:12px;padding:12px;background:rgba(255,255,255,0.02);">
+                    <div style="font-family:var(--fh);font-size:0.92rem;margin-bottom:8px;">Admin Dashboard</div>
+                    <p style="color:var(--muted);font-size:0.8rem;line-height:1.6;margin-bottom:8px;">Access intake ops, status updates, and internal admin controls.</p>
+                    <a class="btn outline" style="padding:8px 14px;font-size:0.62rem;" onclick="showPage('admin')">OPEN ADMIN</a>
+                </div>
+
+                <div style="border:1px solid var(--border);border-radius:12px;padding:12px;background:rgba(255,255,255,0.02);">
+                    <div style="font-family:var(--fh);font-size:0.92rem;margin-bottom:8px;">Manage Systems</div>
+                    <p style="color:var(--muted);font-size:0.8rem;line-height:1.6;margin-bottom:8px;">Control live systems, monitor status, and coordinate internal operations.</p>
+                    <a class="btn outline" style="padding:8px 14px;font-size:0.62rem;" onclick="showPage('dashboard')">OPEN SYSTEMS</a>
+                </div>
+
+                <div style="border:1px solid var(--border);border-radius:12px;padding:12px;background:rgba(255,255,255,0.02);">
+                    <div style="font-family:var(--fh);font-size:0.92rem;margin-bottom:8px;">Backend Templates</div>
+                    <p style="color:var(--muted);font-size:0.8rem;line-height:1.6;margin-bottom:8px;">Maintain reusable backend setups and internal implementation standards.</p>
+                    <a class="btn outline" style="padding:8px 14px;font-size:0.62rem;" onclick="showPage('dashboard')">VIEW TEMPLATES</a>
+                </div>
+
+                <div style="border:1px solid var(--border);border-radius:12px;padding:12px;background:rgba(255,255,255,0.02);">
+                    <div style="font-family:var(--fh);font-size:0.92rem;margin-bottom:8px;">White-Label Builder</div>
+                    <p style="color:var(--muted);font-size:0.8rem;line-height:1.6;margin-bottom:8px;">Create and configure branded deployments from proven backend foundations.</p>
+                    <a class="btn outline" style="padding:8px 14px;font-size:0.62rem;" onclick="showPage('dashboard')">OPEN BUILDER</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card sa d3" style="margin-bottom:20px;">
+            <h3 style="font-family:var(--fh);font-size:1.2rem;font-weight:700;margin-bottom:10px;">Client / Customer Sign-In</h3>
+            <p style="color:var(--muted);font-size:0.95rem;margin-bottom:14px;">Customer-facing access only. Separate from internal admin controls.</p>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;">
+                <div style="border:1px solid var(--border);border-radius:12px;padding:12px;background:rgba(255,255,255,0.02);">
+                    <div style="font-family:var(--fh);font-size:0.92rem;margin-bottom:8px;">Client Portal</div>
+                    <p style="color:var(--muted);font-size:0.8rem;line-height:1.6;margin-bottom:8px;">Client project workspace, updates, files, and support communication.</p>
+                    <a class="btn outline" style="padding:8px 14px;font-size:0.62rem;" onclick="showPage('contact')">CLIENT ACCESS</a>
+                </div>
+
+                <div style="border:1px solid var(--border);border-radius:12px;padding:12px;background:rgba(255,255,255,0.02);">
+                    <div style="font-family:var(--fh);font-size:0.92rem;margin-bottom:8px;">App Login</div>
+                    <p style="color:var(--muted);font-size:0.8rem;line-height:1.6;margin-bottom:8px;">Application sign-in for customers using active BDG/Human IT products.</p>
+                    <a class="btn outline" style="padding:8px 14px;font-size:0.62rem;" onclick="showPage('humanit')">APP SIGN-IN</a>
+                </div>
+
+                <div style="border:1px solid var(--border);border-radius:12px;padding:12px;background:rgba(255,255,255,0.02);">
+                    <div style="font-family:var(--fh);font-size:0.92rem;margin-bottom:8px;">MASH Family / Student Login</div>
+                    <p style="color:var(--muted);font-size:0.8rem;line-height:1.6;margin-bottom:8px;">Access point for family/student users where MASH-linked login is applicable.</p>
+                    <a class="btn outline" style="padding:8px 14px;font-size:0.62rem;" onclick="showPage('humanit')">MASH LOGIN</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card sa d4">
+            <h3 style="font-family:var(--fh);font-size:1.2rem;font-weight:700;margin-bottom:10px;">White-Label Templates / Proven Backend Systems</h3>
+            <p style="color:var(--muted);font-size:0.95rem;margin-bottom:14px;">Reusable backend templates built from active production systems to accelerate launch timelines and reduce implementation risk.</p>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;">
+                <div style="border:1px solid var(--border);border-radius:12px;padding:12px;background:rgba(255,255,255,0.02);">
+                    <div style="font-family:var(--fh);font-size:0.92rem;margin-bottom:8px;">Reusable Backend Templates</div>
+                    <p style="color:var(--muted);font-size:0.8rem;line-height:1.6;">Standardized data models, auth patterns, and admin workflows ready for white-label adaptation.</p>
+                </div>
+
+                <div style="border:1px solid var(--border);border-radius:12px;padding:12px;background:rgba(255,255,255,0.02);">
+                    <div style="font-family:var(--fh);font-size:0.92rem;margin-bottom:8px;">Active Backend Foundations</div>
+                    <p style="color:var(--muted);font-size:0.8rem;line-height:1.6;">Frameworks proven across live BDG systems, maintained for stability and fast onboarding.</p>
+                </div>
+
+                <div style="border:1px solid var(--border);border-radius:12px;padding:12px;background:rgba(255,255,255,0.02);">
+                    <div style="font-family:var(--fh);font-size:0.92rem;margin-bottom:8px;">Faster Deployment</div>
+                    <p style="color:var(--muted);font-size:0.8rem;line-height:1.6;">Deploy from proven baselines instead of rebuilding from scratch, reducing time-to-launch.</p>
+                </div>
+
+                <div style="border:1px solid var(--border);border-radius:12px;padding:12px;background:rgba(255,255,255,0.02);">
+                    <div style="font-family:var(--fh);font-size:0.92rem;margin-bottom:8px;">White-Label Setup</div>
+                    <p style="color:var(--muted);font-size:0.8rem;line-height:1.6;">Brand-ready implementation from validated systems, configured to each client environment.</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
