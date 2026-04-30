@@ -1,12 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Business Data Gurus - Where creative business thinking meets technical excellence. From AI rescue to complete digital transformation. Home of Clean Sweep security tool.">
-    <meta name="keywords" content="business data, AI development, full-stack development, digital transformation, business intelligence, clean sweep, cybersecurity, device setup">
-    <title>Business Data Gurus - Business Made Smart | Clean Sweep Security</title>
-    
     <meta name="description" content="Business Data Gurus — Zero overhead. Full attention. DC-based GovTech and small business infrastructure. Home of Human IT™.">
     <title>Business Data Gurus | Build Smart. Stay Human.</title>
 
@@ -17,19 +14,8 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'UA-494117515-1');
-        
-        // Track button clicks
-        function trackConversion(eventName, packageType) {
-            gtag('event', 'conversion', {
-                'event_category': 'engagement',
-                'event_label': packageType,
-                'value': eventName
-            });
-        }
         function trackConversion(e, p) { gtag('event','conversion',{'event_category':'engagement','event_label':p,'value':e}); }
     </script>
-    
-    <!-- Microsoft Clarity for heatmaps -->
 
     <!-- Microsoft Clarity -->
     <script type="text/javascript">
@@ -39,7 +25,6 @@
             y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
         })(window, document, "clarity", "script", "s2rctzchym");
     </script>
-    
 
     <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -49,10 +34,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
         /* ── CONFIG YOUR BRAND ONCE ── */
         :root {
             --bg:     #080b1a;
@@ -68,68 +49,22 @@
             --fm: 'Space Mono', monospace;
             --fb: 'Inter', sans-serif;
         }
-        
 
         * { margin:0; padding:0; box-sizing:border-box; }
         html { scroll-behavior:smooth; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0a0e27;
             font-family: var(--fb);
             background: var(--bg);
             color: #fff;
             overflow-x: hidden;
-            position: relative;
         }
-        
-        /* Animated Background */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(125deg, #0a0e27 0%, #1a1f3a 25%, #0d1929 50%, #1a0f2a 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-        }
-        
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        /* Floating Particles */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        .particle {
-            position: absolute;
-            background: radial-gradient(circle, rgba(255,107,107,0.3) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 20s infinite;
 
         /* ── PARTICLES CANVAS ── */
         #particle-canvas {
             position: fixed; inset: 0;
             pointer-events: none; z-index: 0;
         }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(100vh) translateX(0); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
 
         /* ── BG GRADIENT ── */
         .bg-layer {
@@ -140,698 +75,13 @@
                 radial-gradient(ellipse 50% 40% at 50% 50%, rgba(168,85,247,0.05) 0%, transparent 60%),
                 var(--bg);
         }
-        
-        /* Navigation */
 
         /* ── NAV ── */
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 50px;
-            background: rgba(10, 14, 39, 0.8);
             position: fixed; top:0; width:100%;
             padding: 16px 50px;
             background: rgba(8,11,26,0.88);
             backdrop-filter: blur(20px);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-        
-        nav.scrolled {
-            padding: 15px 50px;
-            background: rgba(10, 14, 39, 0.95);
-        }
-        
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-        }
-        
-        .logo svg {
-            width: 40px;
-            height: 40px;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-        
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            transition: color 0.3s ease;
-            position: relative;
-            cursor: pointer;
-        }
-        
-        .nav-links a:hover {
-            color: #ff6b6b;
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #ff6b6b;
-            transition: width 0.3s ease;
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        /* Urgency banner */
-        .urgency-banner {
-            position: fixed;
-            top: 70px;
-            left: 0;
-            right: 0;
-            background: linear-gradient(45deg, #ff6b6b, #ff5252);
-            color: white;
-            text-align: center;
-            padding: 10px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            z-index: 999;
-            transform: translateY(-100%);
-            transition: transform 0.3s ease;
-        }
-        
-        .urgency-banner.show {
-            transform: translateY(0);
-        }
-        
-        .urgency-banner .close-btn {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-        }
-        
-        /* Testimonial cards */
-        .testimonial {
-            background: rgba(255, 255, 255, 0.03);
-            border-left: 3px solid #4ecdc4;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 0 10px 10px 0;
-            font-style: italic;
-        }
-        
-        .testimonial-author {
-            font-weight: bold;
-            color: #4ecdc4;
-            margin-top: 10px;
-            font-style: normal;
-        }
-        
-        /* Floating CTA */
-        .floating-cta {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: linear-gradient(45deg, #ff6b6b, #ff5252);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
-            z-index: 1000;
-            transform: scale(0);
-            transition: transform 0.3s ease;
-        }
-        
-        .floating-cta.show {
-            transform: scale(1);
-        }
-        
-        .floating-cta:hover {
-            transform: scale(1.05);
-        }
-        
-        /* Value proposition highlights */
-        .value-highlight {
-            display: inline-block;
-            background: rgba(255, 215, 0, 0.2);
-            color: #ffd700;
-            padding: 4px 8px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            margin-left: 10px;
-        }
-        
-        /* Pages */
-        .page {
-            min-height: 100vh;
-            padding: 120px 50px 80px;
-            position: relative;
-            display: none;
-        }
-        
-        .page.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        /* ============================================
-           APPLE-STYLE SCROLL ANIMATIONS - NEW SECTION
-           ============================================ */
-        
-        /* Fade in from bottom animation class */
-        .scroll-fade-in {
-            opacity: 0;
-            transform: translateY(60px);
-            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
-                        transform 1s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .scroll-fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Slide in from left */
-        .scroll-slide-left {
-            opacity: 0;
-            transform: translateX(-80px);
-            transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1),
-                        transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .scroll-slide-left.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        /* Slide in from right */
-        .scroll-slide-right {
-            opacity: 0;
-            transform: translateX(80px);
-            transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1),
-                        transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .scroll-slide-right.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        /* Scale up animation */
-        .scroll-scale {
-            opacity: 0;
-            transform: scale(0.85);
-            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
-                        transform 1s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .scroll-scale.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-        
-        /* Staggered delays for multiple items */
-        .scroll-delay-1 { transition-delay: 0.1s; }
-        .scroll-delay-2 { transition-delay: 0.2s; }
-        .scroll-delay-3 { transition-delay: 0.3s; }
-        .scroll-delay-4 { transition-delay: 0.4s; }
-        .scroll-delay-5 { transition-delay: 0.5s; }
-        .scroll-delay-6 { transition-delay: 0.6s; }
-        
-        /* Parallax container */
-        .parallax-section {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* ============================================
-           END APPLE-STYLE ANIMATIONS
-           ============================================ */
-        
-        /* Hero Section */
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.1;
-            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><defs><pattern id="circuit" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="%23ff6b6b"/><circle cx="90" cy="90" r="2" fill="%234ecdc4"/><line x1="10" y1="10" x2="90" y2="10" stroke="%23ff6b6b" stroke-width="0.5" opacity="0.5"/><line x1="10" y1="10" x2="10" y2="90" stroke="%234ecdc4" stroke-width="0.5" opacity="0.5"/></pattern></defs><rect width="800" height="600" fill="url(%23circuit)"/></svg>');
-            animation: slide 20s linear infinite;
-        }
-        
-        @keyframes slide {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(100px); }
-        }
-        
-        .logo-container {
-            margin-bottom: 40px;
-            animation: fadeInUp 1s ease;
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .brain-logo {
-            display: inline-block;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
-            animation: pulse 3s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        h1 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 10px;
-            font-weight: 900;
-            letter-spacing: 2px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #ff6b6b);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientText 3s ease infinite;
-        }
-        
-        @keyframes gradientText {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        .tagline {
-            font-size: 1.2rem;
-            color: #fff;
-            letter-spacing: 4px;
-            font-weight: 300;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-        
-        .sub-tagline {
-            font-size: 1.5rem;
-            color: #a8b2d1;
-            margin-bottom: 30px;
-            font-weight: 300;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(45deg, #ff6b6b, #ff5252);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
-            cursor: pointer;
-            border: none;
-            font-size: 16px;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.5);
-        }
-        
-        /* Glass Cards */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 107, 107, 0.1) 0%, transparent 70%);
-            animation: rotate 30s linear infinite;
-        }
-        
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .glass-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 107, 107, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        .package-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .package-name {
-            font-size: 1.8rem;
-            color: #ff6b6b;
-        }
-        
-        .package-price {
-            font-size: 1.5rem;
-            color: #4ecdc4;
-            opacity: 0;
-            transform: translateX(20px);
-            transition: all 0.3s ease;
-        }
-        
-        .package-price.show {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .package-tagline {
-            color: #a8b2d1;
-            font-style: italic;
-            margin-bottom: 20px;
-        }
-        
-        .features-list {
-            list-style: none;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease;
-        }
-        
-        .features-list.expanded {
-            max-height: 500px;
-        }
-        
-        .features-list li {
-            padding: 10px 0;
-            padding-left: 30px;
-            position: relative;
-        }
-        
-        .features-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #4ecdc4;
-            font-weight: bold;
-        }
-        
-        .click-reveal {
-            text-align: center;
-            color: #ff6b6b;
-            font-size: 0.9rem;
-            margin-top: 10px;
-            opacity: 0.7;
-        }
-        
-        /* Hourly Rate Card */
-        .hourly-card {
-            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
-            text-align: center;
-            padding: 60px;
-        }
-        
-        .hourly-rate {
-            font-size: 3rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-        }
-        
-        /* Clean Sweep Section */
-        .clean-sweep-section {
-            margin-top: 60px;
-        }
-        
-        .section-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .section-header h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #4ecdc4, #00d2d3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .clean-sweep-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .clean-sweep-tier {
-            background: rgba(78, 205, 196, 0.05);
-            border: 1px solid rgba(78, 205, 196, 0.2);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .clean-sweep-tier:hover {
-            transform: translateY(-5px);
-            border-color: rgba(78, 205, 196, 0.4);
-            box-shadow: 0 10px 30px rgba(78, 205, 196, 0.2);
-        }
-        
-        .tier-price {
-            font-size: 2rem;
-            color: #4ecdc4;
-            margin: 10px 0 20px;
-        }
-        
-        .crypto-wallet {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            margin-top: 30px;
-        }
-        
-        .crypto-wallet input {
-            width: 100%;
-            max-width: 500px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            color: white;
-            font-size: 14px;
-            margin-top: 15px;
-        }
-        
-        /* Contact Form */
-        .contact-form {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .form-group {
-            margin-bottom: 25px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            color: #a8b2d1;
-        }
-        
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            color: white;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-        
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #ff6b6b;
-            background: rgba(255, 255, 255, 0.08);
-        }
-        
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-        
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(45deg, #ff6b6b, #ff5252);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
-        }
-        
-        /* Bridge Points */
-        .bridge-point {
-            background: rgba(78, 205, 196, 0.1);
-            border-left: 3px solid #4ecdc4;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 0 10px 10px 0;
-        }
-        
-        .bridge-point strong {
-            color: #4ecdc4;
-        }
-        
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            nav {
-                padding: 15px 20px;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .page {
-                padding: 100px 20px 60px;
-            }
-            
-            .glass-card {
-                padding: 25px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .hourly-card {
-                padding: 40px 20px;
-            }
-            
-            .urgency-banner {
-                top: 50px;
-                font-size: 0.8rem;
-                padding: 8px;
-            }
-            
-            .floating-cta {
-                bottom: 10px;
-                right: 10px;
-                padding: 12px 20px;
-                font-size: 0.9rem;
-            }
-            
-            .value-highlight {
-                display: block;
-                margin: 5px 0;
-                text-align: center;
-            }
-        }
-        
-        /* Print styles */
-        @media print {
-            .urgency-banner,
-            .floating-cta,
-            .particles,
-            nav {
-                display: none !important;
-            }
             border-bottom: 1px solid var(--border);
             z-index: 1000; transition: padding 0.3s;
         }
@@ -1039,15 +289,7 @@
         }
     </style>
 </head>
-
 <body>
-    <div class="bg-animation"></div>
-    <div class="particles" id="particles"></div>
-    
-    <!-- Urgency Banner -->
-    <div class="urgency-banner" id="urgencyBanner">
-        🚀 Limited Time: First 3 months of Clean Sweep Pro at Essential pricing for new enterprise customers!
-        <button class="close-btn" onclick="closeUrgencyBanner()">&times;</button>
 
 <!-- ══════════════════════════════════════
      ⚙️  CONFIG — FILL THESE IN
@@ -1089,23 +331,6 @@ const CONFIG = {
         </ul>
         <a class="nav-cta" onclick="showPage('contact')">START NOW</a>
     </div>
-    
-    <!-- Floating CTA -->
-    <a href="mailto:businessdatagurus@gmail.com?subject=Free%20Enterprise%20Assessment&body=I%27d%20like%20to%20schedule%20a%20free%20assessment%20for%20my%20organization." 
-       class="floating-cta" id="floatingCta" onclick="trackConversion('floating_cta', 'free_assessment');">
-        Get Free Assessment 🎯
-    </a>
-    
-    <nav id="navbar">
-        <div class="nav-container">
-            <div class="logo" onclick="showPage('home')">
-                <svg width="40" height="40" viewBox="0 0 200 200">
-                    <!-- Simplified brain logo for navbar -->
-                    <path d="M100 40 C70 40, 40 70, 40 100 C40 130, 50 150, 60 160 L60 160 C65 165, 70 168, 75 170 L75 140 C70 138, 65 135, 60 130 C55 125, 52 115, 52 100 C52 85, 55 75, 60 70 C65 65, 75 62, 80 62 L80 50 C80 45, 85 40, 90 40 L100 40 Z" fill="#ff6b6b" />
-                    <path d="M100 40 C130 40, 160 70, 160 100 C160 130, 150 150, 140 160 L140 160 C135 165, 130 168, 125 170 L125 140 C130 138, 135 135, 140 130 C145 125, 148 115, 148 100 C148 85, 145 75, 140 70 C135 65, 125 62, 120 62 L120 50 C120 45, 115 40, 110 40 L100 40 Z" fill="#4ecdc4" />
-                    <line x1="100" y1="40" x2="100" y2="170" stroke="#333" stroke-width="2" />
-                </svg>
-                Business Data Gurus
 </nav>
 
 
@@ -1134,48 +359,6 @@ const CONFIG = {
                 <span class="badge r">SUPABASE + LOVABLE</span>
                 <span class="badge g">ZERO OVERHEAD</span>
             </div>
-            <ul class="nav-links">
-                <li><a onclick="showPage('home')">Home</a></li>
-                <li><a onclick="showPage('packages')">Services</a></li>
-                <li><a onclick="showPage('about')">About</a></li>
-                <li><a onclick="showPage('contact')">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Home Page -->
-    <div class="page active" id="home">
-        <section class="hero">
-            <div class="hero-bg"></div>
-            <div class="container">
-                <div class="logo-container">
-                    <div class="brain-logo">
-                        <svg width="200" height="200" viewBox="0 0 200 200">
-                            <!-- Left Brain Half - Business/Creative -->
-                            <path d="M100 40 C70 40, 40 70, 40 100 C40 130, 50 150, 60 160 L60 160 C65 165, 70 168, 75 170 L75 140 C70 138, 65 135, 60 130 C55 125, 52 115, 52 100 C52 85, 55 75, 60 70 C65 65, 75 62, 80 62 L80 50 C80 45, 85 40, 90 40 L100 40 Z" fill="url(#leftGradient)" stroke="#333" stroke-width="2" />
-                            <path d="M60 100 C60 90, 65 85, 70 85 C75 85, 80 90, 80 95 M65 120 C65 115, 70 110, 75 110 C80 110, 85 115, 85 120 M70 140 C70 135, 75 132, 80 132 C85 132, 90 135, 90 140" stroke="#333" stroke-width="2" fill="none" />
-                            <!-- Right Brain Half - Tech/Data -->
-                            <path d="M100 40 C130 40, 160 70, 160 100 C160 130, 150 150, 140 160 L140 160 C135 165, 130 168, 125 170 L125 140 C130 138, 135 135, 140 130 C145 125, 148 115, 148 100 C148 85, 145 75, 140 70 C135 65, 125 62, 120 62 L120 50 C120 45, 115 40, 110 40 L100 40 Z" fill="url(#rightGradient)" stroke="#333" stroke-width="2" />
-                            <path d="M140 100 C140 90, 135 85, 130 85 C125 85, 120 90, 120 95 M135 120 C135 115, 130 110, 125 110 C120 110, 115 115, 115 120 M130 140 C130 135, 125 132, 120 132 C115 132, 110 135, 110 140" stroke="#333" stroke-width="2" fill="none" />
-                            <!-- Center Line -->
-                            <line x1="100" y1="40" x2="100" y2="170" stroke="#333" stroke-width="3" />
-                            <!-- Gradients -->
-                            <defs>
-                                <linearGradient id="leftGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#ff9966;stop-opacity:1" />
-                                    <stop offset="50%" style="stop-color:#ff6b6b;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#ff4757;stop-opacity:1" />
-                                </linearGradient>
-                                <linearGradient id="rightGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#00d2d3;stop-opacity:1" />
-                                    <stop offset="50%" style="stop-color:#4ecdc4;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#0abde3;stop-opacity:1" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </div>
-                    <h1>BUSINESS DATA GURUS</h1>
-                    <p class="tagline">BUSINESS MADE SMART</p>
             <div class="hero-btns sa d4">
                 <button class="btn" onclick="showPage('services');trackConversion('hero','services')">SEE WHAT WE BUILD</button>
                 <button class="btn outline" onclick="showPage('humanit')">EXPLORE HUMAN IT</button>
@@ -1187,67 +370,26 @@ const CONFIG = {
                     <div class="prop-name">Zero Overhead Model</div>
                     <p class="prop-desc">No bloated agency markups. Senior-level judgment and full-stack execution — without paying for a building or a team of 12.</p>
                 </div>
-                <p class="sub-tagline scroll-fade-in">Where Creative Business Thinking Meets Technical Excellence</p>
-                <div class="bridge-point scroll-fade-in scroll-delay-1">
-                    <strong>Your Bridge:</strong> Silicon Valley tech skills + Fortune 500 operational expertise = Unstoppable business solutions
                 <div class="prop-card r sa d3">
                     <div class="prop-icon">🧠</div>
                     <div class="prop-name">Judgment, Not Just Code</div>
                     <p class="prop-desc">The tools to build are free. Knowing what to build, how to connect it, and how to make it last — that's what BDG brings.</p>
                 </div>
-                <div class="bridge-point scroll-fade-in scroll-delay-2" style="background: rgba(255, 107, 107, 0.1); border-color: #ff6b6b;">
-                    <strong style="color: #ff6b6b;">NEW:</strong> Clean Sweep™ Enterprise System Optimizer - Reduce IT tickets by 40% for utilities, schools & agencies
                 <div class="prop-card g sa d4">
                     <div class="prop-icon">🤝</div>
                     <div class="prop-name">Built for Small Business</div>
                     <p class="prop-desc">From $49/mo to full SaaS builds. We scale with you — not past you. Independent play, shared win.</p>
                 </div>
-                <button class="cta-button scroll-scale scroll-delay-3" onclick="showPage('packages'); trackConversion('hero_cta_click', 'explore_services');">Explore Our Services</button>
-                
-                <!-- Lead Magnet -->
-                <div class="scroll-fade-in scroll-delay-4" style="margin-top: 40px; padding: 30px; background: rgba(78, 205, 196, 0.1); border-radius: 15px; border: 1px solid rgba(78, 205, 196, 0.3);">
-                    <h3 style="color: #4ecdc4; margin-bottom: 15px;">🎯 Free Enterprise IT Assessment</h3>
-                    <p style="margin-bottom: 20px;">Get a custom report on how Clean Sweep could reduce your IT tickets and improve system performance.</p>
-                    <form action="https://formspree.io/f/xvgrbwrk" method="POST" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
-                        <input type="email" name="email" placeholder="Your work email" required style="padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: white; flex: 1; min-width: 250px;" />
-                        <input type="text" name="company" placeholder="Company/Organization" required style="padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: white; flex: 1; min-width: 200px;" />
-                        <button type="submit" onclick="trackConversion('lead_magnet', 'free_assessment');" style="padding: 12px 25px; background: linear-gradient(45deg, #4ecdc4, #00d2d3); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; white-space: nowrap;">Get Free Assessment</button>
-                    </form>
                 <div class="prop-card p sa d5">
                     <div class="prop-icon">🤖</div>
                     <div class="prop-name">AI-First Infrastructure</div>
                     <p class="prop-desc">Every system we build is AI-ready. From intake automation to data pipelines — your business runs smarter from day one.</p>
                 </div>
             </div>
-        </section>
-    </div>
         </div>
     </section>
 </div>
 
-    <!-- Packages Page -->
-    <div class="page" id="packages">
-        <div class="container">
-            <h2 class="scroll-fade-in" style="text-align: center; font-size: 2.5rem; margin-bottom: 30px;">Service Packages & Products</h2>
-            <p class="click-reveal scroll-fade-in scroll-delay-1">Click on any package to reveal pricing and details</p>
-            
-            <div class="glass-card scroll-slide-left scroll-delay-1" onclick="togglePackage(this)">
-                <div class="package-header">
-                    <h3 class="package-name">📦 AI RESCUE</h3>
-                    <span class="package-price">$2,500 - $5,000</span>
-                </div>
-                <p class="package-tagline">"They Built It With AI, Now Make It Work!"</p>
-                <div class="features-list">
-                    <div class="bridge-point">
-                        <strong>Entry Point:</strong> Perfect for startups with broken AI projects. Our early development special offers 40% off standard rates!
-                    </div>
-                    <li>Backend Integration (APIs, databases, authentication)</li>
-                    <li>Production Deployment (AWS, hosting, security)</li>
-                    <li>Bug Fixing & Optimization</li>
-                    <li>Data Connections to real business systems</li>
-                    <li>30-day support period included</li>
-                    <p style="margin-top: 20px;"><strong>Deliverables:</strong> Working application, backend infrastructure, basic analytics dashboard</p>
-                </div>
 
 <!-- ═══ SERVICES ═══ -->
 <div class="page" id="services">
@@ -1279,10 +421,6 @@ const CONFIG = {
             </div>
         </div>
 
-            <div class="glass-card scroll-slide-right scroll-delay-2" onclick="togglePackage(this)">
-                <div class="package-header">
-                    <h3 class="package-name">🏗️ COMPLETE BUILD</h3>
-                    <span class="package-price">$10,000 - $35,000</span>
         <!-- BDG Monthly -->
         <div id="bdg-monthly">
             <div class="sec-head center sa">
@@ -1305,18 +443,6 @@ const CONFIG = {
                     </ul>
                     <a href="mailto:businessdatagurus@gmail.com?subject=BDG%20Presence%20Plan" class="pc-btn" onclick="trackConversion('bdg','presence')">GET STARTED</a>
                 </div>
-                <p class="package-tagline">"From Concept to Cash Flow"</p>
-                <div class="features-list">
-                    <div class="bridge-point">
-                        <strong>Bridge to Success:</strong> Leverage our Target/Walmart operations experience - we build systems that actually scale!
-                    </div>
-                    <li>Full-Stack Application Development</li>
-                    <li>Business Intelligence Dashboard</li>
-                    <li>E-commerce Integration (payment, inventory, CRM)</li>
-                    <li>Mobile-Responsive Design</li>
-                    <li>Staff Training Program</li>
-                    <li>90-day training & support</li>
-                    <p style="margin-top: 20px;"><strong>Deliverables:</strong> Complete web + mobile app, admin dashboard, payment processing, inventory management</p>
                 <div class="pc sa d2">
                     <div class="pc-name">Operate</div>
                     <div class="pc-tag">"Start moving. Start growing."</div>
@@ -1331,12 +457,6 @@ const CONFIG = {
                     </ul>
                     <a href="mailto:businessdatagurus@gmail.com?subject=BDG%20Operate%20Plan" class="pc-btn" onclick="trackConversion('bdg','operate')">GET STARTED</a>
                 </div>
-            </div>
-
-            <div class="glass-card scroll-slide-left scroll-delay-3" onclick="togglePackage(this)">
-                <div class="package-header">
-                    <h3 class="package-name">🚀 BUSINESS EMPIRE</h3>
-                    <span class="package-price">$40,000 - $100,000</span>
                 <div class="pc feat sa d3">
                     <div class="pc-name">Scale</div>
                     <div class="pc-tag">"Operate like a real company."</div>
@@ -1352,19 +472,6 @@ const CONFIG = {
                     </ul>
                     <a href="mailto:businessdatagurus@gmail.com?subject=BDG%20Scale%20Plan" class="pc-btn pri" onclick="trackConversion('bdg','scale')">GET STARTED</a>
                 </div>
-                <p class="package-tagline">"Complete Digital Business Model + Operations"</p>
-                <div class="features-list">
-                    <div class="bridge-point">
-                        <strong>Ultimate Bridge:</strong> Combine tech innovation with proven business operations - perfect for market domination!
-                    </div>
-                    <li>Enterprise-Level Application Suite</li>
-                    <li>AI-Powered Business Intelligence</li>
-                    <li>Multi-Platform Presence</li>
-                    <li>Marketing Automation Integration</li>
-                    <li>Scalable Cloud Infrastructure</li>
-                    <li>Business Model Optimization</li>
-                    <li>6-month strategic partnership</li>
-                    <p style="margin-top: 20px;"><strong>Deliverables:</strong> Complete digital ecosystem, predictive analytics, automation setup, growth strategy</p>
                 <div class="pc sa d4">
                     <div class="pc-name">Partner</div>
                     <div class="pc-tag">"I'm embedded in your business."</div>
@@ -1382,12 +489,6 @@ const CONFIG = {
                 </div>
             </div>
 
-            <div class="glass-card hourly-card scroll-scale scroll-delay-4">
-                <h3 class="package-name">⏰ HOURLY CONSULTING</h3>
-                <div class="hourly-rate">$75 - $125/hr</div>
-                <p class="package-tagline">Perfect for smaller projects or ongoing support</p>
-                <div class="bridge-point">
-                    <strong>Flexible Support:</strong> Get expert help when you need it - debugging, consulting, or strategic planning
             <div class="scale-bar sa">
                 <span class="sec-label" style="display:block;margin-bottom:8px;">SLIDING SCALE LOGIC</span>
                 <div class="sc-row">
@@ -1396,12 +497,6 @@ const CONFIG = {
                     Scale → <span style="color:var(--gold)">$85/hr</span> &nbsp;·&nbsp;
                     Partner → <span style="color:var(--teal)">$75/hr</span>
                 </div>
-                <ul style="list-style: none; text-align: left; max-width: 500px; margin: 0 auto;">
-                    <li>✓ Code Reviews & Debugging</li>
-                    <li>✓ Technical Consulting</li>
-                    <li>✓ Business Strategy Sessions</li>
-                    <li>✓ Training & Workshops</li>
-                    <li>✓ Emergency Support</li>
                 <p style="color:var(--muted);font-size:0.82rem;margin-top:12px;max-width:460px;margin-left:auto;margin-right:auto;">The more we grow together, the better your rate. Not a vendor — a partner.</p>
             </div>
         </div>
@@ -1532,31 +627,8 @@ const CONFIG = {
             </div>
         </div>
 
-            <!-- Clean Sweep Section -->
-            <div class="clean-sweep-section">
-                <div class="section-header scroll-fade-in">
-                    <h2>🧹 Clean Sweep™ Enterprise System Optimizer</h2>
-                    <p style="color: #a8b2d1; font-size: 1.2rem;">Enterprise-ready system optimization, onboarding, and digital hygiene suite</p>
-                    <p style="color: #4ecdc4; font-style: italic; margin-top: 10px;">Perfect for utilities, agencies, schools, and municipalities</p>
-                </div>
         <div class="divider"></div>
 
-                <!-- Key Features Overview -->
-                <div class="glass-card scroll-fade-in scroll-delay-1" style="margin-bottom: 40px;">
-                    <h3 style="color: #ff6b6b; margin-bottom: 20px;">🔧 Core Features</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-                        <div class="bridge-point scroll-scale scroll-delay-1">
-                            <strong>🖥️ Desktop Optimization:</strong> Clears cache, boosts RAM, speeds up field tablets and call center machines
-                        </div>
-                        <div class="bridge-point scroll-scale scroll-delay-2">
-                            <strong>🌐 Portal Booster:</strong> Fixes browser config and SSL delays before they become helpdesk tickets
-                        </div>
-                        <div class="bridge-point scroll-scale scroll-delay-3">
-                            <strong>🛡️ Pre-Login Security:</strong> Checks patches, ports, and certs before sensitive actions
-                        </div>
-                        <div class="bridge-point scroll-scale scroll-delay-4">
-                            <strong>🧠 Automated Reporting:</strong> Generates compliance logs and performance reports
-                        </div>
         <div class="sec-head sa">
             <span class="sec-label">HUMAN IT · À LA CARTE</span>
             <h2 class="sec-title">Start with one thing.</h2>
@@ -1648,21 +720,6 @@ const CONFIG = {
     </div>
 </div>
 
-                <!-- Use Cases -->
-                <div class="glass-card scroll-slide-right scroll-delay-2" style="margin-bottom: 40px;">
-                    <h3 style="color: #4ecdc4; margin-bottom: 20px;">💡 Perfect For</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
-                        <div class="scroll-fade-in scroll-delay-1" style="background: rgba(78, 205, 196, 0.1); padding: 15px; border-radius: 10px; border-left: 3px solid #4ecdc4;">
-                            <strong>Utility Providers:</strong> Billing portals, service requests, credential resets
-                        </div>
-                        <div class="scroll-fade-in scroll-delay-2" style="background: rgba(255, 107, 107, 0.1); padding: 15px; border-radius: 10px; border-left: 3px solid #ff6b6b;">
-                            <strong>School Districts:</strong> Parent/student dashboards, digital classrooms
-                        </div>
-                        <div class="scroll-fade-in scroll-delay-3" style="background: rgba(78, 205, 196, 0.1); padding: 15px; border-radius: 10px; border-left: 3px solid #4ecdc4;">
-                            <strong>Gov Agencies:</strong> Field worker devices, low-bandwidth environments
-                        </div>
-                        <div class="scroll-fade-in scroll-delay-4" style="background: rgba(255, 107, 107, 0.1); padding: 15px; border-radius: 10px; border-left: 3px solid #ff6b6b;">
-                            <strong>SMBs & Nonprofits:</strong> Teams without dedicated IT support
 
 <!-- ═══ CONTACT ═══ -->
 <div class="page" id="contact">
@@ -1680,62 +737,14 @@ const CONFIG = {
                             <label>YOUR NAME</label>
                             <input type="text" id="i-name" placeholder="First and last" />
                         </div>
-                    </div>
-                    <div class="bridge-point scroll-fade-in scroll-delay-5" style="margin-top: 20px; background: rgba(255, 215, 0, 0.1); border-color: #ffd700;">
-                        <strong style="color: #ffd700;">Results:</strong> Cuts service tickets by up to 40% • Works without admin rights • Boosts portal conversion rates
-                    </div>
-                    
-                    <!-- Social Proof -->
-                    <div class="scroll-scale scroll-delay-6" style="margin-top: 30px; padding: 20px; background: rgba(255, 255, 255, 0.03); border-radius: 15px; text-align: center;">
-                        <h4 style="color: #4ecdc4; margin-bottom: 15px;">🏆 Trusted by 100+ Organizations</h4>
-                        <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; align-items: center; opacity: 0.8;">
-                            <span style="padding: 8px 16px; background: rgba(78, 205, 196, 0.1); border-radius: 20px; font-size: 0.9rem;">School Districts</span>
-                            <span style="padding: 8px 16px; background: rgba(255, 107, 107, 0.1); border-radius: 20px; font-size: 0.9rem;">Utility Companies</span>
-                            <span style="padding: 8px 16px; background: rgba(78, 205, 196, 0.1); border-radius: 20px; font-size: 0.9rem;">Government Agencies</span>
-                            <span style="padding: 8px 16px; background: rgba(255, 107, 107, 0.1); border-radius: 20px; font-size: 0.9rem;">Healthcare Systems</span>
                         <div class="fg">
                             <label>EMAIL ADDRESS</label>
                             <input type="email" id="i-email" placeholder="your@email.com" />
                         </div>
-                    </div>
-                </div>
-                
-                <!-- Pricing Tiers -->
-                <div class="clean-sweep-grid">
-                    <div class="glass-card clean-sweep-tier scroll-fade-in scroll-delay-1">
-                        <h3 class="package-name" style="color: #4ecdc4;">💼 Essential</h3>
-                        <div class="tier-price">$99/month/site</div>
-                        <p style="color: #a8b2d1; margin-bottom: 20px;">Perfect for small businesses</p>
-                        <ul class="features-list expanded" style="max-height: none;">
-                            <li>Portal booster + desktop cleaner</li>
-                            <li>Basic system optimization</li>
-                            <li>Browser config fixes</li>
-                            <li>Email support</li>
-                            <li>Works on Windows/macOS/Chromebook</li>
-                        </ul>
-                        <div style="background: rgba(255, 107, 107, 0.1); padding: 10px; border-radius: 8px; margin: 15px 0; font-size: 0.9rem;">
-                            <strong>Setup:</strong> $149 one-time
                         <div class="fg">
                             <label>COMPANY / ORGANIZATION</label>
                             <input type="text" id="i-company" placeholder="If applicable" />
                         </div>
-                        <a href="mailto:businessdatagurus@gmail.com?subject=Clean%20Sweep%20Essential%20Plan&body=I%20want%20to%20subscribe%20to%20the%20Clean%20Sweep%20Essential%20plan%20($99/month)." class="cta-button" style="display: inline-block; margin-top: 20px;" onclick="trackConversion('clean_sweep_cta', 'essential_plan');">Start Essential</a>
-                    </div>
-                    
-                    <div class="glass-card clean-sweep-tier scroll-fade-in scroll-delay-2">
-                        <h3 class="package-name" style="color: #4ecdc4;">🚀 Pro <span class="value-highlight">Most Popular</span></h3>
-                        <div class="tier-price">$199/month/site</div>
-                        <p style="color: #a8b2d1; margin-bottom: 20px;">For growing organizations</p>
-                        <ul class="features-list expanded" style="max-height: none;">
-                            <li>Everything in Essential</li>
-                            <li>Automated log reporting</li>
-                            <li>Email alerts for issues</li>
-                            <li>Pre-login security scans</li>
-                            <li>Performance analytics</li>
-                            <li>Priority support</li>
-                        </ul>
-                        <div style="background: rgba(78, 205, 196, 0.1); padding: 10px; border-radius: 8px; margin: 15px 0; font-size: 0.9rem;">
-                            <strong>ROI:</strong> Saves avg. $3,200/month in IT costs
                         <div class="fg">
                             <label>INTERESTED IN</label>
                             <select id="i-service">
@@ -1759,66 +768,19 @@ const CONFIG = {
                                 <option>Not sure yet — let's talk</option>
                             </select>
                         </div>
-                        <div style="background: rgba(255, 107, 107, 0.1); padding: 8px; border-radius: 8px; margin: 15px 0; font-size: 0.8rem; color: #ff6b6b;">
-                            <strong>⏰ Limited:</strong> Next 5 customers get 3 months at Essential pricing
                         <div class="fg">
                             <label>TELL US WHAT YOU NEED</label>
                             <textarea id="i-message" placeholder="Where you are, where you want to go, what's blocking you..."></textarea>
                         </div>
-                        <a href="mailto:businessdatagurus@gmail.com?subject=Clean%20Sweep%20Pro%20Plan&body=I%20want%20to%20subscribe%20to%20the%20Clean%20Sweep%20Pro%20plan%20($199/month)." class="cta-button" style="display: inline-block; margin-top: 20px;" onclick="trackConversion('clean_sweep_cta', 'pro_plan');">Upgrade to Pro</a>
                         <button class="form-submit" id="submit-btn" onclick="submitIntake()">SEND + GET AI RESPONSE →</button>
                         <p style="text-align:center;margin-top:12px;font-family:var(--fm);font-size:0.65rem;color:var(--muted);">⚡ AI-processed in seconds · Saved securely to our system</p>
                     </div>
-                    
-                    <div class="glass-card clean-sweep-tier scroll-fade-in scroll-delay-3">
-                        <h3 class="package-name" style="color: #4ecdc4;">🏛️ Enterprise</h3>
-                        <div class="tier-price">Custom Quote</div>
-                        <p style="color: #a8b2d1; margin-bottom: 20px;">For large organizations</p>
-                        <ul class="features-list expanded" style="max-height: none;">
-                            <li>Everything in Pro</li>
-                            <li>SLA guarantees</li>
-                            <li>Remote deployment tools</li>
-                            <li>White-label branding</li>
-                            <li>Custom data sync</li>
-                            <li>24/7 enterprise support</li>
-                            <li>Bulk pricing for districts</li>
-                        </ul>
-                        <div style="background: rgba(255, 215, 0, 0.1); padding: 10px; border-radius: 8px; margin: 15px 0; font-size: 0.9rem;">
-                            <strong>Custom branding:</strong> Your logo & help URLs
-                        </div>
-                        <a href="mailto:businessdatagurus@gmail.com?subject=Clean%20Sweep%20Enterprise%20Demo&body=I%27d%20like%20to%20schedule%20a%20demo%20of%20Clean%20Sweep%20Enterprise." class="cta-button" style="display: inline-block; margin-top: 20px;">Schedule Demo</a>
 
                     <!-- AI thinking indicator -->
                     <div class="ai-thinking" id="ai-thinking">
                         <span>🤖 AI is processing your intake...</span>
                     </div>
-                </div>
 
-                <!-- Legacy Individual Options -->
-                <div class="scroll-fade-in scroll-delay-4" style="margin-top: 40px; padding-top: 40px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
-                    <h3 style="text-align: center; color: #a8b2d1; margin-bottom: 30px;">Individual & Small Business Options</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-                        <div class="glass-card clean-sweep-tier scroll-slide-left scroll-delay-1" style="padding: 20px;">
-                            <h4 style="color: #ff6b6b;">🔒 Individual License</h4>
-                            <div style="font-size: 1.2rem; color: #4ecdc4; margin: 10px 0;">$60 One-Time</div>
-                            <ul style="list-style: none; font-size: 0.9rem;">
-                                <li>✓ Basic cleanup + optimization</li>
-                                <li>✓ Email license delivery</li>
-                                <li>✓ Driver & update checks</li>
-                            </ul>
-                            <a href="mailto:businessdatagurus@gmail.com?subject=Buy%20Clean%20Sweep%20Individual&body=I%20want%20the%20$60%20Clean%20Sweep%20individual%20license." class="cta-button" style="font-size: 0.9rem; padding: 10px 20px; margin-top: 15px; display: inline-block;">Buy Now</a>
-                        </div>
-                        
-                        <div class="glass-card clean-sweep-tier scroll-slide-right scroll-delay-2" style="padding: 20px;">
-                            <h4 style="color: #ff6b6b;">🏢 Small Business Pack</h4>
-                            <div style="font-size: 1.2rem; color: #4ecdc4; margin: 10px 0;">$1,000 One-Time</div>
-                            <ul style="list-style: none; font-size: 0.9rem;">
-                                <li>✓ 10-user license pack</li>
-                                <li>✓ Remote deployment</li>
-                                <li>✓ Basic reporting</li>
-                            </ul>
-                            <a href="mailto:businessdatagurus@gmail.com?subject=Request%20Clean%20Sweep%20Small%20Business" class="cta-button" style="font-size: 0.9rem; padding: 10px 20px; margin-top: 15px; display: inline-block;">Get Pack</a>
-                        </div>
                     <!-- AI Response -->
                     <div class="ai-response" id="ai-response">
                         <h4>🤖 YOUR PERSONALIZED RESPONSE</h4>
@@ -1826,30 +788,8 @@ const CONFIG = {
                         <p style="margin-top:14px;font-family:var(--fm);font-size:0.65rem;color:var(--teal);">✓ Saved to our system · We'll follow up within 2 business hours</p>
                     </div>
                 </div>
-                
-                <div class="crypto-wallet scroll-scale scroll-delay-5">
-                    <h3 style="margin-bottom: 15px;">🔐 Accepting Crypto Payments</h3>
-                    <p>Pay securely with Bitcoin or Ethereum</p>
-                    <input type="text" value="1CleanSweepBTCwalletEXAMPLE0000" readonly />
-                    <p style="margin-top: 15px; color: #a8b2d1;">Email <strong style="color: #4ecdc4;">businessdatagurus@gmail.com</strong> after payment with transaction ID</p>
-                </div>
             </div>
-        </div>
-    </div>
 
-    <!-- About Page -->
-    <div class="page" id="about">
-        <div class="container">
-            <h2 class="scroll-fade-in" style="text-align: center; font-size: 2.5rem; margin-bottom: 50px;">Why Choose Us?</h2>
-            
-            <div class="glass-card scroll-fade-in scroll-delay-1">
-                <h3 style="color: #ff6b6b; margin-bottom: 20px;">The Perfect Tech-Business Bridge</h3>
-                <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 20px;">
-                    Most developers don't understand retail operations. Most business consultants can't code. 
-                    <strong style="color: #4ecdc4;">We do both.</strong>
-                </p>
-                <div class="bridge-point scroll-slide-left scroll-delay-2">
-                    <strong>Our Unique Combo:</strong> Full-Stack Dev + Marketing Degree + 8 Years Sales + 5 Years Big Box Management + PEPCO Revenue Analytics
             <div class="c-info sa d2">
                 <div class="c-item">
                     <span style="font-size:1.1rem;margin-top:2px;">📧</span>
@@ -1858,23 +798,6 @@ const CONFIG = {
                         <div class="c-val"><a href="mailto:businessdatagurus@gmail.com">businessdatagurus@gmail.com</a></div>
                     </div>
                 </div>
-                <p class="scroll-fade-in scroll-delay-3" style="margin-top: 20px;">
-                    "If I can handle Black Friday crowds at Target, I can handle your technical challenges!"
-                </p>
-                
-                <h3 class="scroll-fade-in scroll-delay-4" style="color: #4ecdc4; margin-top: 40px; margin-bottom: 20px;">Our Experience</h3>
-                <ul class="features-list expanded scroll-fade-in scroll-delay-5">
-                    <li>Managed million-dollar operations at Fortune 500 retailers</li>
-                    <li>Built scalable systems handling thousands of daily transactions</li>
-                    <li>Developed full-stack applications from scratch to deployment</li>
-                    <li>Led teams through digital transformation initiatives</li>
-                    <li>Combined technical excellence with business acumen</li>
-                    <li>Created Clean Sweep - our flagship security automation tool</li>
-                </ul>
-                
-                <h3 class="scroll-slide-right scroll-delay-6" style="color: #ff6b6b; margin-top: 40px; margin-bottom: 20px;">Products We've Built</h3>
-                <div class="bridge-point scroll-scale" style="background: rgba(255, 107, 107, 0.1); border-color: #ff6b6b;">
-                    <strong style="color: #ff6b6b;">Clean Sweep™:</strong> Enterprise system optimizer now serving 100+ organizations including utilities, school districts, and government agencies - cuts IT tickets by up to 40%
                 <div class="c-item">
                     <span style="font-size:1.1rem;margin-top:2px;">📍</span>
                     <div>
@@ -1882,12 +805,6 @@ const CONFIG = {
                         <div class="c-val">Washington, DC Metro Area</div>
                     </div>
                 </div>
-                
-                <!-- Client Testimonials -->
-                <h3 class="scroll-fade-in" style="color: #4ecdc4; margin-top: 40px; margin-bottom: 20px;">💬 What Our Clients Say</h3>
-                <div class="testimonial scroll-slide-left scroll-delay-1">
-                    "Clean Sweep reduced our help desk tickets by 45% in the first month. Our field technicians can now focus on real problems instead of basic system issues."
-                    <div class="testimonial-author">— Sarah Chen, IT Director, Metro Utilities</div>
                 <div class="c-item">
                     <span style="font-size:1.1rem;margin-top:2px;">🌐</span>
                     <div>
@@ -1895,9 +812,6 @@ const CONFIG = {
                         <div class="c-val" style="color:var(--teal);">businessdatagurus.com</div>
                     </div>
                 </div>
-                <div class="testimonial scroll-slide-right scroll-delay-2">
-                    "The portal booster alone saved us thousands in lost productivity. Parents can actually access the school dashboard now without calling IT."
-                    <div class="testimonial-author">— Mike Rodriguez, Technology Coordinator, Valley School District</div>
 
                 <div class="divider" style="margin:28px 0;"></div>
 
@@ -1911,9 +825,6 @@ const CONFIG = {
                        START HUMAN IT INTAKE
                     </a>
                 </div>
-                <div class="testimonial scroll-slide-left scroll-delay-3">
-                    "Business Data Gurus delivered our inventory system 2 weeks early and under budget. Finally, developers who understand retail operations."
-                    <div class="testimonial-author">— Jennifer Walsh, Operations Manager, Regional Retail Chain</div>
 
                 <div class="card" style="padding:24px;margin-top:16px;background:linear-gradient(135deg,rgba(168,85,247,.06),rgba(0,229,204,.06));border-color:rgba(168,85,247,.2);">
                     <div style="position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,var(--purple),transparent);border-radius:16px 0 0 16px;"></div>
@@ -1925,77 +836,6 @@ const CONFIG = {
     </div>
 </div>
 
-    <!-- Contact Page -->
-    <div class="page" id="contact">
-        <div class="container">
-            <h2 class="scroll-fade-in" style="text-align: center; font-size: 2.5rem; margin-bottom: 50px;">Let's Build Your Empire</h2>
-            
-            <form action="https://formspree.io/f/xvgrbwrk" method="POST" class="contact-form scroll-scale scroll-delay-1">
-                <input type="hidden" name="_subject" value="New Business Inquiry - Business Data Gurus" />
-                <input type="hidden" name="_next" value="https://yourusername.github.io/business-data-gurus/thank-you.html" />
-                
-                <div class="form-group">
-                    <label for="name">Your Name</label>
-                    <input type="text" id="name" name="name" required />
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Work Email Address</label>
-                    <input type="email" id="email" name="email" required />
-                </div>
-                
-                <div class="form-group">
-                    <label for="company">Company/Organization</label>
-                    <input type="text" id="company" name="company" required />
-                </div>
-                
-                <div class="form-group">
-                    <label for="role">Your Role</label>
-                    <select id="role" name="role">
-                        <option value="">Select your role...</option>
-                        <option value="it-director">IT Director/Manager</option>
-                        <option value="cto">CTO/Technical Lead</option>
-                        <option value="operations">Operations Manager</option>
-                        <option value="procurement">Procurement/Purchasing</option>
-                        <option value="superintendent">Superintendent/Administrator</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="package">Interested In</label>
-                    <select id="package" name="package">
-                        <optgroup label="Development Services">
-                            <option value="ai-rescue">AI Rescue ($2,500-$5,000)</option>
-                            <option value="complete-build">Complete Build ($10,000-$35,000)</option>
-                            <option value="business-empire">Business Empire ($40,000-$100,000)</option>
-                            <option value="hourly">Hourly Consulting ($75-$125/hr)</option>
-                        </optgroup>
-                        <optgroup label="Clean Sweep Security">
-                            <option value="clean-sweep-essential">Clean Sweep Essential ($99/month)</option>
-                            <option value="clean-sweep-pro">Clean Sweep Pro ($199/month)</option>
-                            <option value="clean-sweep-enterprise">Clean Sweep Enterprise (Custom)</option>
-                            <option value="clean-sweep-individual">Clean Sweep Individual ($60)</option>
-                            <option value="clean-sweep-business">Clean Sweep Small Business ($1,000)</option>
-                        </optgroup>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="timeline">Timeline</label>
-                    <select id="timeline" name="timeline">
-                        <option value="">When do you need this?</option>
-                        <option value="asap">ASAP - Urgent</option>
-                        <option value="1-month">Within 1 month</option>
-                        <option value="3-months">Within 3 months</option>
-                        <option value="6-months">Within 6 months</option>
-                        <option value="exploring">Just exploring options</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="message">Project Details</label>
-                    <textarea id="message" name="message" placeholder="Tell us about your current challenges, number of devices/users, and what you're hoping to achieve..." required></textarea>
 
 <!-- ═══ ADMIN ═══ -->
 <div class="page" id="admin">
@@ -2016,20 +856,10 @@ const CONFIG = {
                     <span class="sec-label">BDG · ADMIN</span>
                     <h2 class="sec-title" style="margin-bottom:0;">Intake Dashboard</h2>
                 </div>
-                
-                <button type="submit" class="submit-btn" onclick="trackConversion('contact_form', 'main_contact');">Start Your Journey</button>
-                
-                <div style="text-align: center; margin-top: 20px; padding: 15px; background: rgba(78, 205, 196, 0.1); border-radius: 10px;">
-                    <p style="margin: 0; color: #4ecdc4; font-size: 0.9rem;">⚡ <strong>Fast Response:</strong> We typically respond within 2 hours during business hours</p>
                 <div style="display:flex;gap:12px;align-items:center;">
                     <button class="btn teal" onclick="loadIntakes()" style="padding:10px 20px;font-size:0.7rem;">↻ REFRESH</button>
                     <button class="btn outline" onclick="adminLogout()" style="padding:10px 20px;font-size:0.7rem;">LOGOUT</button>
                 </div>
-            </form>
-            
-            <p class="scroll-fade-in scroll-delay-2" style="text-align: center; margin-top: 20px; color: #a8b2d1;">
-                Or email directly: <a href="mailto:businessdatagurus@gmail.com" style="color: #ff6b6b;">businessdatagurus@gmail.com</a>
-            </p>
             </div>
 
             <div class="admin-stats" id="admin-stats">
@@ -2062,87 +892,6 @@ const CONFIG = {
     </div>
 </div>
 
-    <script>
-        // ============================================
-        // APPLE-STYLE SCROLL ANIMATION SYSTEM - NEW
-        // ============================================
-        
-        // Intersection Observer for scroll animations
-        const scrollObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, {
-            threshold: 0.1,  // Trigger when 10% of element is visible
-            rootMargin: '0px 0px -50px 0px'  // Trigger slightly before element enters viewport
-        });
-        
-        // Function to observe all scroll animation elements
-        function initScrollAnimations() {
-            const animatedElements = document.querySelectorAll(
-                '.scroll-fade-in, .scroll-slide-left, .scroll-slide-right, .scroll-scale'
-            );
-            
-            animatedElements.forEach(element => {
-                scrollObserver.observe(element);
-            });
-        }
-        
-        // Initialize scroll animations when page loads
-        document.addEventListener('DOMContentLoaded', initScrollAnimations);
-        
-        // Re-initialize when switching pages
-        const originalShowPage = showPage;
-        
-        // ============================================
-        // END APPLE-STYLE SCROLL ANIMATION SYSTEM
-        // ============================================
-        
-        // Create floating particles
-        const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 20; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.width = Math.random() * 20 + 10 + 'px';
-            particle.style.height = particle.style.width;
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 20 + 's';
-            particle.style.animationDuration = Math.random() * 20 + 20 + 's';
-            particlesContainer.appendChild(particle);
-        }
-        
-        // Conversion optimization features
-        let urgencyShown = false;
-        let floatingCtaShown = false;
-        
-        // Show urgency banner after 30 seconds
-        setTimeout(() => {
-            if (!urgencyShown) {
-                document.getElementById('urgencyBanner').classList.add('show');
-                urgencyShown = true;
-            }
-        }, 30000);
-        
-        // Close urgency banner
-        function closeUrgencyBanner() {
-            document.getElementById('urgencyBanner').classList.remove('show');
-        }
-        
-        // Show floating CTA on scroll
-        function showFloatingCta() {
-            if (!floatingCtaShown && window.scrollY > 1000) {
-                document.getElementById('floatingCta').classList.add('show');
-                floatingCtaShown = true;
-            }
-        }
-        
-        // Navbar scroll effect + floating CTA trigger
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
 
 <!-- FOOTER -->
 <footer>
@@ -2224,107 +973,13 @@ try {
                 ctx.fillStyle = g;
                 ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
             } else {
-                navbar.classList.remove('scrolled');
                 const a = p.alpha * (0.6 + 0.4 * Math.sin(p.pulse));
                 ctx.globalAlpha = a;
                 ctx.fillStyle = p.color;
                 ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
                 ctx.globalAlpha = 1;
             }
-            
-            // Show floating CTA after scrolling
-            showFloatingCta();
         });
-        
-        // Exit intent detection (when mouse leaves viewport)
-        document.addEventListener('mouseleave', function(e) {
-            if (e.clientY <= 0 && !urgencyShown) {
-                document.getElementById('urgencyBanner').classList.add('show');
-                urgencyShown = true;
-            }
-        });
-        
-        // Page navigation
-        function showPage(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-            
-            // Re-initialize scroll animations for new page
-            setTimeout(() => {
-                initScrollAnimations();
-            }, 100);
-            
-            // Track page views
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'page_view', {
-                    'page_title': pageId,
-                    'page_location': window.location.href
-                });
-            }
-        }
-        
-        // Toggle package details
-        function togglePackage(card) {
-            const price = card.querySelector('.package-price');
-            const features = card.querySelector('.features-list');
-            
-            // Toggle price visibility
-            if (price) {
-                price.classList.toggle('show');
-            }
-            
-            // Toggle features expansion
-            if (features) {
-                features.classList.toggle('expanded');
-            }
-            
-            // Hide the click instruction after first interaction
-            if (document.querySelector('.click-reveal')) {
-                document.querySelector('.click-reveal').style.opacity = '0';
-            }
-            
-            // Track package interest
-            const packageName = card.querySelector('.package-name')?.textContent || 'unknown';
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'package_interest', {
-                    'event_category': 'engagement',
-                    'event_label': packageName
-                });
-            }
-        }
-        
-        // Form submission tracking
-        document.addEventListener('submit', function(e) {
-            if (e.target.tagName === 'FORM') {
-                const formType = e.target.action.includes('formspree') ? 'formspree_form' : 'contact_form';
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'form_submission', {
-                        'event_category': 'conversion',
-                        'event_label': formType
-                    });
-                }
-            }
-        });
-        
-        // Track email clicks
-        document.addEventListener('click', function(e) {
-            if (e.target.tagName === 'A' && e.target.href.includes('mailto:')) {
-                const subject = e.target.href.match(/subject=([^&]*)/)?.[1] || 'unknown';
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'email_click', {
-                        'event_category': 'contact',
-                        'event_label': decodeURIComponent(subject)
-                    });
-                }
-            }
         requestAnimationFrame(draw);
     }
 
@@ -2414,15 +1069,6 @@ Message: ${message}`
                 }]
             })
         });
-        
-        // Add visual feedback for CTA buttons
-        document.querySelectorAll('.cta-button').forEach(button => {
-            button.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-2px) scale(1.02)';
-            });
-            
-            button.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
         const aiData = await aiRes.json();
         aiText = aiData.content?.[0]?.text || '';
     } catch(e) {
@@ -2439,8 +1085,6 @@ Message: ${message}`
                 status: 'new',
                 source: 'website'
             });
-        });
-    </script>
         } catch(e) { console.warn('Supabase save failed:', e); }
     }
 
