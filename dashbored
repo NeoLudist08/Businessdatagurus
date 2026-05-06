@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BDG Dashboard Service — We build dashboards your team actually uses.</title>
+<meta name="description" content="Custom dashboards designed from your workflow backward. Built on Supabase + Lovable + Cloudflare. No vendor lock-in. We've built ten of our own.">
+<meta property="og:title" content="BDG Dashboard Service — Custom dashboards that actually get used">
+<meta property="og:description" content="Discovery → design → build → maintain. We've built ten dashboards for our own platforms. Now we'll build one for you.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          paper: '#FBFAF5', ink: '#0F172A', slate: '#475569',
+          navy: '#1E40AF', 'navy-deep': '#1E3A8A',
+          emerald: '#059669', 'emerald-deep': '#047857', amber: '#D97706',
+          'border-soft': '#E5E1D6'
+        },
+        fontFamily: {
+          serif: ['Fraunces', 'Georgia', 'serif'],
+          sans: ['DM Sans', 'system-ui', 'sans-serif']
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: #FBFAF5; color: #0F172A;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(circle at 80% 5%, rgba(30, 64, 175, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 20% 95%, rgba(5, 150, 105, 0.05) 0%, transparent 50%);
+  }
+  .font-display { font-family: 'Fraunces', Georgia, serif; font-feature-settings: "ss01" on, "ss02" on; letter-spacing: -0.02em; }
+  .grain::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none;
+    opacity: 0.035; z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.9s ease-out, transform 0.9s ease-out; }
+  .reveal.shown { opacity: 1; transform: translateY(0); }
+  .tier-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .tier-card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -16px rgba(15, 23, 42, 0.12); }
+  .num-counter { font-variant-numeric: tabular-nums; }
+  .form-success { background: rgba(5, 150, 105, 0.1); color: #047857; }
+  .form-error { background: rgba(217, 70, 39, 0.1); color: #C2410C; }
+  .step-line::before {
+    content: ''; position: absolute; top: 16px; left: 16px; right: 16px;
+    height: 1px; background: linear-gradient(90deg, #1E40AF 0%, #059669 100%);
+    z-index: 0;
+  }
+  @media (max-width: 768px) {
+    .step-line::before { display: none; }
+  }
+</style>
+</head>
+
+<body class="grain">
+
+<!-- Nav -->
+<nav class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-6 flex items-center justify-between">
+  <a href="index.html" class="flex items-center gap-2.5">
+    <div class="w-8 h-8 rounded-lg bg-ink flex items-center justify-center">
+      <span class="text-paper font-display font-semibold text-sm">B</span>
+    </div>
+    <div>
+      <span class="font-display font-semibold text-lg text-ink">Business Data Gurus</span>
+      <span class="text-sm text-slate ml-2 hidden sm:inline">/ Dashboard service</span>
+    </div>
+  </a>
+  <div class="flex items-center gap-3 sm:gap-6">
+    <a href="index.html" class="hidden sm:inline text-sm text-slate hover:text-ink transition">All products</a>
+    <a href="#contact" class="bg-ink text-paper px-4 py-2 rounded-lg text-sm font-medium hover:bg-navy transition">Talk to us</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="relative max-w-6xl mx-auto px-6 lg:px-12 pt-12 pb-20 lg:pt-24 lg:pb-28">
+  <div class="reveal" style="--i: 0">
+    <span class="inline-block text-xs tracking-[0.2em] uppercase text-emerald font-semibold mb-6">
+      Custom dashboards · A BDG service
+    </span>
+  </div>
+  <h1 class="font-display font-light text-5xl sm:text-6xl lg:text-7xl text-ink leading-[1.05] tracking-tight max-w-4xl reveal" style="--i: 1">
+    The dashboard your team<br>
+    <span class="font-medium italic">actually uses.</span>
+  </h1>
+  <p class="mt-10 text-lg lg:text-xl text-slate max-w-2xl leading-relaxed reveal" style="--i: 2">
+    Most dashboards become read-only within a month. Yours doesn't have to. We design from your workflow backward — not from a template forward — and we ship in 8 weeks, not 8 months.
+  </p>
+  <div class="mt-10 flex flex-wrap gap-4 reveal" style="--i: 3">
+    <a href="#engagement" class="bg-ink text-paper px-6 py-3.5 rounded-xl font-medium hover:bg-navy transition">See engagement tiers</a>
+    <a href="#contact" class="bg-paper border border-ink text-ink px-6 py-3.5 rounded-xl font-medium hover:bg-ink hover:text-paper transition">Book a discovery call</a>
+  </div>
+</section>
+
+<!-- Problem section -->
+<section class="relative bg-ink text-paper py-24 lg:py-32 overflow-hidden">
+  <div class="max-w-5xl mx-auto px-6 lg:px-12">
+    <div class="reveal">
+      <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">Why most dashboards die</span>
+    </div>
+    <h2 class="mt-6 font-display font-light text-4xl sm:text-5xl lg:text-6xl leading-[1.1] tracking-tight reveal">
+      Generic dashboards solve <span class="italic font-medium text-emerald">generic problems.</span> Yours aren't.
+    </h2>
+    <p class="mt-8 text-lg lg:text-xl text-paper/70 max-w-2xl leading-relaxed reveal">
+      Off-the-shelf tools are designed for the median customer. Your operation isn't median. So your team builds workarounds in Excel, Notion, and Slack — and a year later your "dashboard" is the spreadsheet on someone's desktop.
+    </p>
+    <div class="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-8 reveal">
+      <div>
+        <div class="font-display text-4xl lg:text-5xl font-medium text-emerald num-counter">87%</div>
+        <div class="mt-2 text-sm text-paper/60">of internal dashboards become read-only within 90 days</div>
+      </div>
+      <div>
+        <div class="font-display text-4xl lg:text-5xl font-medium text-emerald num-counter">12+</div>
+        <div class="mt-2 text-sm text-paper/60">tools the average ops team juggles daily</div>
+      </div>
+      <div>
+        <div class="font-display text-4xl lg:text-5xl font-medium text-emerald num-counter">8wks</div>
+        <div class="mt-2 text-sm text-paper/60">our typical time from discovery to shipped dashboard</div>
+      </div>
+      <div>
+        <div class="font-display text-4xl lg:text-5xl font-medium text-emerald num-counter">10</div>
+        <div class="mt-2 text-sm text-paper/60">dashboards we've built and run for our own platforms</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- What we do -->
+<section class="max-w-7xl mx-auto px-6 lg:px-12 py-24 lg:py-32">
+  <div class="reveal">
+    <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">How we work</span>
+  </div>
+  <h2 class="mt-4 font-display font-light text-4xl sm:text-5xl lg:text-6xl text-ink leading-[1.1] tracking-tight max-w-3xl reveal">
+    Three things, in order. <span class="italic font-medium">Always.</span>
+  </h2>
+
+  <div class="mt-20 grid md:grid-cols-3 gap-8 lg:gap-12">
+    <div class="reveal">
+      <div class="flex items-baseline gap-3 mb-5">
+        <span class="font-display text-5xl font-light text-emerald num-counter">01</span>
+        <span class="text-xs tracking-[0.2em] uppercase text-slate font-semibold">Discovery</span>
+      </div>
+      <h3 class="font-display text-2xl font-medium text-ink mb-3">We watch you work.</h3>
+      <p class="text-slate leading-relaxed">
+        Before we design anything, we sit with your operators. We see the spreadsheets, the workarounds, the screenshots-in-Slack. We document the actual workflow — not the one in your org chart.
+      </p>
+    </div>
+    <div class="reveal">
+      <div class="flex items-baseline gap-3 mb-5">
+        <span class="font-display text-5xl font-light text-navy num-counter">02</span>
+        <span class="text-xs tracking-[0.2em] uppercase text-slate font-semibold">Design</span>
+      </div>
+      <h3 class="font-display text-2xl font-medium text-ink mb-3">We design backward.</h3>
+      <p class="text-slate leading-relaxed">
+        From the action your team needs to take, back to the data that supports it. The dashboard isn't a report. It's a workspace. Every screen has one job, and one button that gets it done.
+      </p>
+    </div>
+    <div class="reveal">
+      <div class="flex items-baseline gap-3 mb-5">
+        <span class="font-display text-5xl font-light text-amber num-counter">03</span>
+        <span class="text-xs tracking-[0.2em] uppercase text-slate font-semibold">Build & ship</span>
+      </div>
+      <h3 class="font-display text-2xl font-medium text-ink mb-3">We ship in eight weeks.</h3>
+      <p class="text-slate leading-relaxed">
+        Not eight months. Production-grade Supabase + Lovable + Cloudflare stack. Your data, your auth, your domain. No vendor lock-in. We hand over the keys when we're done — or stay on retainer if you want us to evolve it.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Process timeline -->
+<section class="bg-paper border-y border-border-soft py-24 lg:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12">
+    <div class="reveal">
+      <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">The 8-week sprint</span>
+    </div>
+    <h2 class="mt-4 font-display font-light text-4xl sm:text-5xl text-ink leading-[1.1] tracking-tight max-w-3xl reveal">
+      What happens, week by week.
+    </h2>
+
+    <div class="mt-16 grid md:grid-cols-4 gap-8 step-line relative reveal">
+      <div class="bg-white rounded-2xl border border-border-soft p-6 relative z-10">
+        <div class="w-8 h-8 rounded-full bg-navy flex items-center justify-center text-paper text-sm font-semibold mb-4">1</div>
+        <div class="text-xs tracking-wider uppercase text-slate font-semibold mb-2">Weeks 1–2</div>
+        <h3 class="font-display text-lg font-medium text-ink mb-2">Discover</h3>
+        <p class="text-sm text-slate">Workflow audit, stakeholder interviews, data inventory, success metrics.</p>
+      </div>
+      <div class="bg-white rounded-2xl border border-border-soft p-6 relative z-10">
+        <div class="w-8 h-8 rounded-full bg-navy flex items-center justify-center text-paper text-sm font-semibold mb-4">2</div>
+        <div class="text-xs tracking-wider uppercase text-slate font-semibold mb-2">Weeks 3–4</div>
+        <h3 class="font-display text-lg font-medium text-ink mb-2">Prototype</h3>
+        <p class="text-sm text-slate">Clickable design, schema design, integration mapping. Sign-off before any code.</p>
+      </div>
+      <div class="bg-white rounded-2xl border border-border-soft p-6 relative z-10">
+        <div class="w-8 h-8 rounded-full bg-emerald flex items-center justify-center text-white text-sm font-semibold mb-4">3</div>
+        <div class="text-xs tracking-wider uppercase text-slate font-semibold mb-2">Weeks 5–6</div>
+        <h3 class="font-display text-lg font-medium text-ink mb-2">Build</h3>
+        <p class="text-sm text-slate">Production build with weekly demos. Auth, integrations, RLS, role-based views.</p>
+      </div>
+      <div class="bg-white rounded-2xl border border-border-soft p-6 relative z-10">
+        <div class="w-8 h-8 rounded-full bg-emerald flex items-center justify-center text-white text-sm font-semibold mb-4">4</div>
+        <div class="text-xs tracking-wider uppercase text-slate font-semibold mb-2">Weeks 7–8</div>
+        <h3 class="font-display text-lg font-medium text-ink mb-2">Ship & rollout</h3>
+        <p class="text-sm text-slate">Onboarding, user training, usage analytics. Hand-over docs. Or month-2 retainer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stack -->
+<section class="max-w-7xl mx-auto px-6 lg:px-12 py-24 lg:py-32">
+  <div class="reveal">
+    <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">No black boxes</span>
+  </div>
+  <h2 class="mt-4 font-display font-light text-4xl sm:text-5xl text-ink leading-[1.1] tracking-tight max-w-3xl reveal">
+    Boring stack. <span class="italic font-medium">On purpose.</span>
+  </h2>
+  <p class="mt-6 text-lg text-slate max-w-2xl reveal">
+    Every dashboard we ship runs on infrastructure you can read, audit, and own. No proprietary middleware. No "trust us, it's in the algorithm." Real Postgres, real auth, real code in a repo you can read.
+  </p>
+
+  <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-5 reveal">
+    <div class="bg-white rounded-2xl border border-border-soft p-6">
+      <div class="font-display text-lg font-medium text-ink mb-1">Supabase</div>
+      <div class="text-xs uppercase tracking-wider text-slate font-semibold mb-2">Postgres + Auth + Storage</div>
+      <div class="text-sm text-slate">Open-source. RLS for multi-tenant security. You own the data.</div>
+    </div>
+    <div class="bg-white rounded-2xl border border-border-soft p-6">
+      <div class="font-display text-lg font-medium text-ink mb-1">Lovable</div>
+      <div class="text-xs uppercase tracking-wider text-slate font-semibold mb-2">React + Tailwind UI</div>
+      <div class="text-sm text-slate">Modern stack. Mobile-responsive. Code you can hand to any developer.</div>
+    </div>
+    <div class="bg-white rounded-2xl border border-border-soft p-6">
+      <div class="font-display text-lg font-medium text-ink mb-1">Cloudflare</div>
+      <div class="text-xs uppercase tracking-wider text-slate font-semibold mb-2">Hosting + DNS + Edge</div>
+      <div class="text-sm text-slate">Global, fast, free tier. Edge functions for what needs them.</div>
+    </div>
+    <div class="bg-white rounded-2xl border border-border-soft p-6">
+      <div class="font-display text-lg font-medium text-ink mb-1">Stripe / Resend / Twilio</div>
+      <div class="text-xs uppercase tracking-wider text-slate font-semibold mb-2">As needed</div>
+      <div class="text-sm text-slate">Best-in-class for payments, email, SMS. Not custom-built where industry standards win.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Engagement tiers -->
+<section id="engagement" class="bg-paper border-t border-border-soft py-24 lg:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12">
+    <div class="text-center max-w-3xl mx-auto reveal">
+      <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">Engagement tiers</span>
+      <h2 class="mt-4 font-display font-light text-4xl sm:text-5xl text-ink leading-[1.1] tracking-tight">
+        Three ways to <span class="italic font-medium">work with us.</span>
+      </h2>
+      <p class="mt-4 text-slate">
+        Pick the one that matches your stage. We'll help you size it on the discovery call.
+      </p>
+    </div>
+
+    <div class="mt-16 grid md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
+      <!-- Audit -->
+      <div class="tier-card bg-white rounded-2xl border border-border-soft p-8">
+        <div class="text-sm uppercase tracking-wider text-slate font-semibold">Audit</div>
+        <div class="mt-2 font-display text-2xl font-medium text-ink">For "we have something but it's not working"</div>
+        <div class="mt-6">
+          <span class="font-display text-3xl font-medium text-ink">Starts at</span>
+          <span class="font-display text-4xl font-medium text-ink num-counter ml-1">$5K</span>
+        </div>
+        <a href="#contact" class="mt-8 block text-center bg-paper border border-ink text-ink py-3 rounded-xl font-medium hover:bg-ink hover:text-paper transition">Book audit</a>
+        <ul class="mt-8 space-y-3 text-sm text-slate">
+          <li class="flex gap-2"><span class="text-emerald">✓</span> 2-week workflow audit</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Stakeholder interviews</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Tool consolidation map</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Quick-win recommendations</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Build-or-buy report</li>
+        </ul>
+      </div>
+
+      <!-- Build (highlighted) -->
+      <div class="tier-card relative bg-ink text-paper rounded-2xl border-2 border-emerald p-8 md:-my-2">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">Most popular</div>
+        <div class="text-sm uppercase tracking-wider text-emerald font-semibold">Build</div>
+        <div class="mt-2 font-display text-2xl font-medium">For "we know what we need, just build it"</div>
+        <div class="mt-6">
+          <span class="font-display text-3xl font-medium">Fixed scope</span>
+          <span class="font-display text-4xl font-medium num-counter ml-1">$25K+</span>
+        </div>
+        <a href="#contact" class="mt-8 block text-center bg-emerald text-white py-3 rounded-xl font-medium hover:bg-emerald-deep transition">Start a sprint</a>
+        <ul class="mt-8 space-y-3 text-sm text-paper/80">
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Full 8-week sprint</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Discovery + design + build</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Production-grade dashboard</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Auth + RLS + integrations</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Onboarding + training</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> 30-day post-launch support</li>
+        </ul>
+      </div>
+
+      <!-- Run -->
+      <div class="tier-card bg-white rounded-2xl border border-border-soft p-8">
+        <div class="text-sm uppercase tracking-wider text-slate font-semibold">Run</div>
+        <div class="mt-2 font-display text-2xl font-medium text-ink">For "we want it built and run"</div>
+        <div class="mt-6">
+          <span class="font-display text-3xl font-medium text-ink">Build +</span>
+          <span class="font-display text-4xl font-medium text-ink num-counter ml-1">$3K/mo</span>
+        </div>
+        <a href="#contact" class="mt-8 block text-center bg-paper border border-ink text-ink py-3 rounded-xl font-medium hover:bg-ink hover:text-paper transition">Talk to us</a>
+        <ul class="mt-8 space-y-3 text-sm text-slate">
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Everything in Build</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Ongoing iteration</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Quarterly roadmap reviews</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Hosting + monitoring</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> User support tier 1</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Cancel anytime</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="mt-10 text-center text-sm text-slate max-w-2xl mx-auto">
+      Final scope and pricing are confirmed on the discovery call. We don't sell what you don't need.
+    </p>
+  </div>
+</section>
+
+<!-- Examples -->
+<section class="max-w-7xl mx-auto px-6 lg:px-12 py-24 lg:py-32">
+  <div class="reveal">
+    <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">We eat our own cooking</span>
+  </div>
+  <h2 class="mt-4 font-display font-light text-4xl sm:text-5xl text-ink leading-[1.1] tracking-tight max-w-3xl reveal">
+    Ten dashboards we've built and run.
+  </h2>
+  <p class="mt-6 text-lg text-slate max-w-2xl reveal">
+    We don't pitch a stack we haven't lived in. Every Business Data Gurus platform runs on the same stack we ship to clients.
+  </p>
+
+  <div class="mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
+    <div class="bg-paper border border-border-soft rounded-2xl p-6">
+      <div class="font-display text-xl font-medium text-ink mb-1">BDG Dashboard</div>
+      <div class="text-sm text-slate">Central hub: 41 platforms, MRR tracking, sprint roadmap, intake pipeline.</div>
+    </div>
+    <div class="bg-paper border border-border-soft rounded-2xl p-6">
+      <div class="font-display text-xl font-medium text-ink mb-1">FamilyCompass</div>
+      <div class="text-sm text-slate">HIPAA-compliant case management for child welfare agencies. Multi-tenant Supabase.</div>
+    </div>
+    <div class="bg-paper border border-border-soft rounded-2xl p-6">
+      <div class="font-display text-xl font-medium text-ink mb-1">Item Vault</div>
+      <div class="text-sm text-slate">Inventory + content engine. Realtime sync. Recall alerts. Operator dashboards.</div>
+    </div>
+    <div class="bg-paper border border-border-soft rounded-2xl p-6">
+      <div class="font-display text-xl font-medium text-ink mb-1">Meridian</div>
+      <div class="text-sm text-slate">School dismissal + student safety. NFC boarding. GPS bus tracking. Parent app.</div>
+    </div>
+    <div class="bg-paper border border-border-soft rounded-2xl p-6">
+      <div class="font-display text-xl font-medium text-ink mb-1">DealDesk</div>
+      <div class="text-sm text-slate">Realtor pipeline kanban. Auto-generated transaction milestones. Year-end reports.</div>
+    </div>
+    <div class="bg-paper border border-border-soft rounded-2xl p-6">
+      <div class="font-display text-xl font-medium text-ink mb-1">FeedCompass</div>
+      <div class="text-sm text-slate">Closed-loop NFC benefits for homeless services. Anonymous-by-default. Audit trail.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="bg-ink text-paper py-24 lg:py-32">
+  <div class="max-w-3xl mx-auto px-6 lg:px-12">
+    <div class="text-center mb-12 reveal">
+      <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">Book a discovery call</span>
+      <h2 class="mt-4 font-display font-light text-4xl sm:text-5xl leading-[1.1] tracking-tight">
+        Tell us what's <span class="italic font-medium text-emerald">broken in your workflow.</span>
+      </h2>
+      <p class="mt-4 text-paper/70">
+        45 minutes, no slides. We learn what you're trying to do, then tell you honestly whether we're the right fit.
+      </p>
+    </div>
+
+    <form id="contact-form" class="bg-white text-ink rounded-3xl p-8 lg:p-10 reveal space-y-4">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <input type="text" name="name" placeholder="Your name" class="w-full bg-paper border border-border-soft rounded-xl px-5 py-3.5 text-base text-ink placeholder:text-slate/60 focus:outline-none focus:border-navy focus:ring-2 focus:ring-navy/10 transition">
+        <input type="email" name="email" required placeholder="Email" class="w-full bg-paper border border-border-soft rounded-xl px-5 py-3.5 text-base text-ink placeholder:text-slate/60 focus:outline-none focus:border-navy focus:ring-2 focus:ring-navy/10 transition">
+      </div>
+      <input type="text" name="company" placeholder="Company or organization" class="w-full bg-paper border border-border-soft rounded-xl px-5 py-3.5 text-base text-ink placeholder:text-slate/60 focus:outline-none focus:border-navy focus:ring-2 focus:ring-navy/10 transition">
+
+      <select name="tier" class="w-full bg-paper border border-border-soft rounded-xl px-5 py-3.5 text-base text-ink focus:outline-none focus:border-navy focus:ring-2 focus:ring-navy/10 transition">
+        <option value="undecided">Which tier interests you?</option>
+        <option value="audit">Audit ($5K) — fix what we have</option>
+        <option value="build">Build ($25K+) — full 8-week sprint</option>
+        <option value="run">Run (Build + $3K/mo) — build and operate</option>
+        <option value="undecided">Not sure yet</option>
+      </select>
+
+      <textarea name="message" rows="4" placeholder="What are you trying to track or replace? Any current tools we should know about?" class="w-full bg-paper border border-border-soft rounded-xl px-5 py-3.5 text-base text-ink placeholder:text-slate/60 focus:outline-none focus:border-navy focus:ring-2 focus:ring-navy/10 transition resize-none"></textarea>
+
+      <button type="submit" class="w-full bg-emerald text-white py-4 rounded-xl font-medium hover:bg-emerald-deep transition">
+        Request a discovery call
+      </button>
+      <div id="form-status" class="hidden text-sm px-4 py-3 rounded-lg"></div>
+    </form>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-paper border-t border-border-soft">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12 py-12 flex flex-col sm:flex-row gap-6 justify-between items-start sm:items-center">
+    <div>
+      <div class="flex items-center gap-2.5 mb-2">
+        <div class="w-7 h-7 rounded-lg bg-ink flex items-center justify-center">
+          <span class="text-paper font-display font-semibold text-xs">B</span>
+        </div>
+        <span class="font-display font-semibold text-ink">Business Data Gurus</span>
+        <span class="text-sm text-slate">/ Dashboard service</span>
+      </div>
+      <div class="text-sm text-slate">A custom dashboard service. <a href="index.html" class="text-ink hover:underline">See all BDG products →</a></div>
+    </div>
+    <div class="flex gap-6 text-sm text-slate">
+      <a href="index.html" class="hover:text-ink">Home</a>
+      <a href="#engagement" class="hover:text-ink">Tiers</a>
+      <a href="#contact" class="hover:text-ink">Book call</a>
+      <a href="mailto:hello@businessdatagurus.com" class="hover:text-ink">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const BDG_URL = 'https://bdywkygsvriaibjddcey.supabase.co';
+  const BDG_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkeXdreWdzdnJpYWliamRkY2V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Mzg1MTgsImV4cCI6MjA5MjMxNDUxOH0.Xs8Ohj4yq2bw-sInys8jx8KusfepPWjvxBVYxFpYjCM';
+  const SOURCE = 'bdg-dashboard-service';
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('shown');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach((el, i) => {
+    if (!el.style.getPropertyValue('--i')) el.style.setProperty('--i', i % 6);
+    observer.observe(el);
+  });
+
+  document.getElementById('contact-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const statusEl = document.getElementById('form-status');
+    const fd = new FormData(form);
+
+    statusEl.textContent = 'Sending…';
+    statusEl.className = 'text-sm px-4 py-3 rounded-lg form-success';
+    statusEl.classList.remove('hidden');
+
+    try {
+      const res = await fetch(`${BDG_URL}/rest/v1/bdg_intakes`, {
+        method: 'POST',
+        headers: {
+          'apikey': BDG_ANON_KEY,
+          'Authorization': `Bearer ${BDG_ANON_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({
+          email: fd.get('email'),
+          name: fd.get('name') || null,
+          company: fd.get('company') || null,
+          service_interest: 'BDG Dashboard',
+          source: SOURCE,
+          status: 'discovery',
+          message: `Tier: ${fd.get('tier') || 'undecided'} · ${fd.get('message') || 'No message'}`
+        })
+      });
+      if (res.ok || res.status === 201) {
+        form.reset();
+        statusEl.textContent = "✓ Got it. We'll reach out within a business day to schedule the call.";
+      } else {
+        throw new Error(`HTTP ${res.status}`);
+      }
+    } catch (err) {
+      statusEl.textContent = 'Send failed. Email hello@businessdatagurus.com directly.';
+      statusEl.className = 'text-sm px-4 py-3 rounded-lg form-error';
+      console.error(err);
+    }
+  });
+</script>
+
+</body>
+</html>
