@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Humanit — Email a problem. Get a plan back.</title>
+<meta name="description" content="Humanit is an AI service that reads your inbound emails and any files you attach, then builds a custom plan based on what you actually need. No app. No chatbot. Just email.">
+<meta property="og:title" content="Humanit — Email a problem. Get a plan back.">
+<meta property="og:description" content="The AI planner that delivers by email. Send any goal, any file, any context — get a personalized plan in your inbox.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          paper: '#FBFAF5', ink: '#0F172A', slate: '#475569',
+          navy: '#1E40AF', 'navy-deep': '#1E3A8A',
+          emerald: '#059669', 'emerald-deep': '#047857', amber: '#D97706',
+          'border-soft': '#E5E1D6'
+        },
+        fontFamily: {
+          serif: ['Fraunces', 'Georgia', 'serif'],
+          sans: ['DM Sans', 'system-ui', 'sans-serif'],
+          mono: ['JetBrains Mono', 'ui-monospace', 'monospace']
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: #FBFAF5; color: #0F172A;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(circle at 80% 0%, rgba(5, 150, 105, 0.06) 0%, transparent 50%),
+      radial-gradient(circle at 20% 100%, rgba(30, 64, 175, 0.05) 0%, transparent 50%);
+  }
+  .font-display { font-family: 'Fraunces', Georgia, serif; font-feature-settings: "ss01" on, "ss02" on; letter-spacing: -0.02em; }
+  .font-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+  .grain::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none;
+    opacity: 0.035; z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.9s ease-out, transform 0.9s ease-out; }
+  .reveal.shown { opacity: 1; transform: translateY(0); }
+  .price-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .price-card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -16px rgba(15, 23, 42, 0.12); }
+  .use-case { transition: border-color 0.2s ease, transform 0.2s ease; }
+  .use-case:hover { border-color: #059669; transform: translateY(-2px); }
+  .num-counter { font-variant-numeric: tabular-nums; }
+  .form-success { background: rgba(5, 150, 105, 0.1); color: #047857; }
+  .form-error { background: rgba(217, 70, 39, 0.1); color: #C2410C; }
+  .email-mock {
+    box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.05),
+                0 30px 60px -20px rgba(15, 23, 42, 0.18),
+                0 18px 36px -18px rgba(15, 23, 42, 0.12);
+  }
+  @keyframes type-blink { 50% { opacity: 0; } }
+  .blink { animation: type-blink 1s step-end infinite; }
+</style>
+</head>
+
+<body class="grain">
+
+<!-- Nav -->
+<nav class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-6 flex items-center justify-between">
+  <a href="https://www.businessdatagurus.com" class="flex items-center gap-2.5">
+    <div class="w-8 h-8 rounded-lg bg-emerald flex items-center justify-center">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </div>
+    <span class="font-display font-semibold text-xl text-ink">Humanit</span>
+  </a>
+  <div class="flex items-center gap-3 sm:gap-6">
+    <a href="#how" class="hidden sm:inline text-sm text-slate hover:text-ink transition">How it works</a>
+    <a href="#use-cases" class="hidden sm:inline text-sm text-slate hover:text-ink transition">Use cases</a>
+    <a href="#pricing" class="hidden sm:inline text-sm text-slate hover:text-ink transition">Pricing</a>
+    <a href="#waitlist" class="bg-emerald text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-emerald-deep transition">Get early access</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="relative max-w-7xl mx-auto px-6 lg:px-12 pt-12 pb-24 lg:pt-20 lg:pb-32">
+  <div class="grid lg:grid-cols-12 gap-12 items-center">
+    <div class="lg:col-span-7">
+      <div class="reveal" style="--i: 0">
+        <span class="inline-block text-xs tracking-[0.2em] uppercase text-emerald font-semibold mb-6">
+          AI that delivers by email
+        </span>
+      </div>
+      <h1 class="font-display font-light text-5xl sm:text-6xl lg:text-7xl text-ink leading-[1.05] tracking-tight reveal" style="--i: 1">
+        Email a problem.<br>
+        <span class="font-medium italic">Get a plan back.</span>
+      </h1>
+      <p class="mt-8 text-lg lg:text-xl text-slate max-w-xl leading-relaxed reveal" style="--i: 2">
+        Humanit reads your email and any files you attach, then builds a personalized plan based on what you actually sent. Goals, constraints, screenshots, contracts — whatever context you can write or share. No app. No chatbot. Just plans, in your inbox.
+      </p>
+
+      <form id="waitlist-hero" class="mt-10 flex flex-col sm:flex-row gap-3 max-w-md reveal" style="--i: 3">
+        <input type="email" required placeholder="you@yourcompany.com"
+          class="flex-1 bg-white border border-border-soft rounded-xl px-5 py-4 text-base text-ink placeholder:text-slate/60 focus:outline-none focus:border-emerald focus:ring-2 focus:ring-emerald/10 transition">
+        <button type="submit" class="bg-emerald text-white px-6 py-4 rounded-xl font-medium hover:bg-emerald-deep transition whitespace-nowrap">
+          Get early access
+        </button>
+      </form>
+      <div id="hero-status" class="mt-3 text-sm hidden px-4 py-2 rounded-lg max-w-md"></div>
+
+      <p class="mt-5 text-sm text-slate reveal" style="--i: 4">
+        First plan free for early members. No credit card.
+      </p>
+    </div>
+
+    <!-- Email mockup -->
+    <div class="lg:col-span-5 reveal" style="--i: 5">
+      <div class="email-mock bg-white rounded-2xl border border-border-soft overflow-hidden max-w-md mx-auto">
+        <!-- Header -->
+        <div class="px-5 py-3 border-b border-border-soft bg-paper flex items-center gap-2 text-xs text-slate">
+          <div class="flex gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-300"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-amber/60"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald/60"></span>
+          </div>
+          <span class="ml-2">Inbox · Humanit</span>
+        </div>
+        <!-- From you -->
+        <div class="p-5 border-b border-border-soft">
+          <div class="flex items-baseline justify-between mb-2">
+            <div class="text-xs uppercase tracking-wider text-slate font-semibold">You · sent</div>
+            <div class="text-xs text-slate">9:41 AM</div>
+          </div>
+          <div class="text-xs text-slate mb-1">To: hi@humanit.app</div>
+          <div class="text-sm text-ink font-medium mb-2">Subject: Relocating from DC to Austin in 8 weeks</div>
+          <div class="text-sm text-slate leading-relaxed">
+            Hey — I'm moving from DC to Austin in 8 weeks for a new job. Two kids (7, 11), a dog, two cars. Budget around $14k. Need to find schools, daycare, a rental, and timeline for everything. Attached: my offer letter, current lease, school enrollment dates from AISD.
+          </div>
+          <div class="mt-3 flex gap-2">
+            <span class="text-[11px] bg-paper border border-border-soft px-2 py-1 rounded text-slate">📎 offer-letter.pdf</span>
+            <span class="text-[11px] bg-paper border border-border-soft px-2 py-1 rounded text-slate">📎 current-lease.pdf</span>
+          </div>
+        </div>
+        <!-- From Humanit -->
+        <div class="p-5 bg-emerald/5">
+          <div class="flex items-baseline justify-between mb-2">
+            <div class="text-xs uppercase tracking-wider text-emerald-deep font-semibold">Humanit · 4 hours later</div>
+            <div class="text-xs text-slate">1:47 PM</div>
+          </div>
+          <div class="text-sm text-ink font-medium mb-2">Subject: Your DC → Austin relocation plan (8 weeks)</div>
+          <div class="text-sm text-slate leading-relaxed">
+            Built you an 8-week relocation plan with weekly milestones, a $14k budget breakdown, AISD enrollment timeline matched to your start date, 3 neighborhood recommendations near the office, and a moving company shortlist with quote estimates.
+          </div>
+          <div class="mt-3 flex gap-2">
+            <span class="text-[11px] bg-white border border-emerald/30 text-emerald-deep px-2 py-1 rounded font-mono">📋 austin-plan.pdf</span>
+            <span class="text-[11px] bg-white border border-emerald/30 text-emerald-deep px-2 py-1 rounded font-mono">📅 timeline.ics</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why email -->
+<section class="relative bg-ink text-paper py-24 lg:py-32 overflow-hidden">
+  <div class="max-w-5xl mx-auto px-6 lg:px-12">
+    <div class="reveal">
+      <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">Why email, not chat</span>
+    </div>
+    <h2 class="mt-6 font-display font-light text-4xl sm:text-5xl lg:text-6xl leading-[1.1] tracking-tight reveal">
+      Chatbots are exhausting.
+      <span class="block font-medium italic text-emerald mt-2">Email is calm.</span>
+    </h2>
+    <p class="mt-8 text-lg lg:text-xl text-paper/70 max-w-2xl leading-relaxed reveal">
+      Most AI products want you in a chat window for an hour. Humanit doesn't. Send the problem when you have a minute. Get the plan when you have time to read it. The same async flow that's worked for human professionals for fifty years — now with AI on the other end.
+    </p>
+    <div class="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-8 reveal">
+      <div>
+        <div class="font-display text-4xl lg:text-5xl font-medium text-emerald num-counter">~4hrs</div>
+        <div class="mt-2 text-sm text-paper/60">Typical turnaround time</div>
+      </div>
+      <div>
+        <div class="font-display text-4xl lg:text-5xl font-medium text-emerald num-counter">25MB</div>
+        <div class="mt-2 text-sm text-paper/60">Files per email (PDFs, photos, contracts)</div>
+      </div>
+      <div>
+        <div class="font-display text-4xl lg:text-5xl font-medium text-emerald num-counter">$0</div>
+        <div class="mt-2 text-sm text-paper/60">First plan, free</div>
+      </div>
+      <div>
+        <div class="font-display text-4xl lg:text-5xl font-medium text-emerald num-counter">∞</div>
+        <div class="mt-2 text-sm text-paper/60">Things you can plan</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section id="how" class="max-w-7xl mx-auto px-6 lg:px-12 py-24 lg:py-32">
+  <div class="reveal">
+    <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">How it works</span>
+  </div>
+  <h2 class="mt-4 font-display font-light text-4xl sm:text-5xl lg:text-6xl text-ink leading-[1.1] tracking-tight max-w-3xl reveal">
+    Three steps. <span class="italic font-medium">No app required.</span>
+  </h2>
+
+  <div class="mt-20 grid md:grid-cols-3 gap-8 lg:gap-12">
+    <div class="reveal">
+      <div class="flex items-baseline gap-3 mb-5">
+        <span class="font-display text-5xl font-light text-emerald num-counter">01</span>
+        <span class="text-xs tracking-[0.2em] uppercase text-slate font-semibold">Send</span>
+      </div>
+      <h3 class="font-display text-2xl font-medium text-ink mb-3">Email what you need.</h3>
+      <p class="text-slate leading-relaxed">
+        Write to <span class="font-mono text-sm bg-paper border border-border-soft px-2 py-0.5 rounded">hi@humanit.app</span>. Subject is the goal. Body is the context. Attach anything: contracts, photos, lease docs, offer letters, screenshots. The more you send, the better the plan.
+      </p>
+    </div>
+    <div class="reveal">
+      <div class="flex items-baseline gap-3 mb-5">
+        <span class="font-display text-5xl font-light text-navy num-counter">02</span>
+        <span class="text-xs tracking-[0.2em] uppercase text-slate font-semibold">Process</span>
+      </div>
+      <h3 class="font-display text-2xl font-medium text-ink mb-3">Humanit reads everything.</h3>
+      <p class="text-slate leading-relaxed">
+        Your email and attachments land in encrypted Cloudflare R2 storage. Humanit's AI reads the email, parses the files, fills in the gaps from public data, and structures a real plan — not a chat answer.
+      </p>
+    </div>
+    <div class="reveal">
+      <div class="flex items-baseline gap-3 mb-5">
+        <span class="font-display text-5xl font-light text-amber num-counter">03</span>
+        <span class="text-xs tracking-[0.2em] uppercase text-slate font-semibold">Receive</span>
+      </div>
+      <h3 class="font-display text-2xl font-medium text-ink mb-3">Plan in your inbox.</h3>
+      <p class="text-slate leading-relaxed">
+        Within four hours, a reply with a structured plan: PDF summary, week-by-week timeline, calendar invites if relevant, and a shortlist of next actions. Reply with edits and Humanit revises. No login, no app, just email.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Use cases -->
+<section id="use-cases" class="bg-paper border-y border-border-soft py-24 lg:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12">
+    <div class="reveal">
+      <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">What people send</span>
+    </div>
+    <h2 class="mt-4 font-display font-light text-4xl sm:text-5xl text-ink leading-[1.1] tracking-tight max-w-3xl reveal">
+      Anything you'd ask a really good assistant.
+    </h2>
+
+    <div class="mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="use-case bg-white border border-border-soft rounded-2xl p-6 reveal">
+        <div class="text-xs uppercase tracking-wider text-emerald-deep font-semibold mb-3">Personal</div>
+        <div class="font-display text-lg font-medium text-ink mb-2">"I'm relocating in 60 days."</div>
+        <p class="text-sm text-slate">Move timeline + budget + schools + housing search. Anything you'd ask a relocation specialist.</p>
+      </div>
+      <div class="use-case bg-white border border-border-soft rounded-2xl p-6 reveal">
+        <div class="text-xs uppercase tracking-wider text-navy font-semibold mb-3">Business</div>
+        <div class="font-display text-lg font-medium text-ink mb-2">"I want to launch a bakery."</div>
+        <p class="text-sm text-slate">Business plan, financial projections, licensing checklist, opening week sequence.</p>
+      </div>
+      <div class="use-case bg-white border border-border-soft rounded-2xl p-6 reveal">
+        <div class="text-xs uppercase tracking-wider text-amber font-semibold mb-3">Career</div>
+        <div class="font-display text-lg font-medium text-ink mb-2">"Help me prep for a senior PM interview."</div>
+        <p class="text-sm text-slate">Tailored prep plan, common questions, study schedule, mock answers — using your resume as context.</p>
+      </div>
+      <div class="use-case bg-white border border-border-soft rounded-2xl p-6 reveal">
+        <div class="text-xs uppercase tracking-wider text-emerald-deep font-semibold mb-3">Health</div>
+        <div class="font-display text-lg font-medium text-ink mb-2">"I want to lose 30 lbs by summer."</div>
+        <p class="text-sm text-slate">Weekly meal plan, workout schedule, milestone checkpoints — adjusted to your constraints.</p>
+      </div>
+      <div class="use-case bg-white border border-border-soft rounded-2xl p-6 reveal">
+        <div class="text-xs uppercase tracking-wider text-navy font-semibold mb-3">Legal-adjacent</div>
+        <div class="font-display text-lg font-medium text-ink mb-2">"Walk me through my lease termination."</div>
+        <p class="text-sm text-slate">Send the lease as PDF, get a step-by-step exit plan with deadlines and required notices. (Not legal advice.)</p>
+      </div>
+      <div class="use-case bg-white border border-border-soft rounded-2xl p-6 reveal">
+        <div class="text-xs uppercase tracking-wider text-amber font-semibold mb-3">Project</div>
+        <div class="font-display text-lg font-medium text-ink mb-2">"Plan our family reunion for 40 people."</div>
+        <p class="text-sm text-slate">Venue shortlist, budget, timeline, RSVP system, week-of checklist. Done before bedtime.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Differentiator -->
+<section class="max-w-7xl mx-auto px-6 lg:px-12 py-24 lg:py-32">
+  <div class="grid lg:grid-cols-2 gap-16 items-center">
+    <div class="reveal">
+      <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">Why this works</span>
+      <h2 class="mt-4 font-display font-light text-4xl lg:text-5xl text-ink leading-[1.1] tracking-tight">
+        Email is the <span class="italic font-medium">universal interface.</span>
+      </h2>
+      <p class="mt-6 text-lg text-slate leading-relaxed">
+        Every adult has an email address. Every adult knows how to attach a file. There's no learning curve. No new password. No app to keep updated. Humanit meets you where you already are.
+      </p>
+      <ul class="mt-8 space-y-4">
+        <li class="flex gap-4">
+          <div class="flex-shrink-0 w-6 h-6 rounded-full bg-emerald flex items-center justify-center mt-0.5">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <div class="font-medium text-ink">No app, ever</div>
+            <div class="text-slate text-sm mt-1">Use the inbox you already check 50 times a day.</div>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <div class="flex-shrink-0 w-6 h-6 rounded-full bg-emerald flex items-center justify-center mt-0.5">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <div class="font-medium text-ink">Files just work</div>
+            <div class="text-slate text-sm mt-1">PDFs, contracts, photos, screenshots — anything an inbox accepts.</div>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <div class="flex-shrink-0 w-6 h-6 rounded-full bg-emerald flex items-center justify-center mt-0.5">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <div class="font-medium text-ink">Plans, not paragraphs</div>
+            <div class="text-slate text-sm mt-1">Structured PDFs with steps, dates, and shortlists — not a wall of text.</div>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <div class="flex-shrink-0 w-6 h-6 rounded-full bg-emerald flex items-center justify-center mt-0.5">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <div class="font-medium text-ink">Threads = context</div>
+            <div class="text-slate text-sm mt-1">Reply to revise. The thread becomes the project. No "starting a new chat."</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- "What you might send" snippet -->
+    <div class="reveal">
+      <div class="bg-paper border border-border-soft rounded-3xl p-8 font-mono text-sm">
+        <div class="text-xs uppercase tracking-wider text-slate font-semibold mb-4">What a real email might look like</div>
+        <div class="text-slate leading-relaxed space-y-3">
+          <div><span class="text-ink font-semibold">To:</span> hi@humanit.app</div>
+          <div><span class="text-ink font-semibold">Subject:</span> Opening a coffee shop in Capitol Hill</div>
+          <div class="border-t border-border-soft pt-3">
+            Hey,<br><br>
+            I have $80k saved and want to open a coffee shop in Capitol Hill DC by next spring. I've never run a business before. Attached is my financial summary, a photo of the space I'm looking at, and the lease offer.<br><br>
+            What I'm not sure about: whether $80k is enough, what licenses I need, how to negotiate this lease, and what my first-90-days hiring plan should look like.<br><br>
+            Thanks,<br>
+            Maria<br><br>
+            <span class="text-emerald-deep">📎 finances.pdf · space-photo.jpg · lease-offer.pdf</span><span class="blink text-emerald">|</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section id="pricing" class="bg-paper border-t border-border-soft py-24 lg:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">Pricing</span>
+      <h2 class="mt-4 font-display font-light text-4xl sm:text-5xl text-ink leading-[1.1] tracking-tight">
+        First plan free. <span class="italic font-medium">No credit card.</span>
+      </h2>
+      <p class="mt-4 text-slate">
+        Send one email. See if the plan is good. If it is, pick a tier.
+      </p>
+    </div>
+
+    <div class="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+      <div class="price-card bg-white rounded-2xl border border-border-soft p-7">
+        <div class="text-sm uppercase tracking-wider text-slate font-semibold">Navigate</div>
+        <div class="mt-2 font-display text-xl font-medium text-ink">"Know where you stand."</div>
+        <div class="mt-5 flex items-baseline gap-1">
+          <span class="font-display text-4xl font-medium text-ink num-counter">$49</span>
+          <span class="text-slate text-sm">/mo</span>
+        </div>
+        <a href="#waitlist" class="mt-6 block text-center bg-paper border border-ink text-ink py-2.5 rounded-xl font-medium hover:bg-ink hover:text-paper transition text-sm">Get started</a>
+        <ul class="mt-6 space-y-2.5 text-sm text-slate">
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Intake + profile created</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Monthly roadmap update</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Local law & news digest</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Email support</li>
+        </ul>
+      </div>
+
+      <div class="price-card bg-white rounded-2xl border border-border-soft p-7">
+        <div class="text-sm uppercase tracking-wider text-slate font-semibold">Build</div>
+        <div class="mt-2 font-display text-xl font-medium text-ink">"Start moving forward."</div>
+        <div class="mt-5 flex items-baseline gap-1">
+          <span class="font-display text-4xl font-medium text-ink num-counter">$99</span>
+          <span class="text-slate text-sm">/mo</span>
+        </div>
+        <a href="#waitlist" class="mt-6 block text-center bg-paper border border-ink text-ink py-2.5 rounded-xl font-medium hover:bg-ink hover:text-paper transition text-sm">Get started</a>
+        <ul class="mt-6 space-y-2.5 text-sm text-slate">
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Everything in Navigate</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Resume maintained monthly</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> 2 custom how-to guides/mo</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Reply-to-revise unlimited</li>
+        </ul>
+      </div>
+
+      <div class="price-card relative bg-ink text-paper rounded-2xl border-2 border-emerald p-7">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide whitespace-nowrap">Most popular</div>
+        <div class="text-sm uppercase tracking-wider text-emerald font-semibold">Structure</div>
+        <div class="mt-2 font-display text-xl font-medium">"Build real systems for life."</div>
+        <div class="mt-5 flex items-baseline gap-1">
+          <span class="font-display text-4xl font-medium num-counter">$199</span>
+          <span class="text-paper/60 text-sm">/mo</span>
+        </div>
+        <a href="#waitlist" class="mt-6 block text-center bg-emerald text-white py-2.5 rounded-xl font-medium hover:bg-emerald-deep transition text-sm">Get started</a>
+        <ul class="mt-6 space-y-2.5 text-sm text-paper/80">
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Everything in Build</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Weekly check-in call</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Custom life systems built</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Priority response</li>
+        </ul>
+      </div>
+
+      <div class="price-card bg-white rounded-2xl border border-border-soft p-7">
+        <div class="text-sm uppercase tracking-wider text-slate font-semibold">Architect</div>
+        <div class="mt-2 font-display text-xl font-medium text-ink">"Full attention, every month."</div>
+        <div class="mt-5 flex items-baseline gap-1">
+          <span class="font-display text-4xl font-medium text-ink num-counter">$399</span>
+          <span class="text-slate text-sm">/mo</span>
+        </div>
+        <a href="#waitlist" class="mt-6 block text-center bg-paper border border-ink text-ink py-2.5 rounded-xl font-medium hover:bg-ink hover:text-paper transition text-sm">Talk to us</a>
+        <ul class="mt-6 space-y-2.5 text-sm text-slate">
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Everything in Structure</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Full strategy + documents</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Deep research on your needs</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Unlimited async messaging</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section id="waitlist" class="relative bg-ink text-paper py-24 lg:py-32 overflow-hidden">
+  <div class="absolute inset-0 opacity-10 pointer-events-none">
+    <div class="absolute top-1/2 left-1/4 w-96 h-96 bg-emerald rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-navy rounded-full blur-3xl"></div>
+  </div>
+  <div class="relative max-w-3xl mx-auto px-6 lg:px-12 text-center">
+    <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold reveal">Join the waitlist</span>
+    <h2 class="mt-6 font-display font-light text-4xl sm:text-5xl lg:text-6xl leading-[1.1] tracking-tight reveal">
+      Send your first email. <span class="italic font-medium text-emerald">Get a real plan back.</span>
+    </h2>
+    <p class="mt-6 text-lg text-paper/70 leading-relaxed reveal">
+      Early members get the first plan free, founder pricing for life, and direct input on the planning templates.
+    </p>
+    <form id="waitlist-cta" class="mt-10 flex flex-col sm:flex-row gap-3 max-w-md mx-auto reveal">
+      <input type="email" required placeholder="you@yourcompany.com"
+        class="flex-1 bg-white/5 border border-white/20 rounded-xl px-5 py-4 text-base text-paper placeholder:text-paper/40 focus:outline-none focus:border-emerald focus:ring-2 focus:ring-emerald/20 transition">
+      <button type="submit" class="bg-emerald text-white px-6 py-4 rounded-xl font-medium hover:bg-emerald-deep transition whitespace-nowrap">
+        Get early access
+      </button>
+    </form>
+    <div id="cta-status" class="mt-3 text-sm hidden px-4 py-2 rounded-lg max-w-md mx-auto"></div>
+    <p class="mt-5 text-sm text-paper/50 reveal">A Business Data Gurus product · Built in DC</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-paper border-t border-border-soft">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12 py-12 flex flex-col sm:flex-row gap-6 justify-between items-start sm:items-center">
+    <div>
+      <div class="flex items-center gap-2.5 mb-2">
+        <div class="w-7 h-7 rounded-lg bg-emerald flex items-center justify-center">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <span class="font-display font-semibold text-ink">Humanit</span>
+      </div>
+      <div class="text-sm text-slate">A product of <a href="https://www.businessdatagurus.com" class="text-ink hover:underline">Business Data Gurus</a> · Built in DC</div>
+    </div>
+    <div class="flex gap-6 text-sm text-slate">
+      <a href="#how" class="hover:text-ink">How it works</a>
+      <a href="#pricing" class="hover:text-ink">Pricing</a>
+      <a href="mailto:hello@businessdatagurus.com" class="hover:text-ink">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const BDG_URL = 'https://bdywkygsvriaibjddcey.supabase.co';
+  const BDG_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkeXdreWdzdnJpYWliamRkY2V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Mzg1MTgsImV4cCI6MjA5MjMxNDUxOH0.Xs8Ohj4yq2bw-sInys8jx8KusfepPWjvxBVYxFpYjCM';
+  const SOURCE = 'humanit-landing';
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('shown');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach((el, i) => {
+    if (!el.style.getPropertyValue('--i')) el.style.setProperty('--i', i % 6);
+    observer.observe(el);
+  });
+
+  async function submitWaitlist(form, statusEl) {
+    const email = form.querySelector('input[type="email"]').value.trim();
+    if (!email) return;
+    statusEl.textContent = 'Submitting…';
+    statusEl.className = 'mt-3 text-sm px-4 py-2 rounded-lg form-success max-w-md' + (statusEl.id === 'cta-status' ? ' mx-auto' : '');
+    statusEl.classList.remove('hidden');
+    try {
+      const res = await fetch(`${BDG_URL}/rest/v1/bdg_intakes`, {
+        method: 'POST',
+        headers: {
+          'apikey': BDG_ANON_KEY,
+          'Authorization': `Bearer ${BDG_ANON_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({
+          email: email,
+          service_interest: 'Humanit',
+          source: SOURCE,
+          status: 'waitlist',
+          message: `Waitlist signup from ${SOURCE}`
+        })
+      });
+      if (res.ok || res.status === 201) {
+        form.reset();
+        statusEl.textContent = "✓ You're on the Humanit waitlist. Early access opens soon.";
+      } else {
+        throw new Error(`HTTP ${res.status}`);
+      }
+    } catch (err) {
+      statusEl.textContent = 'Something went wrong. Email hello@businessdatagurus.com instead.';
+      statusEl.className = 'mt-3 text-sm px-4 py-2 rounded-lg form-error max-w-md' + (statusEl.id === 'cta-status' ? ' mx-auto' : '');
+      console.error(err);
+    }
+  }
+
+  document.getElementById('waitlist-hero').addEventListener('submit', (e) => {
+    e.preventDefault();
+    submitWaitlist(e.target, document.getElementById('hero-status'));
+  });
+  document.getElementById('waitlist-cta').addEventListener('submit', (e) => {
+    e.preventDefault();
+    submitWaitlist(e.target, document.getElementById('cta-status'));
+  });
+</script>
+
+</body>
+</html>
