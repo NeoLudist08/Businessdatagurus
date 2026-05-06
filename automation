@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="BDG Private Clouds — your house, your data, your cloud. Encrypted from Alexa to Zigbee. Personal dashboard + private home cloud + business cloud, all on hardware you own.">
+<title>BDG Private Clouds | Your House. Your Data. Your Cloud.</title>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-494117515-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-494117515-1');
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --bg:     #080b1a;
+        --bg2:    #0f1326;
+        --red:    #ff4d4d;
+        --teal:   #00e5cc;
+        --gold:   #f5c842;
+        --purple: #a855f7;
+        --orange: #ff8c42;
+        --muted:  #8892b0;
+        --border: rgba(255,255,255,0.08);
+        --card:   rgba(255,255,255,0.04);
+        --fh: 'Syne', sans-serif;
+        --fm: 'Space Mono', monospace;
+        --fb: 'Inter', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--fb); background: var(--bg); color: #fff; overflow-x: hidden; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .bg-layer { position: fixed; inset: 0; background: radial-gradient(circle at 20% 10%, rgba(0,229,204,.06) 0%, transparent 50%), radial-gradient(circle at 80% 90%, rgba(255,77,77,.06) 0%, transparent 50%), var(--bg); z-index: -2; }
+    canvas#particle-canvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 50px; position: relative; z-index: 1; }
+    .grad { background: linear-gradient(90deg, var(--teal), var(--gold)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .grad-r { background: linear-gradient(90deg, var(--red), var(--purple)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .badge { display: inline-block; font-family: var(--fm); font-size: 0.62rem; letter-spacing: 1px; padding: 4px 11px; border: 1px solid var(--border); border-radius: 20px; color: var(--muted); margin: 3px; background: rgba(255,255,255,0.02); }
+    .badge.t { color: var(--teal); border-color: rgba(0,229,204,.25); }
+    .badge.r { color: var(--red); border-color: rgba(255,77,77,.25); }
+    .badge.g { color: var(--gold); border-color: rgba(245,200,66,.25); }
+    .badge.p { color: var(--purple); border-color: rgba(168,85,247,.25); }
+    .eyebrow { display: inline-block; font-family: var(--fm); font-size: 0.7rem; letter-spacing: 3px; color: var(--teal); padding: 7px 14px; border: 1px solid rgba(0,229,204,.3); border-radius: 30px; background: rgba(0,229,204,.05); margin-bottom: 24px; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 50px; background: rgba(8,11,26,0.7); backdrop-filter: blur(20px); border-bottom: 1px solid transparent; transition: all 0.3s; }
+    nav.scrolled { background: rgba(8,11,26,0.92); border-bottom-color: var(--border); }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1280px; margin: 0 auto; }
+    .logo { font-family: var(--fh); font-size: 1.05rem; font-weight: 800; cursor: pointer; letter-spacing: -0.5px; }
+    .logo span { display: block; font-family: var(--fm); font-size: 0.55rem; color: var(--muted); margin-top: 2px; letter-spacing: 1.5px; font-weight: 400; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: #fff; text-decoration: none; font-family: var(--fm); font-size: 0.7rem; letter-spacing: 1.5px; cursor: pointer; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-cta { padding: 10px 22px; background: linear-gradient(90deg, var(--teal), #00b4ff); color: var(--bg); border-radius: 24px; font-family: var(--fm); font-size: 0.65rem; letter-spacing: 1.5px; font-weight: 700; text-decoration: none; box-shadow: 0 4px 20px rgba(0,229,204,.25); cursor: pointer; }
+
+    /* HERO */
+    .hero { padding: 160px 50px 80px; position: relative; overflow: hidden; }
+    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,229,204,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,204,.04) 1px, transparent 1px); background-size: 60px 60px; opacity: 0.5; mask-image: radial-gradient(ellipse at center, black 0%, transparent 75%); }
+    h1.d1 { font-family: var(--fh); font-size: clamp(2.6rem, 6vw, 5.8rem); font-weight: 800; letter-spacing: -2px; line-height: 0.96; margin-bottom: 30px; }
+    .hero-sub { font-size: clamp(1rem, 1.5vw, 1.2rem); color: var(--muted); max-width: 640px; margin-bottom: 36px; line-height: 1.75; font-weight: 300; }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px; }
+    .btn { padding: 14px 28px; border: none; border-radius: 30px; font-family: var(--fm); font-size: 0.75rem; letter-spacing: 2px; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; font-weight: 700; }
+    .btn { background: linear-gradient(90deg, var(--red), #e63333); color: #fff; box-shadow: 0 4px 24px rgba(255,77,77,.4); }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(255,77,77,.55); }
+    .btn.outline { background: transparent; border: 1px solid rgba(0,229,204,.4); color: var(--teal); box-shadow: none; }
+    .btn.outline:hover { background: rgba(0,229,204,.07); border-color: var(--teal); }
+    .btn.teal { background: linear-gradient(90deg, var(--teal), #00b4ff); color: var(--bg); box-shadow: 0 4px 20px rgba(0,229,204,.25); }
+
+    /* SECTIONS */
+    section.layer { padding: 80px 0; }
+    .sec-head { text-align: center; max-width: 800px; margin: 0 auto 56px; }
+    .sec-label { display: inline-block; font-family: var(--fm); font-size: 0.65rem; letter-spacing: 3px; color: var(--teal); padding: 5px 13px; border: 1px solid rgba(0,229,204,.25); border-radius: 20px; background: rgba(0,229,204,.05); margin-bottom: 18px; }
+    .sec-title { font-family: var(--fh); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -1px; line-height: 1.05; margin-bottom: 16px; }
+    .sec-sub { color: var(--muted); font-size: 1.02rem; max-width: 660px; margin: 0 auto; line-height: 1.75; }
+
+    /* STACK DIAGRAM */
+    .stack { display: flex; flex-direction: column; gap: 14px; max-width: 760px; margin: 0 auto; padding: 24px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 20px; backdrop-filter: blur(10px); }
+    .stack-layer { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 24px; position: relative; transition: all 0.3s; }
+    .stack-layer:hover { transform: translateX(6px); border-color: rgba(0,229,204,.3); }
+    .stack-layer .layer-num { position: absolute; left: -40px; top: 18px; width: 32px; height: 32px; border-radius: 50%; background: var(--bg2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: var(--fm); font-size: 0.72rem; color: var(--muted); }
+    .stack-layer.l1 { border-left: 3px solid var(--purple); } .stack-layer.l1 .layer-num { color: var(--purple); border-color: rgba(168,85,247,.4); }
+    .stack-layer.l2 { border-left: 3px solid var(--teal); } .stack-layer.l2 .layer-num { color: var(--teal); border-color: rgba(0,229,204,.4); }
+    .stack-layer.l3 { border-left: 3px solid var(--gold); } .stack-layer.l3 .layer-num { color: var(--gold); border-color: rgba(245,200,66,.4); }
+    .stack-layer.l4 { border-left: 3px solid var(--orange); } .stack-layer.l4 .layer-num { color: var(--orange); border-color: rgba(255,140,66,.4); }
+    .stack-layer.l5 { border-left: 3px solid var(--red); } .stack-layer.l5 .layer-num { color: var(--red); border-color: rgba(255,77,77,.4); }
+    .stack-name { font-family: var(--fh); font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .stack-name .protocol { font-family: var(--fm); font-size: 0.62rem; padding: 3px 8px; border: 1px solid var(--border); border-radius: 12px; color: var(--muted); letter-spacing: 1px; background: rgba(0,0,0,0.25); }
+    .stack-desc { color: var(--muted); font-size: 0.85rem; line-height: 1.6; }
+
+    /* FLOW ARROWS */
+    .flow-down { display: flex; justify-content: center; padding: 6px 0; }
+    .flow-down svg { width: 18px; height: 18px; opacity: 0.5; }
+
+    /* CONTROL ZONES */
+    .zone-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+    .zone { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; transition: all 0.3s; }
+    .zone:hover { border-color: rgba(0,229,204,.3); transform: translateY(-4px); }
+    .zone-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .zone-name { font-family: var(--fh); font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
+    .zone-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.5; }
+    .zone-tag { font-family: var(--fm); font-size: 0.6rem; letter-spacing: 1px; color: var(--teal); margin-top: 10px; display: inline-block; padding: 3px 8px; border: 1px solid rgba(0,229,204,.3); border-radius: 10px; }
+
+    /* COMPARISON */
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 960px; margin: 0 auto; }
+    .compare-col { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 32px; }
+    .compare-col.bdg { border-color: rgba(0,229,204,.3); background: linear-gradient(135deg, rgba(0,229,204,.06), rgba(168,85,247,.04)); }
+    .compare-col.them { border-color: rgba(255,77,77,.2); background: rgba(255,77,77,.03); }
+    .compare-h { font-family: var(--fh); font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; }
+    .compare-h.bdg { color: var(--teal); }
+    .compare-h.them { color: var(--red); }
+    .compare-sub { font-family: var(--fm); font-size: 0.65rem; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 22px; }
+    .compare-list { list-style: none; }
+    .compare-list li { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.88rem; color: #d4dbe8; display: flex; align-items: flex-start; gap: 10px; }
+    .compare-list li:last-child { border-bottom: none; }
+    .compare-list li:before { flex-shrink: 0; }
+    .compare-list.yes li:before { content: "✓"; color: var(--teal); font-weight: 700; }
+    .compare-list.no li:before { content: "✗"; color: var(--red); font-weight: 700; }
+
+    /* PRICING */
+    .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
+    .pc { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 32px; position: relative; transition: all 0.3s; }
+    .pc:hover { transform: translateY(-4px); border-color: rgba(0,229,204,.25); }
+    .pc.feat { border: 2px solid var(--teal); background: linear-gradient(135deg, rgba(0,229,204,.07), rgba(168,85,247,.05)); }
+    .pc.feat:before { content: "MOST POPULAR"; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--teal); color: var(--bg); font-family: var(--fm); font-size: 0.6rem; letter-spacing: 1.5px; padding: 4px 12px; border-radius: 12px; font-weight: 700; }
+    .pc-name { font-family: var(--fh); font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; }
+    .pc-tag { font-family: var(--fm); font-size: 0.62rem; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 18px; }
+    .pc-price { font-family: var(--fh); font-size: 2rem; font-weight: 800; margin-bottom: 4px; }
+    .pc-price span { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+    .pc-over { font-family: var(--fm); font-size: 0.62rem; letter-spacing: 1px; color: var(--gold); margin-bottom: 16px; }
+    .pc-feats { list-style: none; margin-bottom: 24px; }
+    .pc-feats li { padding: 7px 0; border-bottom: 1px dashed var(--border); font-size: 0.83rem; color: var(--muted); }
+    .pc-feats li:last-child { border-bottom: none; }
+    .pc-feats li:before { content: "→ "; color: var(--teal); margin-right: 6px; }
+    .pc-btn { display: block; text-align: center; padding: 11px; border: 1px solid var(--border); border-radius: 24px; font-family: var(--fm); font-size: 0.65rem; letter-spacing: 1.5px; color: #fff; text-decoration: none; cursor: pointer; transition: all 0.2s; }
+    .pc-btn:hover { background: rgba(0,229,204,.07); border-color: var(--teal); }
+    .pc-btn.pri { background: linear-gradient(90deg, var(--teal), #00b4ff); color: var(--bg); border: none; font-weight: 700; }
+
+    /* CONTACT */
+    .contact-card { max-width: 620px; margin: 0 auto; background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 36px; }
+    .fg { margin-bottom: 16px; }
+    .fg label { display: block; margin-bottom: 7px; font-family: var(--fm); font-size: 0.65rem; letter-spacing: 1.5px; color: var(--muted); }
+    .fg input, .fg textarea, .fg select { width: 100%; padding: 11px 15px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-family: var(--fb); font-size: 0.87rem; transition: border-color 0.2s; }
+    .fg input:focus, .fg textarea:focus, .fg select:focus { outline: none; border-color: var(--teal); }
+    .fg select option { background: var(--bg2); }
+    .fg textarea { resize: vertical; min-height: 90px; }
+    .form-status { margin-top: 14px; padding: 11px 15px; border-radius: 8px; font-size: 0.83rem; display: none; }
+    .form-status.ok { background: rgba(0,229,204,.08); color: var(--teal); border: 1px solid rgba(0,229,204,.3); display: block; }
+    .form-status.err { background: rgba(255,77,77,.08); color: var(--red); border: 1px solid rgba(255,77,77,.3); display: block; }
+
+    /* SCROLL ANIMS */
+    .sa { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .sa.vis { opacity: 1; transform: translateY(0); }
+
+    footer { border-top: 1px solid var(--border); padding: 36px 50px; text-align: center; color: var(--muted); font-size: 0.73rem; font-family: var(--fm); position: relative; z-index: 1; margin-top: 40px; }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--teal); }
+
+    @media(max-width:768px) {
+        nav { padding: 12px 20px; }
+        .nav-links { display: none; }
+        .hero { padding: 120px 20px 60px; }
+        .container { padding: 0 20px; }
+        section.layer { padding: 60px 0; }
+        .compare-grid { grid-template-columns: 1fr; }
+        .stack-layer .layer-num { display: none; }
+        footer { padding: 28px 20px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="bg-layer"></div>
+<canvas id="particle-canvas"></canvas>
+
+<script>
+const CONFIG = {
+    SUPABASE_URL: 'https://bdywkygsvriaibjddcey.supabase.co',
+    SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkeXdreWdzdnJpYWliamRkY2V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Mzg1MTgsImV4cCI6MjA5MjMxNDUxOH0.Xs8Ohj4yq2bw-sInys8jx8KusfepPWjvxBVYxFpYjCM',
+    SOURCE: 'automation-landing'
+};
+</script>
+
+<!-- NAV -->
+<nav id="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="logo" style="text-decoration:none;color:#fff;">
+            BUSINESS DATA GURUS
+            <span>BDG · PRIVATE CLOUDS · ZERO SURVEILLANCE</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="#stack">THE STACK</a></li>
+            <li><a href="#zones">CONTROL</a></li>
+            <li><a href="#pricing">PRICING</a></li>
+            <li><a href="#contact">CONTACT</a></li>
+        </ul>
+        <a class="nav-cta" href="#contact">START</a>
+    </div>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-grid"></div>
+    <div class="container">
+        <span class="eyebrow sa">BDG · AUTOMATION + PRIVATE CLOUDS</span>
+        <h1 class="d1 sa">
+            Your House.<br>
+            Your Data.<br>
+            <span class="grad">Your Cloud.</span>
+        </h1>
+        <p class="hero-sub sa">
+            Most "smart home" platforms are surveillance products you pay for. We build private clouds that stay <strong style="color:var(--teal);">in your house</strong> — running on hardware you own, on a network you control, encrypted from your voice to your light bulb.
+        </p>
+        <div class="hero-btns sa">
+            <a href="#stack" class="btn">SEE THE STACK</a>
+            <a href="#pricing" class="btn outline">VIEW PRICING</a>
+        </div>
+        <div style="margin-top:36px;display:flex;gap:8px;flex-wrap:wrap;" class="sa">
+            <span class="badge t">AES-256 AT REST</span>
+            <span class="badge p">TLS 1.3 IN TRANSIT</span>
+            <span class="badge g">ZIGBEE 3.0 + MATTER</span>
+            <span class="badge r">NO BIG-TECH CLOUDS</span>
+            <span class="badge t">PI 5 EDGE SERVER</span>
+            <span class="badge p">WIREGUARD VPN</span>
+        </div>
+    </div>
+</section>
+
+
+<!-- THE STACK -->
+<section class="layer" id="stack">
+    <div class="container">
+        <div class="sec-head sa">
+            <span class="sec-label">THE ENCRYPTION STACK</span>
+            <h2 class="sec-title">From <span class="grad-r">Alexa to Zigbee</span><br>every layer encrypted.</h2>
+            <p class="sec-sub">Your smart home isn't one device — it's five layers of communication between your voice, your hub, and the bee-shaped chip in your light bulb. Here's what each layer does, what it speaks, and how we lock it down.</p>
+        </div>
+
+        <div class="stack sa">
+            <!-- Layer 1: Voice -->
+            <div class="stack-layer l1">
+                <div class="layer-num">01</div>
+                <div class="stack-name">
+                    Voice & UI Layer
+                    <span class="protocol">TLS 1.3</span>
+                    <span class="protocol">HTTPS</span>
+                </div>
+                <p class="stack-desc">Voice commands ("turn off the porch light"), phone-app taps, dashboard clicks. With Big Tech, this audio rides up to Amazon or Google. With BDG, it lands on <strong style="color:var(--purple);">your private cloud</strong> — same TLS 1.3 encryption Banks use, just terminating on hardware you own.</p>
+            </div>
+
+            <div class="flow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke-width="2" stroke-linecap="round"/></svg></div>
+
+            <!-- Layer 2: Edge cloud -->
+            <div class="stack-layer l2">
+                <div class="layer-num">02</div>
+                <div class="stack-name">
+                    BDG Private Edge Cloud
+                    <span class="protocol">PI 5 + LINUX</span>
+                    <span class="protocol">SUPABASE LOCAL</span>
+                </div>
+                <p class="stack-desc">A small Raspberry Pi 5 server, sitting on a shelf in your house. Runs the dashboard, the automation engine, and the data store. Encrypted file system. <strong style="color:var(--teal);">No internet required for local commands.</strong> Internet's only used when YOU explicitly want it — for remote access (WireGuard VPN) or backup.</p>
+            </div>
+
+            <div class="flow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke-width="2" stroke-linecap="round"/></svg></div>
+
+            <!-- Layer 3: Hub-to-device protocols -->
+            <div class="stack-layer l3">
+                <div class="layer-num">03</div>
+                <div class="stack-name">
+                    Hub-to-Device Protocols
+                    <span class="protocol">MATTER 1.3</span>
+                    <span class="protocol">WPA3</span>
+                </div>
+                <p class="stack-desc">Your edge cloud talks to bigger devices (thermostats, cameras, hubs) over your Wi-Fi or Ethernet. We use Matter 1.3 (the new open smart-home standard) wherever supported, plus WPA3 on the network. Authentication is per-device — no shared credentials means one bad device can't compromise the others.</p>
+            </div>
+
+            <div class="flow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke-width="2" stroke-linecap="round"/></svg></div>
+
+            <!-- Layer 4: Mesh -->
+            <div class="stack-layer l4">
+                <div class="layer-num">04</div>
+                <div class="stack-name">
+                    Mesh Radio (the Honey Bee layer 🐝)
+                    <span class="protocol">ZIGBEE 3.0</span>
+                    <span class="protocol">Z-WAVE</span>
+                    <span class="protocol">THREAD</span>
+                </div>
+                <p class="stack-desc">For low-power devices — door sensors, light bulbs, leak detectors — we use Zigbee, Z-Wave, or Thread. Every Zigbee 3.0 packet is wrapped in <strong style="color:var(--orange);">AES-128-CCM encryption</strong> and signed against a per-network key. Devices form a mesh: each one helps relay messages, so no single point of failure. The Zigbee logo is a bee for a reason — every node in the hive helps every other node.</p>
+            </div>
+
+            <div class="flow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke-width="2" stroke-linecap="round"/></svg></div>
+
+            <!-- Layer 5: At rest -->
+            <div class="stack-layer l5">
+                <div class="layer-num">05</div>
+                <div class="stack-name">
+                    At-Rest Storage
+                    <span class="protocol">AES-256</span>
+                    <span class="protocol">LUKS</span>
+                </div>
+                <p class="stack-desc">The data sitting on your edge server's disk — sensor logs, video clips, dashboard history, family calendar. We encrypt the whole disk with LUKS (AES-256). Even if someone walked off with the Pi, they'd get a brick. Backups are encrypted before they leave the box, with a key only you hold.</p>
+            </div>
+        </div>
+
+        <p style="text-align:center;margin-top:32px;font-family:var(--fm);font-size:0.78rem;color:var(--muted);max-width:640px;margin-left:auto;margin-right:auto;" class="sa">
+            <strong style="color:var(--teal);">Five layers. Five encryption schemes.</strong> Every byte of your house's data — from voice command to leak sensor — is encrypted in transit and at rest. We'll show you the keys. We don't keep copies.
+        </p>
+    </div>
+</section>
+
+
+<!-- WHAT IT CONTROLS -->
+<section class="layer" id="zones" style="background:linear-gradient(180deg, transparent, rgba(0,229,204,.02), transparent);">
+    <div class="container">
+        <div class="sec-head sa">
+            <span class="sec-label">CONTROL ZONES</span>
+            <h2 class="sec-title">What you can <span class="grad">run from one screen.</span></h2>
+            <p class="sec-sub">Personal Dashboard handles the bills + life-management side. The Private Home Cloud adds physical-world control. Pick what you need.</p>
+        </div>
+
+        <div class="zone-grid sa">
+            <div class="zone">
+                <div class="zone-icon">💸</div>
+                <div class="zone-name">Bills & Money</div>
+                <p class="zone-desc">All bills, subscriptions, debt, recurring charges in one view. Auto-categorized. Due-date alerts. Cash flow forecast.</p>
+                <span class="zone-tag">DASHBOARD</span>
+            </div>
+            <div class="zone">
+                <div class="zone-icon">🏡</div>
+                <div class="zone-name">Household Ops</div>
+                <p class="zone-desc">Chores, shopping lists, household inventory, family calendar, emergency contacts, vendor records.</p>
+                <span class="zone-tag">DASHBOARD</span>
+            </div>
+            <div class="zone">
+                <div class="zone-icon">📁</div>
+                <div class="zone-name">Document Vault</div>
+                <p class="zone-desc">Important docs encrypted at rest. Tax returns, IDs, leases, deeds, medical records — searchable, never indexed by anyone else.</p>
+                <span class="zone-tag">DASHBOARD</span>
+            </div>
+            <div class="zone">
+                <div class="zone-icon">🌡️</div>
+                <div class="zone-name">HVAC + Climate</div>
+                <p class="zone-desc">Per-room temperature, humidity, scheduled comfort modes. Integration with PulseZone-class smart thermostats.</p>
+                <span class="zone-tag">HOME CLOUD</span>
+            </div>
+            <div class="zone">
+                <div class="zone-icon">💧</div>
+                <div class="zone-name">Water + Leak</div>
+                <p class="zone-desc">Whole-house water shutoff, leak sensors at every fixture, flow monitoring, automatic emergency-close on leak detection.</p>
+                <span class="zone-tag">HOME CLOUD</span>
+            </div>
+            <div class="zone">
+                <div class="zone-icon">💡</div>
+                <div class="zone-name">Lights + Scenes</div>
+                <p class="zone-desc">Zone-by-zone lighting via Zigbee/Matter. Scenes (Bedtime, Movie, Away, Morning). Automation tied to motion + schedule.</p>
+                <span class="zone-tag">HOME CLOUD</span>
+            </div>
+            <div class="zone">
+                <div class="zone-icon">🚪</div>
+                <div class="zone-name">Door + Access</div>
+                <p class="zone-desc">NFC band or app-based door access. Audit trail for every entry. Time-bound guest access. Built on the same AccessOS we ship to clinics.</p>
+                <span class="zone-tag">HOME CLOUD</span>
+            </div>
+            <div class="zone">
+                <div class="zone-icon">📷</div>
+                <div class="zone-name">Cameras + Recording</div>
+                <p class="zone-desc">Local-only recording on encrypted disk. Motion alerts. Person/vehicle detection runs on the Pi — no AI cloud.</p>
+                <span class="zone-tag">HOME CLOUD</span>
+            </div>
+            <div class="zone">
+                <div class="zone-icon">⚡</div>
+                <div class="zone-name">Energy + Solar</div>
+                <p class="zone-desc">Whole-home energy monitoring. Solar production. Time-of-use insights. Demand-response participation if you opt in.</p>
+                <span class="zone-tag">HOME CLOUD</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- COMPARISON -->
+<section class="layer">
+    <div class="container">
+        <div class="sec-head sa">
+            <span class="sec-label">VS. BIG TECH</span>
+            <h2 class="sec-title">Same convenience. <span class="grad-r">No surveillance.</span></h2>
+            <p class="sec-sub">Smart home shouldn't mean trading your privacy for a light switch. Here's what changes when the cloud is yours.</p>
+        </div>
+
+        <div class="compare-grid">
+            <div class="compare-col them sa">
+                <div class="compare-h them">Big Tech Cloud</div>
+                <div class="compare-sub">Amazon · Google · Apple · Ring · Nest</div>
+                <ul class="compare-list no">
+                    <li>Voice audio leaves your house, processed in their cloud</li>
+                    <li>Camera feeds uploaded to their servers</li>
+                    <li>Behavior data sold or used for ad targeting</li>
+                    <li>Subscription required for full features</li>
+                    <li>Devices stop working if their cloud is offline</li>
+                    <li>Vendor lock-in across ecosystems</li>
+                    <li>Privacy policy can change anytime</li>
+                </ul>
+            </div>
+            <div class="compare-col bdg sa">
+                <div class="compare-h bdg">BDG Private Cloud</div>
+                <div class="compare-sub">Your house · Your hardware · Your keys</div>
+                <ul class="compare-list yes">
+                    <li>Voice processed locally on your Pi 5 server</li>
+                    <li>Camera footage encrypted on a disk in your house</li>
+                    <li>No data sold. No advertising model. Ever.</li>
+                    <li>Flat $99-199/mo for monitoring — no upsells</li>
+                    <li>Works offline. Internet is optional, not required</li>
+                    <li>Open standards: Matter, Zigbee, Z-Wave, Thread</li>
+                    <li>Code is yours. Keys are yours. Data is yours.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- PRICING -->
+<section class="layer" id="pricing" style="background:linear-gradient(180deg, transparent, rgba(168,85,247,.03), transparent);">
+    <div class="container">
+        <div class="sec-head sa">
+            <span class="sec-label">PRICING</span>
+            <h2 class="sec-title">Start where you are.</h2>
+            <p class="sec-sub">Personal Dashboard works on its own. Add the Home Cloud when you want physical-world control. Add Business Cloud when your shop, clinic, or office needs the same thing.</p>
+        </div>
+
+        <div class="price-grid">
+            <div class="pc sa">
+                <div class="pc-name">Personal Dashboard</div>
+                <div class="pc-tag">BILLS · HOUSE · LIFE</div>
+                <div class="pc-price">$200<span>/mo</span></div>
+                <div class="pc-over">Web + mobile · No hardware required</div>
+                <ul class="pc-feats">
+                    <li>All your bills in one view</li>
+                    <li>Household management + family calendar</li>
+                    <li>Document vault (encrypted)</li>
+                    <li>Up to 5 family members, role-based access</li>
+                    <li>Optional integration with Home Cloud</li>
+                    <li>Mobile + web app</li>
+                </ul>
+                <a href="#contact" class="pc-btn" onclick="document.getElementById('i-tier').value='Personal Dashboard'">START PERSONAL</a>
+            </div>
+
+            <div class="pc feat sa">
+                <div class="pc-name">Private Home Cloud</div>
+                <div class="pc-tag">FULL HOUSE CONTROL</div>
+                <div class="pc-price">$1,500<span> setup + $99/mo</span></div>
+                <div class="pc-over">Pi 5 edge server · Installed at your house</div>
+                <ul class="pc-feats">
+                    <li>Includes Personal Dashboard</li>
+                    <li>HVAC + water + lights + doors + cameras</li>
+                    <li>Pi 5 edge server (Hardware included)</li>
+                    <li>Up to 50 connected devices</li>
+                    <li>Local + encrypted remote access (WireGuard)</li>
+                    <li>Whole-home AES-256 storage</li>
+                    <li>Quarterly security audit</li>
+                </ul>
+                <a href="#contact" class="pc-btn pri" onclick="document.getElementById('i-tier').value='Home Cloud'">SCHEDULE INSTALL</a>
+            </div>
+
+            <div class="pc sa">
+                <div class="pc-name">Private Business Cloud</div>
+                <div class="pc-tag">SHOP · CLINIC · OFFICE</div>
+                <div class="pc-price">$3,500<span> setup + $199/mo</span></div>
+                <div class="pc-over">On-prem server · Multi-location ready</div>
+                <ul class="pc-feats">
+                    <li>Everything in Home Cloud</li>
+                    <li>POS + inventory + time tracking</li>
+                    <li>HIPAA / PCI-ready configuration</li>
+                    <li>Up to 200 connected devices</li>
+                    <li>Encrypted offsite backups</li>
+                    <li>Multi-site cloud linking ($750/site)</li>
+                    <li>Priority response (4hr SLA)</li>
+                </ul>
+                <a href="#contact" class="pc-btn" onclick="document.getElementById('i-tier').value='Business Cloud'">REQUEST QUOTE</a>
+            </div>
+        </div>
+
+        <p style="text-align:center;margin-top:36px;font-family:var(--fm);font-size:0.7rem;color:var(--muted);max-width:580px;margin-left:auto;margin-right:auto;">
+            All tiers include the security & privacy layer. No hidden fees. Cancel any monthly anytime — your hardware stays yours.
+        </p>
+    </div>
+</section>
+
+
+<!-- CONTACT -->
+<section class="layer" id="contact">
+    <div class="container">
+        <div class="sec-head sa">
+            <span class="sec-label">START THE CONVERSATION</span>
+            <h2 class="sec-title">Let's <span class="grad">scope your build.</span></h2>
+            <p class="sec-sub">Tell us about your house, business, or both. We respond within one business day with rough scope and pricing.</p>
+        </div>
+
+        <form class="contact-card sa" id="contact-form">
+            <div class="fg">
+                <label>YOUR NAME</label>
+                <input type="text" id="i-name" placeholder="First and last">
+            </div>
+            <div class="fg">
+                <label>EMAIL</label>
+                <input type="email" id="i-email" required placeholder="you@yourdomain.com">
+            </div>
+            <div class="fg">
+                <label>WHICH TIER</label>
+                <select id="i-tier">
+                    <option value="Personal Dashboard">Personal Dashboard — $200/mo</option>
+                    <option value="Home Cloud">Private Home Cloud — $1,500 setup</option>
+                    <option value="Business Cloud">Private Business Cloud — $3,500 setup</option>
+                    <option value="Cloud Linking">Cloud Linking (home + business)</option>
+                    <option value="Not sure">Not sure yet — let's talk</option>
+                </select>
+            </div>
+            <div class="fg">
+                <label>WHAT YOU WANT TO CONTROL OR TRACK</label>
+                <textarea id="i-message" placeholder="Bills, lights, doors, cameras, HVAC, business POS..."></textarea>
+            </div>
+            <button type="submit" class="btn teal" style="width:100%;padding:14px;">SEND →</button>
+            <div class="form-status" id="form-status"></div>
+            <p style="text-align:center;margin-top:14px;font-family:var(--fm);font-size:0.6rem;color:var(--muted);">Your message lands in our private cloud · Same encryption stack we ship</p>
+        </form>
+    </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+    <p style="margin-bottom:10px;">
+        <span style="font-weight:700;color:#fff;">BDG · PRIVATE CLOUDS</span> · A product of <a href="index.html">Business Data Gurus</a>
+    </p>
+    <p>© 2026 Business Data Gurus · Washington DC · <a href="mailto:businessdatagurus@gmail.com">businessdatagurus@gmail.com</a></p>
+</footer>
+
+
+<script>
+/* PARTICLE SYSTEM */
+(function() {
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    const colors = ['#ff4d4d','#00e5cc','#f5c842','#a855f7','#ff8c42','#00b4ff'];
+    let W, H, particles = [];
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+    function mkP() {
+        const isOrb = Math.random() > 0.7;
+        return {
+            x: Math.random() * W, y: Math.random() * H,
+            r: isOrb ? Math.random() * 80 + 40 : Math.random() * 2 + 0.5,
+            isOrb, color: colors[Math.floor(Math.random() * colors.length)],
+            vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
+            alpha: isOrb ? Math.random() * 0.04 + 0.02 : Math.random() * 0.5 + 0.2,
+            pulse: Math.random() * Math.PI * 2, pulseSpeed: Math.random() * 0.02 + 0.005
+        };
+    }
+    function init() {
+        resize(); particles = [];
+        for (let i = 0; i < 14; i++) particles.push({ ...mkP(), isOrb: true, r: Math.random() * 100 + 50 });
+        for (let i = 0; i < 50; i++) particles.push({ ...mkP(), isOrb: false });
+    }
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+        particles.forEach(p => {
+            p.pulse += p.pulseSpeed; p.x += p.vx; p.y += p.vy;
+            if (p.x < -p.r) p.x = W + p.r; if (p.x > W + p.r) p.x = -p.r;
+            if (p.y < -p.r) p.y = H + p.r; if (p.y > H + p.r) p.y = -p.r;
+            if (p.isOrb) {
+                const a = p.alpha * (0.7 + 0.3 * Math.sin(p.pulse));
+                const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+                g.addColorStop(0, p.color + Math.round(a * 255).toString(16).padStart(2,'0'));
+                g.addColorStop(1, 'transparent');
+                ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+            } else {
+                const a = p.alpha * (0.6 + 0.4 * Math.sin(p.pulse));
+                ctx.globalAlpha = a; ctx.fillStyle = p.color;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+        });
+        requestAnimationFrame(draw);
+    }
+    window.addEventListener('resize', init); init(); draw();
+})();
+
+/* SCROLL ANIMS */
+const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.07 });
+document.querySelectorAll('.sa').forEach(el => obs.observe(el));
+
+/* NAV SCROLL STATE */
+window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+/* CONTACT FORM */
+document.getElementById('contact-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const status = document.getElementById('form-status');
+    const tier = document.getElementById('i-tier').value;
+    const data = {
+        email: document.getElementById('i-email').value,
+        name: document.getElementById('i-name').value || null,
+        company: null,
+        service_interest: 'Private Cloud',
+        source: CONFIG.SOURCE,
+        status: 'discovery',
+        message: `Tier: ${tier} | ${document.getElementById('i-message').value || '(no details)'}`
+    };
+    status.textContent = 'Sending…'; status.className = 'form-status ok';
+    try {
+        const res = await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/bdg_intakes`, {
+            method: 'POST',
+            headers: {
+                'apikey': CONFIG.SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${CONFIG.SUPABASE_ANON_KEY}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify(data)
+        });
+        if (res.ok || res.status === 201) {
+            e.target.reset();
+            status.textContent = "✓ Got it. We'll be in touch within one business day."; status.className = 'form-status ok';
+        } else { throw new Error('HTTP ' + res.status); }
+    } catch (err) {
+        status.textContent = 'Send failed. Email businessdatagurus@gmail.com instead.'; status.className = 'form-status err';
+    }
+});
+</script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BDG Dashboard Service — We build dashboards your team actually uses.</title>
+<meta name="description" content="Custom dashboards designed from your workflow backward. Built on Supabase + Lovable + Cloudflare. No vendor lock-in. We've built ten of our own.">
+<meta property="og:title" content="BDG Dashboard Service — Custom dashboards that actually get used">
+<meta property="og:description" content="Discovery → design → build → maintain. We've built ten dashboards for our own platforms. Now we'll build one for you.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          paper: '#FBFAF5', ink: '#0F172A', slate: '#475569',
+          navy: '#1E40AF', 'navy-deep': '#1E3A8A',
+          emerald: '#059669', 'emerald-deep': '#047857', amber: '#D97706',
+          'border-soft': '#E5E1D6'
+        },
+        fontFamily: {
+          serif: ['Fraunces', 'Georgia', 'serif'],
+          sans: ['DM Sans', 'system-ui', 'sans-serif']
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: #FBFAF5; color: #0F172A;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(circle at 80% 5%, rgba(30, 64, 175, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 20% 95%, rgba(5, 150, 105, 0.05) 0%, transparent 50%);
+  }
+  .font-display { font-family: 'Fraunces', Georgia, serif; font-feature-settings: "ss01" on, "ss02" on; letter-spacing: -0.02em; }
+  .grain::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none;
+    opacity: 0.035; z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.9s ease-out, transform 0.9s ease-out; }
+  .reveal.shown { opacity: 1; transform: translateY(0); }
+  .tier-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .tier-card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -16px rgba(15, 23, 42, 0.12); }
+  .num-counter { font-variant-numeric: tabular-nums; }
+  .form-success { background: rgba(5, 150, 105, 0.1); color: #047857; }
+  .form-error { background: rgba(217, 70, 39, 0.1); color: #C2410C; }
+  .step-line::before {
+    content: ''; position: absolute; top: 16px; left: 16px; right: 16px;
+    height: 1px; background: linear-gradient(90deg, #1E40AF 0%, #059669 100%);
+    z-index: 0;
+  }
+  @media (max-width: 768px) {
+    .step-line::before { display: none; }
+  }
+</style>
+</head>
+
+<body class="grain">
+
+<!-- Nav -->
+<nav class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-6 flex items-center justify-between">
+  <a href="index.html" class="flex items-center gap-2.5">
+    <div class="w-8 h-8 rounded-lg bg-ink flex items-center justify-center">
+      <span class="text-paper font-display font-semibold text-sm">B</span>
+    </div>
+    <div>
+      <span class="font-display font-semibold text-lg text-ink">Business Data Gurus</span>
+      <span class="text-sm text-slate ml-2 hidden sm:inline">/ Dashboard service</span>
+    </div>
+  </a>
+  <div class="flex items-center gap-3 sm:gap-6">
+    <a href="index.html" class="hidden sm:inline text-sm text-slate hover:text-ink transition">All products</a>
+    <a href="#contact" class="bg-ink text-paper px-4 py-2 rounded-lg text-sm font-medium hover:bg-navy transition">Talk to us</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="relative max-w-6xl mx-auto px-6 lg:px-12 pt-12 pb-20 lg:pt-24 lg:pb-28">
+  <div class="reveal" style="--i: 0">
+    <span class="inline-block text-xs tracking-[0.2em] uppercase text-emerald font-semibold mb-6">
+      Custom dashboards · A BDG service
+    </span>
+  </div>
+  <h1 class="font-display font-light text-5xl sm:text-6xl lg:text-7xl text-ink leading-[1.05] tracking-tight max-w-4xl reveal" style="--i: 1">
+    The dashboard your team<br>
+    <span class="font-medium italic">actually uses.</span>
+  </h1>
+  <p class="mt-10 text-lg lg:text-xl text-slate max-w-2xl leading-relaxed reveal" style="--i: 2">
+    Most dashboards become read-only within a month. Yours doesn't have to. We design from your workflow backward — not from a template forward — and we ship in 8 weeks, not 8 months.
+  </p>
+  <div class="mt-10 flex flex-wrap gap-4 reveal" style="--i: 3">
+    <a href="#engagement" class="bg-ink text-paper px-6 py-3.5 rounded-xl font-medium hover:bg-navy transition">See engagement tiers</a>
+    <a href="#contact" class="bg-paper border border-ink text-ink px-6 py-3.5 rounded-xl font-medium hover:bg-ink hover:text-paper transition">Book a discovery call</a>
+  </div>
+</section>
+
+<!-- Problem section -->
+<section class="relative bg-ink text-paper py-24 lg:py-32 overflow-hidden">
+  <div class="max-w-5xl mx-auto px-6 lg:px-12">
+    <div class="reveal">
+      <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">Why most dashboards die</span>
+    </div>
+    <h2 class="mt-6 font-display font-light text-4xl sm:text-5xl lg:text-6xl leading-[1.1] tracking-tight reveal">
+      Generic dashboards solve <span class="italic font-medium text-emerald">generic problems.</span> Yours aren't.
+    </h2>
+    <p class="mt-8 text-lg lg:text-xl text-paper/70 max-w-2xl leading-relaxed reveal">
+      Off-the-shelf tools are designed for the median customer. Your operation isn't median. So your team builds workarounds in Excel, Notion, and Slack — and a year later your "dashboard" is the spreadsheet on someone's desktop.
+    </p>
+    <div class="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-8 reveal">
+      <div>
+        <div class="font-display text-4xl lg:text-5xl font-medium text-emerald num-counter">87%</div>
+        <div class="mt-2 text-sm text-paper/60">of internal dashboards become read-only within 90 days</div>
+      </div>
+      <div>
+        <div class="font-display text-4xl lg:text-5xl font-medium text-emerald num-counter">12+</div>
+        <div class="mt-2 text-sm text-paper/60">tools the average ops team juggles daily</div>
+      </div>
+      <div>
+        <div class="font-display text-4xl lg:text-5xl font-medium text-emerald num-counter">8wks</div>
+        <div class="mt-2 text-sm text-paper/60">our typical time from discovery to shipped dashboard</div>
+      </div>
+      <div>
+        <div class="font-display text-4xl lg:text-5xl font-medium text-emerald num-counter">10</div>
+        <div class="mt-2 text-sm text-paper/60">dashboards we've built and run for our own platforms</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- What we do -->
+<section class="max-w-7xl mx-auto px-6 lg:px-12 py-24 lg:py-32">
+  <div class="reveal">
+    <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">How we work</span>
+  </div>
+  <h2 class="mt-4 font-display font-light text-4xl sm:text-5xl lg:text-6xl text-ink leading-[1.1] tracking-tight max-w-3xl reveal">
+    Three things, in order. <span class="italic font-medium">Always.</span>
+  </h2>
+
+  <div class="mt-20 grid md:grid-cols-3 gap-8 lg:gap-12">
+    <div class="reveal">
+      <div class="flex items-baseline gap-3 mb-5">
+        <span class="font-display text-5xl font-light text-emerald num-counter">01</span>
+        <span class="text-xs tracking-[0.2em] uppercase text-slate font-semibold">Discovery</span>
+      </div>
+      <h3 class="font-display text-2xl font-medium text-ink mb-3">We watch you work.</h3>
+      <p class="text-slate leading-relaxed">
+        Before we design anything, we sit with your operators. We see the spreadsheets, the workarounds, the screenshots-in-Slack. We document the actual workflow — not the one in your org chart.
+      </p>
+    </div>
+    <div class="reveal">
+      <div class="flex items-baseline gap-3 mb-5">
+        <span class="font-display text-5xl font-light text-navy num-counter">02</span>
+        <span class="text-xs tracking-[0.2em] uppercase text-slate font-semibold">Design</span>
+      </div>
+      <h3 class="font-display text-2xl font-medium text-ink mb-3">We design backward.</h3>
+      <p class="text-slate leading-relaxed">
+        From the action your team needs to take, back to the data that supports it. The dashboard isn't a report. It's a workspace. Every screen has one job, and one button that gets it done.
+      </p>
+    </div>
+    <div class="reveal">
+      <div class="flex items-baseline gap-3 mb-5">
+        <span class="font-display text-5xl font-light text-amber num-counter">03</span>
+        <span class="text-xs tracking-[0.2em] uppercase text-slate font-semibold">Build & ship</span>
+      </div>
+      <h3 class="font-display text-2xl font-medium text-ink mb-3">We ship in eight weeks.</h3>
+      <p class="text-slate leading-relaxed">
+        Not eight months. Production-grade Supabase + Lovable + Cloudflare stack. Your data, your auth, your domain. No vendor lock-in. We hand over the keys when we're done — or stay on retainer if you want us to evolve it.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Process timeline -->
+<section class="bg-paper border-y border-border-soft py-24 lg:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12">
+    <div class="reveal">
+      <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">The 8-week sprint</span>
+    </div>
+    <h2 class="mt-4 font-display font-light text-4xl sm:text-5xl text-ink leading-[1.1] tracking-tight max-w-3xl reveal">
+      What happens, week by week.
+    </h2>
+
+    <div class="mt-16 grid md:grid-cols-4 gap-8 step-line relative reveal">
+      <div class="bg-white rounded-2xl border border-border-soft p-6 relative z-10">
+        <div class="w-8 h-8 rounded-full bg-navy flex items-center justify-center text-paper text-sm font-semibold mb-4">1</div>
+        <div class="text-xs tracking-wider uppercase text-slate font-semibold mb-2">Weeks 1–2</div>
+        <h3 class="font-display text-lg font-medium text-ink mb-2">Discover</h3>
+        <p class="text-sm text-slate">Workflow audit, stakeholder interviews, data inventory, success metrics.</p>
+      </div>
+      <div class="bg-white rounded-2xl border border-border-soft p-6 relative z-10">
+        <div class="w-8 h-8 rounded-full bg-navy flex items-center justify-center text-paper text-sm font-semibold mb-4">2</div>
+        <div class="text-xs tracking-wider uppercase text-slate font-semibold mb-2">Weeks 3–4</div>
+        <h3 class="font-display text-lg font-medium text-ink mb-2">Prototype</h3>
+        <p class="text-sm text-slate">Clickable design, schema design, integration mapping. Sign-off before any code.</p>
+      </div>
+      <div class="bg-white rounded-2xl border border-border-soft p-6 relative z-10">
+        <div class="w-8 h-8 rounded-full bg-emerald flex items-center justify-center text-white text-sm font-semibold mb-4">3</div>
+        <div class="text-xs tracking-wider uppercase text-slate font-semibold mb-2">Weeks 5–6</div>
+        <h3 class="font-display text-lg font-medium text-ink mb-2">Build</h3>
+        <p class="text-sm text-slate">Production build with weekly demos. Auth, integrations, RLS, role-based views.</p>
+      </div>
+      <div class="bg-white rounded-2xl border border-border-soft p-6 relative z-10">
+        <div class="w-8 h-8 rounded-full bg-emerald flex items-center justify-center text-white text-sm font-semibold mb-4">4</div>
+        <div class="text-xs tracking-wider uppercase text-slate font-semibold mb-2">Weeks 7–8</div>
+        <h3 class="font-display text-lg font-medium text-ink mb-2">Ship & rollout</h3>
+        <p class="text-sm text-slate">Onboarding, user training, usage analytics. Hand-over docs. Or month-2 retainer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stack -->
+<section class="max-w-7xl mx-auto px-6 lg:px-12 py-24 lg:py-32">
+  <div class="reveal">
+    <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">No black boxes</span>
+  </div>
+  <h2 class="mt-4 font-display font-light text-4xl sm:text-5xl text-ink leading-[1.1] tracking-tight max-w-3xl reveal">
+    Boring stack. <span class="italic font-medium">On purpose.</span>
+  </h2>
+  <p class="mt-6 text-lg text-slate max-w-2xl reveal">
+    Every dashboard we ship runs on infrastructure you can read, audit, and own. No proprietary middleware. No "trust us, it's in the algorithm." Real Postgres, real auth, real code in a repo you can read.
+  </p>
+
+  <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-5 reveal">
+    <div class="bg-white rounded-2xl border border-border-soft p-6">
+      <div class="font-display text-lg font-medium text-ink mb-1">Supabase</div>
+      <div class="text-xs uppercase tracking-wider text-slate font-semibold mb-2">Postgres + Auth + Storage</div>
+      <div class="text-sm text-slate">Open-source. RLS for multi-tenant security. You own the data.</div>
+    </div>
+    <div class="bg-white rounded-2xl border border-border-soft p-6">
+      <div class="font-display text-lg font-medium text-ink mb-1">Lovable</div>
+      <div class="text-xs uppercase tracking-wider text-slate font-semibold mb-2">React + Tailwind UI</div>
+      <div class="text-sm text-slate">Modern stack. Mobile-responsive. Code you can hand to any developer.</div>
+    </div>
+    <div class="bg-white rounded-2xl border border-border-soft p-6">
+      <div class="font-display text-lg font-medium text-ink mb-1">Cloudflare</div>
+      <div class="text-xs uppercase tracking-wider text-slate font-semibold mb-2">Hosting + DNS + Edge</div>
+      <div class="text-sm text-slate">Global, fast, free tier. Edge functions for what needs them.</div>
+    </div>
+    <div class="bg-white rounded-2xl border border-border-soft p-6">
+      <div class="font-display text-lg font-medium text-ink mb-1">Stripe / Resend / Twilio</div>
+      <div class="text-xs uppercase tracking-wider text-slate font-semibold mb-2">As needed</div>
+      <div class="text-sm text-slate">Best-in-class for payments, email, SMS. Not custom-built where industry standards win.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Engagement tiers -->
+<section id="engagement" class="bg-paper border-t border-border-soft py-24 lg:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12">
+    <div class="text-center max-w-3xl mx-auto reveal">
+      <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">Engagement tiers</span>
+      <h2 class="mt-4 font-display font-light text-4xl sm:text-5xl text-ink leading-[1.1] tracking-tight">
+        Three ways to <span class="italic font-medium">work with us.</span>
+      </h2>
+      <p class="mt-4 text-slate">
+        Pick the one that matches your stage. We'll help you size it on the discovery call.
+      </p>
+    </div>
+
+    <div class="mt-16 grid md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
+      <!-- Audit -->
+      <div class="tier-card bg-white rounded-2xl border border-border-soft p-8">
+        <div class="text-sm uppercase tracking-wider text-slate font-semibold">Audit</div>
+        <div class="mt-2 font-display text-2xl font-medium text-ink">For "we have something but it's not working"</div>
+        <div class="mt-6">
+          <span class="font-display text-3xl font-medium text-ink">Starts at</span>
+          <span class="font-display text-4xl font-medium text-ink num-counter ml-1">$5K</span>
+        </div>
+        <a href="#contact" class="mt-8 block text-center bg-paper border border-ink text-ink py-3 rounded-xl font-medium hover:bg-ink hover:text-paper transition">Book audit</a>
+        <ul class="mt-8 space-y-3 text-sm text-slate">
+          <li class="flex gap-2"><span class="text-emerald">✓</span> 2-week workflow audit</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Stakeholder interviews</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Tool consolidation map</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Quick-win recommendations</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Build-or-buy report</li>
+        </ul>
+      </div>
+
+      <!-- Build (highlighted) -->
+      <div class="tier-card relative bg-ink text-paper rounded-2xl border-2 border-emerald p-8 md:-my-2">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">Most popular</div>
+        <div class="text-sm uppercase tracking-wider text-emerald font-semibold">Build</div>
+        <div class="mt-2 font-display text-2xl font-medium">For "we know what we need, just build it"</div>
+        <div class="mt-6">
+          <span class="font-display text-3xl font-medium">Fixed scope</span>
+          <span class="font-display text-4xl font-medium num-counter ml-1">$25K+</span>
+        </div>
+        <a href="#contact" class="mt-8 block text-center bg-emerald text-white py-3 rounded-xl font-medium hover:bg-emerald-deep transition">Start a sprint</a>
+        <ul class="mt-8 space-y-3 text-sm text-paper/80">
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Full 8-week sprint</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Discovery + design + build</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Production-grade dashboard</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Auth + RLS + integrations</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Onboarding + training</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> 30-day post-launch support</li>
+        </ul>
+      </div>
+
+      <!-- Run -->
+      <div class="tier-card bg-white rounded-2xl border border-border-soft p-8">
+        <div class="text-sm uppercase tracking-wider text-slate font-semibold">Run</div>
+        <div class="mt-2 font-display text-2xl font-medium text-ink">For "we want it built and run"</div>
+        <div class="mt-6">
+          <span class="font-display text-3xl font-medium text-ink">Build +</span>
+          <span class="font-display text-4xl font-medium text-ink num-counter ml-1">$3K/mo</span>
+        </div>
+        <a href="#contact" class="mt-8 block text-center bg-paper border border-ink text-ink py-3 rounded-xl font-medium hover:bg-ink hover:text-paper transition">Talk to us</a>
+        <ul class="mt-8 space-y-3 text-sm text-slate">
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Everything in Build</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Ongoing iteration</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Quarterly roadmap reviews</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Hosting + monitoring</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> User support tier 1</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Cancel anytime</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="mt-10 text-center text-sm text-slate max-w-2xl mx-auto">
+      Final scope and pricing are confirmed on the discovery call. We don't sell what you don't need.
+    </p>
+  </div>
+</section>
+
+<!-- Examples -->
+<section class="max-w-7xl mx-auto px-6 lg:px-12 py-24 lg:py-32">
+  <div class="reveal">
+    <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">We eat our own cooking</span>
+  </div>
+  <h2 class="mt-4 font-display font-light text-4xl sm:text-5xl text-ink leading-[1.1] tracking-tight max-w-3xl reveal">
+    Ten dashboards we've built and run.
+  </h2>
+  <p class="mt-6 text-lg text-slate max-w-2xl reveal">
+    We don't pitch a stack we haven't lived in. Every Business Data Gurus platform runs on the same stack we ship to clients.
+  </p>
+
+  <div class="mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
+    <div class="bg-paper border border-border-soft rounded-2xl p-6">
+      <div class="font-display text-xl font-medium text-ink mb-1">BDG Dashboard</div>
+      <div class="text-sm text-slate">Central hub: 41 platforms, MRR tracking, sprint roadmap, intake pipeline.</div>
+    </div>
+    <div class="bg-paper border border-border-soft rounded-2xl p-6">
+      <div class="font-display text-xl font-medium text-ink mb-1">FamilyCompass</div>
+      <div class="text-sm text-slate">HIPAA-compliant case management for child welfare agencies. Multi-tenant Supabase.</div>
+    </div>
+    <div class="bg-paper border border-border-soft rounded-2xl p-6">
+      <div class="font-display text-xl font-medium text-ink mb-1">Item Vault</div>
+      <div class="text-sm text-slate">Inventory + content engine. Realtime sync. Recall alerts. Operator dashboards.</div>
+    </div>
+    <div class="bg-paper border border-border-soft rounded-2xl p-6">
+      <div class="font-display text-xl font-medium text-ink mb-1">Meridian</div>
+      <div class="text-sm text-slate">School dismissal + student safety. NFC boarding. GPS bus tracking. Parent app.</div>
+    </div>
+    <div class="bg-paper border border-border-soft rounded-2xl p-6">
+      <div class="font-display text-xl font-medium text-ink mb-1">DealDesk</div>
+      <div class="text-sm text-slate">Realtor pipeline kanban. Auto-generated transaction milestones. Year-end reports.</div>
+    </div>
+    <div class="bg-paper border border-border-soft rounded-2xl p-6">
+      <div class="font-display text-xl font-medium text-ink mb-1">FeedCompass</div>
+      <div class="text-sm text-slate">Closed-loop NFC benefits for homeless services. Anonymous-by-default. Audit trail.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="bg-ink text-paper py-24 lg:py-32">
+  <div class="max-w-3xl mx-auto px-6 lg:px-12">
+    <div class="text-center mb-12 reveal">
+      <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">Book a discovery call</span>
+      <h2 class="mt-4 font-display font-light text-4xl sm:text-5xl leading-[1.1] tracking-tight">
+        Tell us what's <span class="italic font-medium text-emerald">broken in your workflow.</span>
+      </h2>
+      <p class="mt-4 text-paper/70">
+        45 minutes, no slides. We learn what you're trying to do, then tell you honestly whether we're the right fit.
+      </p>
+    </div>
+
+    <form id="contact-form" class="bg-white text-ink rounded-3xl p-8 lg:p-10 reveal space-y-4">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <input type="text" name="name" placeholder="Your name" class="w-full bg-paper border border-border-soft rounded-xl px-5 py-3.5 text-base text-ink placeholder:text-slate/60 focus:outline-none focus:border-navy focus:ring-2 focus:ring-navy/10 transition">
+        <input type="email" name="email" required placeholder="Email" class="w-full bg-paper border border-border-soft rounded-xl px-5 py-3.5 text-base text-ink placeholder:text-slate/60 focus:outline-none focus:border-navy focus:ring-2 focus:ring-navy/10 transition">
+      </div>
+      <input type="text" name="company" placeholder="Company or organization" class="w-full bg-paper border border-border-soft rounded-xl px-5 py-3.5 text-base text-ink placeholder:text-slate/60 focus:outline-none focus:border-navy focus:ring-2 focus:ring-navy/10 transition">
+
+      <select name="tier" class="w-full bg-paper border border-border-soft rounded-xl px-5 py-3.5 text-base text-ink focus:outline-none focus:border-navy focus:ring-2 focus:ring-navy/10 transition">
+        <option value="undecided">Which tier interests you?</option>
+        <option value="audit">Audit ($5K) — fix what we have</option>
+        <option value="build">Build ($25K+) — full 8-week sprint</option>
+        <option value="run">Run (Build + $3K/mo) — build and operate</option>
+        <option value="undecided">Not sure yet</option>
+      </select>
+
+      <textarea name="message" rows="4" placeholder="What are you trying to track or replace? Any current tools we should know about?" class="w-full bg-paper border border-border-soft rounded-xl px-5 py-3.5 text-base text-ink placeholder:text-slate/60 focus:outline-none focus:border-navy focus:ring-2 focus:ring-navy/10 transition resize-none"></textarea>
+
+      <button type="submit" class="w-full bg-emerald text-white py-4 rounded-xl font-medium hover:bg-emerald-deep transition">
+        Request a discovery call
+      </button>
+      <div id="form-status" class="hidden text-sm px-4 py-3 rounded-lg"></div>
+    </form>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-paper border-t border-border-soft">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12 py-12 flex flex-col sm:flex-row gap-6 justify-between items-start sm:items-center">
+    <div>
+      <div class="flex items-center gap-2.5 mb-2">
+        <div class="w-7 h-7 rounded-lg bg-ink flex items-center justify-center">
+          <span class="text-paper font-display font-semibold text-xs">B</span>
+        </div>
+        <span class="font-display font-semibold text-ink">Business Data Gurus</span>
+        <span class="text-sm text-slate">/ Dashboard service</span>
+      </div>
+      <div class="text-sm text-slate">A custom dashboard service. <a href="index.html" class="text-ink hover:underline">See all BDG products →</a></div>
+    </div>
+    <div class="flex gap-6 text-sm text-slate">
+      <a href="index.html" class="hover:text-ink">Home</a>
+      <a href="#engagement" class="hover:text-ink">Tiers</a>
+      <a href="#contact" class="hover:text-ink">Book call</a>
+      <a href="mailto:hello@businessdatagurus.com" class="hover:text-ink">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const BDG_URL = 'https://bdywkygsvriaibjddcey.supabase.co';
+  const BDG_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkeXdreWdzdnJpYWliamRkY2V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Mzg1MTgsImV4cCI6MjA5MjMxNDUxOH0.Xs8Ohj4yq2bw-sInys8jx8KusfepPWjvxBVYxFpYjCM';
+  const SOURCE = 'bdg-dashboard-service';
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('shown');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach((el, i) => {
+    if (!el.style.getPropertyValue('--i')) el.style.setProperty('--i', i % 6);
+    observer.observe(el);
+  });
+
+  document.getElementById('contact-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const statusEl = document.getElementById('form-status');
+    const fd = new FormData(form);
+
+    statusEl.textContent = 'Sending…';
+    statusEl.className = 'text-sm px-4 py-3 rounded-lg form-success';
+    statusEl.classList.remove('hidden');
+
+    try {
+      const res = await fetch(`${BDG_URL}/rest/v1/bdg_intakes`, {
+        method: 'POST',
+        headers: {
+          'apikey': BDG_ANON_KEY,
+          'Authorization': `Bearer ${BDG_ANON_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({
+          email: fd.get('email'),
+          name: fd.get('name') || null,
+          company: fd.get('company') || null,
+          service_interest: 'BDG Dashboard',
+          source: SOURCE,
+          status: 'discovery',
+          message: `Tier: ${fd.get('tier') || 'undecided'} · ${fd.get('message') || 'No message'}`
+        })
+      });
+      if (res.ok || res.status === 201) {
+        form.reset();
+        statusEl.textContent = "✓ Got it. We'll reach out within a business day to schedule the call.";
+      } else {
+        throw new Error(`HTTP ${res.status}`);
+      }
+    } catch (err) {
+      statusEl.textContent = 'Send failed. Email hello@businessdatagurus.com directly.';
+      statusEl.className = 'text-sm px-4 py-3 rounded-lg form-error';
+      console.error(err);
+    }
+  });
+</script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Humanit — Email a problem. Get a plan back.</title>
+<meta name="description" content="Humanit is an AI service that reads your inbound emails and any files you attach, then builds a custom plan based on what you actually need. No app. No chatbot. Just email.">
+<meta property="og:title" content="Humanit — Email a problem. Get a plan back.">
+<meta property="og:description" content="The AI planner that delivers by email. Send any goal, any file, any context — get a personalized plan in your inbox.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          paper: '#FBFAF5', ink: '#0F172A', slate: '#475569',
+          navy: '#1E40AF', 'navy-deep': '#1E3A8A',
+          emerald: '#059669', 'emerald-deep': '#047857', amber: '#D97706',
+          'border-soft': '#E5E1D6'
+        },
+        fontFamily: {
+          serif: ['Fraunces', 'Georgia', 'serif'],
+          sans: ['DM Sans', 'system-ui', 'sans-serif'],
+          mono: ['JetBrains Mono', 'ui-monospace', 'monospace']
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: #FBFAF5; color: #0F172A;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(circle at 80% 0%, rgba(5, 150, 105, 0.06) 0%, transparent 50%),
+      radial-gradient(circle at 20% 100%, rgba(30, 64, 175, 0.05) 0%, transparent 50%);
+  }
+  .font-display { font-family: 'Fraunces', Georgia, serif; font-feature-settings: "ss01" on, "ss02" on; letter-spacing: -0.02em; }
+  .font-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+  .grain::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none;
+    opacity: 0.035; z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.9s ease-out, transform 0.9s ease-out; }
+  .reveal.shown { opacity: 1; transform: translateY(0); }
+  .price-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .price-card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -16px rgba(15, 23, 42, 0.12); }
+  .use-case { transition: border-color 0.2s ease, transform 0.2s ease; }
+  .use-case:hover { border-color: #059669; transform: translateY(-2px); }
+  .num-counter { font-variant-numeric: tabular-nums; }
+  .form-success { background: rgba(5, 150, 105, 0.1); color: #047857; }
+  .form-error { background: rgba(217, 70, 39, 0.1); color: #C2410C; }
+  .email-mock {
+    box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.05),
+                0 30px 60px -20px rgba(15, 23, 42, 0.18),
+                0 18px 36px -18px rgba(15, 23, 42, 0.12);
+  }
+  @keyframes type-blink { 50% { opacity: 0; } }
+  .blink { animation: type-blink 1s step-end infinite; }
+</style>
+</head>
+
+<body class="grain">
+
+<!-- Nav -->
+<nav class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-6 flex items-center justify-between">
+  <a href="https://www.businessdatagurus.com" class="flex items-center gap-2.5">
+    <div class="w-8 h-8 rounded-lg bg-emerald flex items-center justify-center">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </div>
+    <span class="font-display font-semibold text-xl text-ink">Humanit</span>
+  </a>
+  <div class="flex items-center gap-3 sm:gap-6">
+    <a href="#how" class="hidden sm:inline text-sm text-slate hover:text-ink transition">How it works</a>
+    <a href="#use-cases" class="hidden sm:inline text-sm text-slate hover:text-ink transition">Use cases</a>
+    <a href="#pricing" class="hidden sm:inline text-sm text-slate hover:text-ink transition">Pricing</a>
+    <a href="#waitlist" class="bg-emerald text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-emerald-deep transition">Get early access</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="relative max-w-7xl mx-auto px-6 lg:px-12 pt-12 pb-24 lg:pt-20 lg:pb-32">
+  <div class="grid lg:grid-cols-12 gap-12 items-center">
+    <div class="lg:col-span-7">
+      <div class="reveal" style="--i: 0">
+        <span class="inline-block text-xs tracking-[0.2em] uppercase text-emerald font-semibold mb-6">
+          AI that delivers by email
+        </span>
+      </div>
+      <h1 class="font-display font-light text-5xl sm:text-6xl lg:text-7xl text-ink leading-[1.05] tracking-tight reveal" style="--i: 1">
+        Email a problem.<br>
+        <span class="font-medium italic">Get a plan back.</span>
+      </h1>
+      <p class="mt-8 text-lg lg:text-xl text-slate max-w-xl leading-relaxed reveal" style="--i: 2">
+        Humanit reads your email and any files you attach, then builds a personalized plan based on what you actually sent. Goals, constraints, screenshots, contracts — whatever context you can write or share. No app. No chatbot. Just plans, in your inbox.
+      </p>
+
+      <form id="waitlist-hero" class="mt-10 flex flex-col sm:flex-row gap-3 max-w-md reveal" style="--i: 3">
+        <input type="email" required placeholder="you@yourcompany.com"
+          class="flex-1 bg-white border border-border-soft rounded-xl px-5 py-4 text-base text-ink placeholder:text-slate/60 focus:outline-none focus:border-emerald focus:ring-2 focus:ring-emerald/10 transition">
+        <button type="submit" class="bg-emerald text-white px-6 py-4 rounded-xl font-medium hover:bg-emerald-deep transition whitespace-nowrap">
+          Get early access
+        </button>
+      </form>
+      <div id="hero-status" class="mt-3 text-sm hidden px-4 py-2 rounded-lg max-w-md"></div>
+
+      <p class="mt-5 text-sm text-slate reveal" style="--i: 4">
+        First plan free for early members. No credit card.
+      </p>
+    </div>
+
+    <!-- Email mockup -->
+    <div class="lg:col-span-5 reveal" style="--i: 5">
+      <div class="email-mock bg-white rounded-2xl border border-border-soft overflow-hidden max-w-md mx-auto">
+        <!-- Header -->
+        <div class="px-5 py-3 border-b border-border-soft bg-paper flex items-center gap-2 text-xs text-slate">
+          <div class="flex gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-300"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-amber/60"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald/60"></span>
+          </div>
+          <span class="ml-2">Inbox · Humanit</span>
+        </div>
+        <!-- From you -->
+        <div class="p-5 border-b border-border-soft">
+          <div class="flex items-baseline justify-between mb-2">
+            <div class="text-xs uppercase tracking-wider text-slate font-semibold">You · sent</div>
+            <div class="text-xs text-slate">9:41 AM</div>
+          </div>
+          <div class="text-xs text-slate mb-1">To: hi@humanit.app</div>
+          <div class="text-sm text-ink font-medium mb-2">Subject: Relocating from DC to Austin in 8 weeks</div>
+          <div class="text-sm text-slate leading-relaxed">
+            Hey — I'm moving from DC to Austin in 8 weeks for a new job. Two kids (7, 11), a dog, two cars. Budget around $14k. Need to find schools, daycare, a rental, and timeline for everything. Attached: my offer letter, current lease, school enrollment dates from AISD.
+          </div>
+          <div class="mt-3 flex gap-2">
+            <span class="text-[11px] bg-paper border border-border-soft px-2 py-1 rounded text-slate">📎 offer-letter.pdf</span>
+            <span class="text-[11px] bg-paper border border-border-soft px-2 py-1 rounded text-slate">📎 current-lease.pdf</span>
+          </div>
+        </div>
+        <!-- From Humanit -->
+        <div class="p-5 bg-emerald/5">
+          <div class="flex items-baseline justify-between mb-2">
+            <div class="text-xs uppercase tracking-wider text-emerald-deep font-semibold">Humanit · 4 hours later</div>
+            <div class="text-xs text-slate">1:47 PM</div>
+          </div>
+          <div class="text-sm text-ink font-medium mb-2">Subject: Your DC → Austin relocation plan (8 weeks)</div>
+          <div class="text-sm text-slate leading-relaxed">
+            Built you an 8-week relocation plan with weekly milestones, a $14k budget breakdown, AISD enrollment timeline matched to your start date, 3 neighborhood recommendations near the office, and a moving company shortlist with quote estimates.
+          </div>
+          <div class="mt-3 flex gap-2">
+            <span class="text-[11px] bg-white border border-emerald/30 text-emerald-deep px-2 py-1 rounded font-mono">📋 austin-plan.pdf</span>
+            <span class="text-[11px] bg-white border border-emerald/30 text-emerald-deep px-2 py-1 rounded font-mono">📅 timeline.ics</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why email -->
+<section class="relative bg-ink text-paper py-24 lg:py-32 overflow-hidden">
+  <div class="max-w-5xl mx-auto px-6 lg:px-12">
+    <div class="reveal">
+      <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">Why email, not chat</span>
+    </div>
+    <h2 class="mt-6 font-display font-light text-4xl sm:text-5xl lg:text-6xl leading-[1.1] tracking-tight reveal">
+      Chatbots are exhausting.
+      <span class="block font-medium italic text-emerald mt-2">Email is calm.</span>
+    </h2>
+    <p class="mt-8 text-lg lg:text-xl text-paper/70 max-w-2xl leading-relaxed reveal">
+      Most AI products want you in a chat window for an hour. Humanit doesn't. Send the problem when you have a minute. Get the plan when you have time to read it. The same async flow that's worked for human professionals for fifty years — now with AI on the other end.
+    </p>
+    <div class="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-8 reveal">
+      <div>
+        <div class="font-display text-4xl lg:text-5xl font-medium text-emerald num-counter">~4hrs</div>
+        <div class="mt-2 text-sm text-paper/60">Typical turnaround time</div>
+      </div>
+      <div>
+        <div class="font-display text-4xl lg:text-5xl font-medium text-emerald num-counter">25MB</div>
+        <div class="mt-2 text-sm text-paper/60">Files per email (PDFs, photos, contracts)</div>
+      </div>
+      <div>
+        <div class="font-display text-4xl lg:text-5xl font-medium text-emerald num-counter">$0</div>
+        <div class="mt-2 text-sm text-paper/60">First plan, free</div>
+      </div>
+      <div>
+        <div class="font-display text-4xl lg:text-5xl font-medium text-emerald num-counter">∞</div>
+        <div class="mt-2 text-sm text-paper/60">Things you can plan</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section id="how" class="max-w-7xl mx-auto px-6 lg:px-12 py-24 lg:py-32">
+  <div class="reveal">
+    <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">How it works</span>
+  </div>
+  <h2 class="mt-4 font-display font-light text-4xl sm:text-5xl lg:text-6xl text-ink leading-[1.1] tracking-tight max-w-3xl reveal">
+    Three steps. <span class="italic font-medium">No app required.</span>
+  </h2>
+
+  <div class="mt-20 grid md:grid-cols-3 gap-8 lg:gap-12">
+    <div class="reveal">
+      <div class="flex items-baseline gap-3 mb-5">
+        <span class="font-display text-5xl font-light text-emerald num-counter">01</span>
+        <span class="text-xs tracking-[0.2em] uppercase text-slate font-semibold">Send</span>
+      </div>
+      <h3 class="font-display text-2xl font-medium text-ink mb-3">Email what you need.</h3>
+      <p class="text-slate leading-relaxed">
+        Write to <span class="font-mono text-sm bg-paper border border-border-soft px-2 py-0.5 rounded">hi@humanit.app</span>. Subject is the goal. Body is the context. Attach anything: contracts, photos, lease docs, offer letters, screenshots. The more you send, the better the plan.
+      </p>
+    </div>
+    <div class="reveal">
+      <div class="flex items-baseline gap-3 mb-5">
+        <span class="font-display text-5xl font-light text-navy num-counter">02</span>
+        <span class="text-xs tracking-[0.2em] uppercase text-slate font-semibold">Process</span>
+      </div>
+      <h3 class="font-display text-2xl font-medium text-ink mb-3">Humanit reads everything.</h3>
+      <p class="text-slate leading-relaxed">
+        Your email and attachments land in encrypted Cloudflare R2 storage. Humanit's AI reads the email, parses the files, fills in the gaps from public data, and structures a real plan — not a chat answer.
+      </p>
+    </div>
+    <div class="reveal">
+      <div class="flex items-baseline gap-3 mb-5">
+        <span class="font-display text-5xl font-light text-amber num-counter">03</span>
+        <span class="text-xs tracking-[0.2em] uppercase text-slate font-semibold">Receive</span>
+      </div>
+      <h3 class="font-display text-2xl font-medium text-ink mb-3">Plan in your inbox.</h3>
+      <p class="text-slate leading-relaxed">
+        Within four hours, a reply with a structured plan: PDF summary, week-by-week timeline, calendar invites if relevant, and a shortlist of next actions. Reply with edits and Humanit revises. No login, no app, just email.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Use cases -->
+<section id="use-cases" class="bg-paper border-y border-border-soft py-24 lg:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12">
+    <div class="reveal">
+      <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">What people send</span>
+    </div>
+    <h2 class="mt-4 font-display font-light text-4xl sm:text-5xl text-ink leading-[1.1] tracking-tight max-w-3xl reveal">
+      Anything you'd ask a really good assistant.
+    </h2>
+
+    <div class="mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="use-case bg-white border border-border-soft rounded-2xl p-6 reveal">
+        <div class="text-xs uppercase tracking-wider text-emerald-deep font-semibold mb-3">Personal</div>
+        <div class="font-display text-lg font-medium text-ink mb-2">"I'm relocating in 60 days."</div>
+        <p class="text-sm text-slate">Move timeline + budget + schools + housing search. Anything you'd ask a relocation specialist.</p>
+      </div>
+      <div class="use-case bg-white border border-border-soft rounded-2xl p-6 reveal">
+        <div class="text-xs uppercase tracking-wider text-navy font-semibold mb-3">Business</div>
+        <div class="font-display text-lg font-medium text-ink mb-2">"I want to launch a bakery."</div>
+        <p class="text-sm text-slate">Business plan, financial projections, licensing checklist, opening week sequence.</p>
+      </div>
+      <div class="use-case bg-white border border-border-soft rounded-2xl p-6 reveal">
+        <div class="text-xs uppercase tracking-wider text-amber font-semibold mb-3">Career</div>
+        <div class="font-display text-lg font-medium text-ink mb-2">"Help me prep for a senior PM interview."</div>
+        <p class="text-sm text-slate">Tailored prep plan, common questions, study schedule, mock answers — using your resume as context.</p>
+      </div>
+      <div class="use-case bg-white border border-border-soft rounded-2xl p-6 reveal">
+        <div class="text-xs uppercase tracking-wider text-emerald-deep font-semibold mb-3">Health</div>
+        <div class="font-display text-lg font-medium text-ink mb-2">"I want to lose 30 lbs by summer."</div>
+        <p class="text-sm text-slate">Weekly meal plan, workout schedule, milestone checkpoints — adjusted to your constraints.</p>
+      </div>
+      <div class="use-case bg-white border border-border-soft rounded-2xl p-6 reveal">
+        <div class="text-xs uppercase tracking-wider text-navy font-semibold mb-3">Legal-adjacent</div>
+        <div class="font-display text-lg font-medium text-ink mb-2">"Walk me through my lease termination."</div>
+        <p class="text-sm text-slate">Send the lease as PDF, get a step-by-step exit plan with deadlines and required notices. (Not legal advice.)</p>
+      </div>
+      <div class="use-case bg-white border border-border-soft rounded-2xl p-6 reveal">
+        <div class="text-xs uppercase tracking-wider text-amber font-semibold mb-3">Project</div>
+        <div class="font-display text-lg font-medium text-ink mb-2">"Plan our family reunion for 40 people."</div>
+        <p class="text-sm text-slate">Venue shortlist, budget, timeline, RSVP system, week-of checklist. Done before bedtime.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Differentiator -->
+<section class="max-w-7xl mx-auto px-6 lg:px-12 py-24 lg:py-32">
+  <div class="grid lg:grid-cols-2 gap-16 items-center">
+    <div class="reveal">
+      <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">Why this works</span>
+      <h2 class="mt-4 font-display font-light text-4xl lg:text-5xl text-ink leading-[1.1] tracking-tight">
+        Email is the <span class="italic font-medium">universal interface.</span>
+      </h2>
+      <p class="mt-6 text-lg text-slate leading-relaxed">
+        Every adult has an email address. Every adult knows how to attach a file. There's no learning curve. No new password. No app to keep updated. Humanit meets you where you already are.
+      </p>
+      <ul class="mt-8 space-y-4">
+        <li class="flex gap-4">
+          <div class="flex-shrink-0 w-6 h-6 rounded-full bg-emerald flex items-center justify-center mt-0.5">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <div class="font-medium text-ink">No app, ever</div>
+            <div class="text-slate text-sm mt-1">Use the inbox you already check 50 times a day.</div>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <div class="flex-shrink-0 w-6 h-6 rounded-full bg-emerald flex items-center justify-center mt-0.5">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <div class="font-medium text-ink">Files just work</div>
+            <div class="text-slate text-sm mt-1">PDFs, contracts, photos, screenshots — anything an inbox accepts.</div>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <div class="flex-shrink-0 w-6 h-6 rounded-full bg-emerald flex items-center justify-center mt-0.5">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <div class="font-medium text-ink">Plans, not paragraphs</div>
+            <div class="text-slate text-sm mt-1">Structured PDFs with steps, dates, and shortlists — not a wall of text.</div>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <div class="flex-shrink-0 w-6 h-6 rounded-full bg-emerald flex items-center justify-center mt-0.5">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <div class="font-medium text-ink">Threads = context</div>
+            <div class="text-slate text-sm mt-1">Reply to revise. The thread becomes the project. No "starting a new chat."</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- "What you might send" snippet -->
+    <div class="reveal">
+      <div class="bg-paper border border-border-soft rounded-3xl p-8 font-mono text-sm">
+        <div class="text-xs uppercase tracking-wider text-slate font-semibold mb-4">What a real email might look like</div>
+        <div class="text-slate leading-relaxed space-y-3">
+          <div><span class="text-ink font-semibold">To:</span> hi@humanit.app</div>
+          <div><span class="text-ink font-semibold">Subject:</span> Opening a coffee shop in Capitol Hill</div>
+          <div class="border-t border-border-soft pt-3">
+            Hey,<br><br>
+            I have $80k saved and want to open a coffee shop in Capitol Hill DC by next spring. I've never run a business before. Attached is my financial summary, a photo of the space I'm looking at, and the lease offer.<br><br>
+            What I'm not sure about: whether $80k is enough, what licenses I need, how to negotiate this lease, and what my first-90-days hiring plan should look like.<br><br>
+            Thanks,<br>
+            Maria<br><br>
+            <span class="text-emerald-deep">📎 finances.pdf · space-photo.jpg · lease-offer.pdf</span><span class="blink text-emerald">|</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section id="pricing" class="bg-paper border-t border-border-soft py-24 lg:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold">Pricing</span>
+      <h2 class="mt-4 font-display font-light text-4xl sm:text-5xl text-ink leading-[1.1] tracking-tight">
+        First plan free. <span class="italic font-medium">No credit card.</span>
+      </h2>
+      <p class="mt-4 text-slate">
+        Send one email. See if the plan is good. If it is, pick a tier.
+      </p>
+    </div>
+
+    <div class="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+      <div class="price-card bg-white rounded-2xl border border-border-soft p-7">
+        <div class="text-sm uppercase tracking-wider text-slate font-semibold">Navigate</div>
+        <div class="mt-2 font-display text-xl font-medium text-ink">"Know where you stand."</div>
+        <div class="mt-5 flex items-baseline gap-1">
+          <span class="font-display text-4xl font-medium text-ink num-counter">$49</span>
+          <span class="text-slate text-sm">/mo</span>
+        </div>
+        <a href="#waitlist" class="mt-6 block text-center bg-paper border border-ink text-ink py-2.5 rounded-xl font-medium hover:bg-ink hover:text-paper transition text-sm">Get started</a>
+        <ul class="mt-6 space-y-2.5 text-sm text-slate">
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Intake + profile created</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Monthly roadmap update</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Local law & news digest</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Email support</li>
+        </ul>
+      </div>
+
+      <div class="price-card bg-white rounded-2xl border border-border-soft p-7">
+        <div class="text-sm uppercase tracking-wider text-slate font-semibold">Build</div>
+        <div class="mt-2 font-display text-xl font-medium text-ink">"Start moving forward."</div>
+        <div class="mt-5 flex items-baseline gap-1">
+          <span class="font-display text-4xl font-medium text-ink num-counter">$99</span>
+          <span class="text-slate text-sm">/mo</span>
+        </div>
+        <a href="#waitlist" class="mt-6 block text-center bg-paper border border-ink text-ink py-2.5 rounded-xl font-medium hover:bg-ink hover:text-paper transition text-sm">Get started</a>
+        <ul class="mt-6 space-y-2.5 text-sm text-slate">
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Everything in Navigate</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Resume maintained monthly</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> 2 custom how-to guides/mo</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Reply-to-revise unlimited</li>
+        </ul>
+      </div>
+
+      <div class="price-card relative bg-ink text-paper rounded-2xl border-2 border-emerald p-7">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide whitespace-nowrap">Most popular</div>
+        <div class="text-sm uppercase tracking-wider text-emerald font-semibold">Structure</div>
+        <div class="mt-2 font-display text-xl font-medium">"Build real systems for life."</div>
+        <div class="mt-5 flex items-baseline gap-1">
+          <span class="font-display text-4xl font-medium num-counter">$199</span>
+          <span class="text-paper/60 text-sm">/mo</span>
+        </div>
+        <a href="#waitlist" class="mt-6 block text-center bg-emerald text-white py-2.5 rounded-xl font-medium hover:bg-emerald-deep transition text-sm">Get started</a>
+        <ul class="mt-6 space-y-2.5 text-sm text-paper/80">
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Everything in Build</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Weekly check-in call</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Custom life systems built</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Priority response</li>
+        </ul>
+      </div>
+
+      <div class="price-card bg-white rounded-2xl border border-border-soft p-7">
+        <div class="text-sm uppercase tracking-wider text-slate font-semibold">Architect</div>
+        <div class="mt-2 font-display text-xl font-medium text-ink">"Full attention, every month."</div>
+        <div class="mt-5 flex items-baseline gap-1">
+          <span class="font-display text-4xl font-medium text-ink num-counter">$399</span>
+          <span class="text-slate text-sm">/mo</span>
+        </div>
+        <a href="#waitlist" class="mt-6 block text-center bg-paper border border-ink text-ink py-2.5 rounded-xl font-medium hover:bg-ink hover:text-paper transition text-sm">Talk to us</a>
+        <ul class="mt-6 space-y-2.5 text-sm text-slate">
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Everything in Structure</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Full strategy + documents</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Deep research on your needs</li>
+          <li class="flex gap-2"><span class="text-emerald">✓</span> Unlimited async messaging</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section id="waitlist" class="relative bg-ink text-paper py-24 lg:py-32 overflow-hidden">
+  <div class="absolute inset-0 opacity-10 pointer-events-none">
+    <div class="absolute top-1/2 left-1/4 w-96 h-96 bg-emerald rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-navy rounded-full blur-3xl"></div>
+  </div>
+  <div class="relative max-w-3xl mx-auto px-6 lg:px-12 text-center">
+    <span class="text-xs tracking-[0.2em] uppercase text-emerald font-semibold reveal">Join the waitlist</span>
+    <h2 class="mt-6 font-display font-light text-4xl sm:text-5xl lg:text-6xl leading-[1.1] tracking-tight reveal">
+      Send your first email. <span class="italic font-medium text-emerald">Get a real plan back.</span>
+    </h2>
+    <p class="mt-6 text-lg text-paper/70 leading-relaxed reveal">
+      Early members get the first plan free, founder pricing for life, and direct input on the planning templates.
+    </p>
+    <form id="waitlist-cta" class="mt-10 flex flex-col sm:flex-row gap-3 max-w-md mx-auto reveal">
+      <input type="email" required placeholder="you@yourcompany.com"
+        class="flex-1 bg-white/5 border border-white/20 rounded-xl px-5 py-4 text-base text-paper placeholder:text-paper/40 focus:outline-none focus:border-emerald focus:ring-2 focus:ring-emerald/20 transition">
+      <button type="submit" class="bg-emerald text-white px-6 py-4 rounded-xl font-medium hover:bg-emerald-deep transition whitespace-nowrap">
+        Get early access
+      </button>
+    </form>
+    <div id="cta-status" class="mt-3 text-sm hidden px-4 py-2 rounded-lg max-w-md mx-auto"></div>
+    <p class="mt-5 text-sm text-paper/50 reveal">A Business Data Gurus product · Built in DC</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-paper border-t border-border-soft">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12 py-12 flex flex-col sm:flex-row gap-6 justify-between items-start sm:items-center">
+    <div>
+      <div class="flex items-center gap-2.5 mb-2">
+        <div class="w-7 h-7 rounded-lg bg-emerald flex items-center justify-center">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <span class="font-display font-semibold text-ink">Humanit</span>
+      </div>
+      <div class="text-sm text-slate">A product of <a href="https://www.businessdatagurus.com" class="text-ink hover:underline">Business Data Gurus</a> · Built in DC</div>
+    </div>
+    <div class="flex gap-6 text-sm text-slate">
+      <a href="#how" class="hover:text-ink">How it works</a>
+      <a href="#pricing" class="hover:text-ink">Pricing</a>
+      <a href="mailto:hello@businessdatagurus.com" class="hover:text-ink">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const BDG_URL = 'https://bdywkygsvriaibjddcey.supabase.co';
+  const BDG_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkeXdreWdzdnJpYWliamRkY2V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Mzg1MTgsImV4cCI6MjA5MjMxNDUxOH0.Xs8Ohj4yq2bw-sInys8jx8KusfepPWjvxBVYxFpYjCM';
+  const SOURCE = 'humanit-landing';
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('shown');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach((el, i) => {
+    if (!el.style.getPropertyValue('--i')) el.style.setProperty('--i', i % 6);
+    observer.observe(el);
+  });
+
+  async function submitWaitlist(form, statusEl) {
+    const email = form.querySelector('input[type="email"]').value.trim();
+    if (!email) return;
+    statusEl.textContent = 'Submitting…';
+    statusEl.className = 'mt-3 text-sm px-4 py-2 rounded-lg form-success max-w-md' + (statusEl.id === 'cta-status' ? ' mx-auto' : '');
+    statusEl.classList.remove('hidden');
+    try {
+      const res = await fetch(`${BDG_URL}/rest/v1/bdg_intakes`, {
+        method: 'POST',
+        headers: {
+          'apikey': BDG_ANON_KEY,
+          'Authorization': `Bearer ${BDG_ANON_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({
+          email: email,
+          service_interest: 'Humanit',
+          source: SOURCE,
+          status: 'waitlist',
+          message: `Waitlist signup from ${SOURCE}`
+        })
+      });
+      if (res.ok || res.status === 201) {
+        form.reset();
+        statusEl.textContent = "✓ You're on the Humanit waitlist. Early access opens soon.";
+      } else {
+        throw new Error(`HTTP ${res.status}`);
+      }
+    } catch (err) {
+      statusEl.textContent = 'Something went wrong. Email hello@businessdatagurus.com instead.';
+      statusEl.className = 'mt-3 text-sm px-4 py-2 rounded-lg form-error max-w-md' + (statusEl.id === 'cta-status' ? ' mx-auto' : '');
+      console.error(err);
+    }
+  }
+
+  document.getElementById('waitlist-hero').addEventListener('submit', (e) => {
+    e.preventDefault();
+    submitWaitlist(e.target, document.getElementById('hero-status'));
+  });
+  document.getElementById('waitlist-cta').addEventListener('submit', (e) => {
+    e.preventDefault();
+    submitWaitlist(e.target, document.getElementById('cta-status'));
+  });
+</script>
+
+</body>
+</html>
